@@ -53,6 +53,26 @@
             </div>
         </div>
     </div>
+    <!--Password label and form-->
+    <div class="mb3">
+        <label for="inputPassword">Wachtwoord</label>
+        <div class="input-group">
+            <input id="inputPassword" class="form-control" placeholder="Wachtwoord" required="" type="password">
+            <div class="invalid-feedback" style="width: 100%;">
+                password is required
+            </div>
+        </div>
+    </div>
+    <div class="mb3">
+        <label for="inputPassword">Herhaal wachtwoord</label>
+        <div class="input-group">
+            <input id="inputPassword" class="form-control" placeholder="Wachtwoord" required="" type="password">
+            <div class="invalid-feedback" style="width: 100%;">
+                password is required
+            </div>
+        </div>
+    </div>
+    <!--Email form-->
     <div class="mb-3">
         <label for="email">Email</label>
         <input class="form-control" id="email" placeholder="you@example.com" type="email">
@@ -61,14 +81,14 @@
         </div>
     </div>
     <div class="mb-3">
-        <label for="address">Addres</label>
+        <label for="address">Adres</label>
         <input class="form-control" id="address" placeholder="1234 Main St" required="" type="text">
         <div class="invalid-feedback">
             Please enter your shipping address.
         </div>
     </div>
     <div class="mb-3">
-        <label for="address2">Addres 2 <span class="text-muted">(Optional)</span></label>
+        <label for="address2">Adres 2 <span class="text-muted">(Optional)</span></label>
         <input class="form-control" id="address2" placeholder="Apartment or suite" type="text">
     </div>
     <div class="row">
@@ -85,7 +105,7 @@
         <div class="col-md-4 mb-3">
             <label for="state">Provincie</label>
             <select class="custom-select d-block w-100" id="state" required="">
-                <option value="">Choose...</option>
+                <option value="">Kies...</option>
                 @foreach (var nameOfProvence in nameOfProvences)
                 {
                     <option>@nameOfProvence</option>

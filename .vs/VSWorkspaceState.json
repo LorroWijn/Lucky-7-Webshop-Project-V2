@@ -4,7 +4,8 @@
     "\\DHDomtica",
     "\\DHDomtica\\DHDomtica",
     "\\DHDomtica\\DHDomtica\\Views",
-    "\\DHDomtica\\DHDomtica\\Views\\Home"
+    "\\DHDomtica\\DHDomtica\\Views\\Home",
+    "\\DHDomtica\\DHDomtica\\Views\\SignUp"
   ],
   "SelectedNode": "\\DHDomtica\\DHDomtica.sln",
   "PreviewInSolutionExplorer": false
