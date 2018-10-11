@@ -161,9 +161,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\CategoryModel.cs" />
+    <Compile Include="Models\MainCategoryModel.cs" />
     <Compile Include="Models\MyDbContext.cs" />
     <Compile Include="Models\ProductModel.cs" />
+    <Compile Include="Models\SubCategoryModel.cs" />
+    <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -9,11 +9,22 @@ namespace DHDomtica.Models
     public class Product
     {
         public int Id { get; set; }
-        public int CatId { get; set; }
+
         public string Name { get; set; }
-        public string Summary { get; set; }
+
+        public string Description { get; set; }
+
         public double Price { get; set; }
+
         public string ImagePath { get; set; }
+
+        public string URL { get; set; }
+
+        //Foreign Key from MainCategroyModel.cs
+        public int MainCatId { get; set; }
+
+        //Foreign Key from SubCategroyModel.cs
+        public int SubCatId { get; set; }
 
     }
 }

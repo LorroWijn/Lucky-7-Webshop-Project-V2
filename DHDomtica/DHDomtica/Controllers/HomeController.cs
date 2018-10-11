@@ -68,14 +68,14 @@ namespace DHDomtica.Controllers
             return View(product);
         }
 
-        private IEnumerable<Category> GetCategories()
+        private IEnumerable<MainCategory> GetCategories()
         {
-            return new List<Category>
+            return new List<MainCategory>
             {
-                new Category {Id = 1, Name = "Stofzuigers"},
-                new Category {Id = 2, Name = "Lampen"},
-                new Category {Id = 3, Name = "Sletjes"},
-                new Category {Id = 4, Name = "Tictacjes"},
+                new MainCategory {Id = 1, Name = "Stofzuigers"},
+                new MainCategory {Id = 2, Name = "Lampen"},
+                new MainCategory {Id = 3, Name = "Koelkasten"},
+                new MainCategory {Id = 4, Name = "Broodmachines"},
             };
         }
 
@@ -90,11 +90,16 @@ namespace DHDomtica.Controllers
         {
             return new List<Product>
             {
-                new Product {Id = 1, CatId = 1, Name = "Stofzuiger0", Summary ="adgfuiewfgueiwqgguewq", Price = 24.99, ImagePath = "http://placehold.it/700x400"},
-                new Product {Id = 2, CatId = 1, Name = "Stofzuiger1", Summary ="adgfuiewfgueiwqgguewq", Price = 24.99, ImagePath = "http://placehold.it/700x400"},
-                new Product {Id = 3, CatId = 1, Name = "Stofzuiger2", Summary ="adgfuiewfgueiwqgguewq", Price = 24.99, ImagePath = "http://placehold.it/700x400"},
-                new Product {Id = 4, CatId = 1, Name = "Stofzuiger3", Summary ="adgfuiewfgueiwqgguewq", Price = 24.99, ImagePath = "http://placehold.it/700x400"},
-                new Product {Id = 5, CatId = 2, Name = "Lamp0", Summary ="adgfuiewfgueiwqgguewq", Price = 24.99, ImagePath = "http://placehold.it/700x400"},
+                new Product {Id = 1, Name = "Stofzuiger1", Description ="adgfuiewfgueiwqgguewq", Price = 24.99, ImagePath = "http://placehold.it/700x400", URL = "www.google.com", MainCatId = 1, SubCatId = 1},
+                new Product {Id = 2, Name = "Stofzuiger2", Description ="Hewwo", Price = 24.99, ImagePath = "http://placehold.it/700x400", URL = "www.google.com", MainCatId = 1, SubCatId = 1},
+                new Product {Id = 3, Name = "Stofzuiger3", Description ="Dit is iets", Price = 24.99, ImagePath = "http://placehold.it/700x400", URL = "www.google.com", MainCatId = 1, SubCatId = 2},
+                new Product {Id = 4, Name = "Stofzuiger4", Description ="Awooo", Price = 24.99, ImagePath = "http://placehold.it/700x400", URL = "www.google.com", MainCatId = 1, SubCatId = 3},
+
+                new Product {Id = 5, Name = "Lamp1", Description ="Dark light", Price = 24.99, ImagePath = "http://placehold.it/700x400", URL = "www.google.com", MainCatId = 2, SubCatId = 1},
+                new Product {Id = 5, Name = "Lamp2", Description ="Oooh light", Price = 24.99, ImagePath = "http://placehold.it/700x400", URL = "www.google.com", MainCatId = 2, SubCatId = 1},
+
+                new Product {Id = 5, Name = "Koelkast1", Description ="1 deurs koelkast", Price = 24.99, ImagePath = "http://placehold.it/700x400", URL = "www.google.com", MainCatId = 3, SubCatId = 1},
+                new Product {Id = 5, Name = "Koelkast2", Description ="2 deurs koelkast", Price = 24.99, ImagePath = "http://placehold.it/700x400", URL = "www.google.com", MainCatId = 3, SubCatId = 2}
             };
         }
 
