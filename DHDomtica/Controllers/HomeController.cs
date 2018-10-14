@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Common.CommandTrees;
 using System.Linq;
+using System.Data.Linq.Mapping;
 using System.Runtime.Remoting.Messaging;
 using System.Web;
 using System.Web.Mvc;
@@ -72,6 +74,7 @@ namespace DHDomtica.Controllers
         {
             return new List<MainCategory>
             {
+/*Fix this with a working DB*/
                 new MainCategory {Id = 1, Name = "Stofzuigers"},
                 new MainCategory {Id = 2, Name = "Lampen"},
                 new MainCategory {Id = 3, Name = "Koelkasten"},
@@ -86,23 +89,34 @@ namespace DHDomtica.Controllers
             ViewBag.AllProducts = GetProducts();
         }
 
-        private IEnumerable<Product> GetProducts()
+        private IEnumerable<ProductModel> GetProducts()
         {
-            return new List<Product>
+            return new List<ProductModel>
+/*Fix this with a working DB*/
             {
-                new Product {Id = 1, Name = "Stofzuiger1", Description ="adgfuiewfgueiwqgguewq", Price = 24.99, ImagePath = "http://placehold.it/700x400", URL = "www.google.com", MainCatId = 1, SubCatId = 1},
-                new Product {Id = 2, Name = "Stofzuiger2", Description ="Hewwo", Price = 24.99, ImagePath = "http://placehold.it/700x400", URL = "www.google.com", MainCatId = 1, SubCatId = 1},
-                new Product {Id = 3, Name = "Stofzuiger3", Description ="Dit is iets", Price = 24.99, ImagePath = "http://placehold.it/700x400", URL = "www.google.com", MainCatId = 1, SubCatId = 2},
-                new Product {Id = 4, Name = "Stofzuiger4", Description ="Awooo", Price = 24.99, ImagePath = "http://placehold.it/700x400", URL = "www.google.com", MainCatId = 1, SubCatId = 3},
+                new ProductModel {Id = 1, Name = "Stofzuiger1", Description ="adgfuiewfgueiwqgguewq", Price = 24.99, ImagePath = "http://placehold.it/700x400", URL = "www.google.com", MainCatId = 1, SubCatId = 1},
+                new ProductModel {Id = 2, Name = "Stofzuiger2", Description ="Hewwo", Price = 24.99, ImagePath = "http://placehold.it/700x400", URL = "www.google.com", MainCatId = 1, SubCatId = 1},
+                new ProductModel {Id = 3, Name = "Stofzuiger3", Description ="Dit is iets", Price = 24.99, ImagePath = "http://placehold.it/700x400", URL = "www.google.com", MainCatId = 1, SubCatId = 2},
+                new ProductModel {Id = 4, Name = "Stofzuiger4", Description ="Awooo", Price = 24.99, ImagePath = "http://placehold.it/700x400", URL = "www.google.com", MainCatId = 1, SubCatId = 3},
 
-                new Product {Id = 5, Name = "Lamp1", Description ="Dark light", Price = 24.99, ImagePath = "http://placehold.it/700x400", URL = "www.google.com", MainCatId = 2, SubCatId = 1},
-                new Product {Id = 5, Name = "Lamp2", Description ="Oooh light", Price = 24.99, ImagePath = "http://placehold.it/700x400", URL = "www.google.com", MainCatId = 2, SubCatId = 1},
+                new ProductModel {Id = 5, Name = "Lamp1", Description ="Dark light", Price = 24.99, ImagePath = "http://placehold.it/700x400", URL = "www.google.com", MainCatId = 2, SubCatId = 1},
+                new ProductModel {Id = 5, Name = "Lamp2", Description ="Oooh light", Price = 24.99, ImagePath = "http://placehold.it/700x400", URL = "www.google.com", MainCatId = 2, SubCatId = 1},
 
-                new Product {Id = 5, Name = "Koelkast1", Description ="1 deurs koelkast", Price = 24.99, ImagePath = "http://placehold.it/700x400", URL = "www.google.com", MainCatId = 3, SubCatId = 1},
-                new Product {Id = 5, Name = "Koelkast2", Description ="2 deurs koelkast", Price = 24.99, ImagePath = "http://placehold.it/700x400", URL = "www.google.com", MainCatId = 3, SubCatId = 2}
+                new ProductModel {Id = 5, Name = "Koelkast1", Description ="1 deurs koelkast", Price = 24.99, ImagePath = "http://placehold.it/700x400", URL = "www.google.com", MainCatId = 3, SubCatId = 1},
+                new ProductModel {Id = 5, Name = "Koelkast2", Description ="2 deurs koelkast", Price = 24.99, ImagePath = "http://placehold.it/700x400", URL = "www.google.com", MainCatId = 3, SubCatId = 2}
             };
         }
 
+        public ActionResult Search(string searchString)
+        {
+
+            ViewBag.Message = "wel type domme kut";
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                ViewBag.Message = "Geen overeenkomende zoekresultaten op: " + searchString;
+            }
+            return View();
+        }
 
     }
 }
