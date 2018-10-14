@@ -58,7 +58,7 @@ TestResults/
 *.sqlite
 *.dbml
 *.dbml.layout
-*.designer.cs
+# *.designer.cs
 # OS generated files #
 ######################
 .DS_Store?
