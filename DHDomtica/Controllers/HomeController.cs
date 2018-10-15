@@ -6,6 +6,7 @@ using System.Data.Linq.Mapping;
 using System.Runtime.Remoting.Messaging;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Mvc.Html;
 using DHDomtica.Models;
 
 namespace DHDomtica.Controllers
@@ -50,7 +51,7 @@ namespace DHDomtica.Controllers
         {
             ShowSidebar();
 
-            var categorie = GetCategories().SingleOrDefault(c => c.Id == id);
+            var categorie = GetCategories().SingleOrDefault(c => c.ID == id);
 
             if (categorie == null)
                 return HttpNotFound();
@@ -75,10 +76,10 @@ namespace DHDomtica.Controllers
             return new List<MainCategory>
             {
 /*Fix this with a working DB*/
-                new MainCategory {Id = 1, Name = "Stofzuigers"},
-                new MainCategory {Id = 2, Name = "Lampen"},
-                new MainCategory {Id = 3, Name = "Koelkasten"},
-                new MainCategory {Id = 4, Name = "Broodmachines"},
+                new MainCategory {ID = 1, Name = "Stofzuigers"},
+                new MainCategory {ID = 2, Name = "Lampen"},
+                new MainCategory {ID = 3, Name = "Koelkasten"},
+                new MainCategory {ID = 4, Name = "Broodmachines"},
             };
         }
 

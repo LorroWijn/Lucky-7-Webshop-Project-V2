@@ -25,6 +25,7 @@ namespace DHDomtica.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<MainCategory> MainCategory { get; set; }
         public virtual DbSet<Product> Product { get; set; }
         public virtual DbSet<User> User { get; set; }
     }

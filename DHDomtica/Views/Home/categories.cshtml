@@ -1,4 +1,5 @@
 ﻿@using DHDomtica.Models
+@using System.Web.Mvc.Html;
 @{
     ViewBag.Title = "CategoryPage";
 }
@@ -7,5 +8,5 @@
 
 @foreach (var p in (List<Product>)ViewBag.AllProducts)
 {
-    @Html.ActionLink(p.Name, "Products", "Home", new { ID = p.ID}, new { @class= "list-group-item child-list-group-item" })
+    @Html.ActionLink(p.ProductNaam, "Products", "Home", new { ID = p.ID }, new { @class = "list-group-item child-list-group-item" })
 }

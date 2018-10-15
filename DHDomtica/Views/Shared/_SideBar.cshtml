@@ -3,6 +3,6 @@
 <div class="list-group">
     @foreach (var c in (List<MainCategory>)ViewBag.AllCategories)
     {
-        @Html.ActionLink(c.Name, "Categories", "Home", new { id = c.Id}, new { @class= "list-group-item child-list-group-item" })
+        @Html.ActionLink(c.Name, "Categories", "Home", new { id = c.ID}, new { @class= "list-group-item child-list-group-item" })
     }
 </div>

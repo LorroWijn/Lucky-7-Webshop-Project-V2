@@ -5,14 +5,14 @@ namespace DHDomtica.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<DHDomtica.Models.MyDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<DHDomtica.Models.DHDomoticaDBEntities>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(DHDomtica.Models.MyDbContext context)
+        protected override void Seed(DHDomtica.Models.DHDomoticaDBEntities context)
         {
             //  This method will be called after migrating to the latest version.
 
