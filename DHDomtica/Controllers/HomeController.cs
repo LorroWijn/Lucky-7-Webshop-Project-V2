@@ -58,11 +58,11 @@ namespace DHDomtica.Controllers
             return View(categorie);
         }
 
-        public ActionResult Products(int id)
+        public ActionResult Product(int ID)
         {
             ShowSidebar();
 
-            var product = GetProducts().SingleOrDefault(p => p.Id == id);
+            var product = GetProducts().SingleOrDefault(p => p.ID == ID);
 
             if (product == null)
                 return HttpNotFound();
@@ -82,30 +82,28 @@ namespace DHDomtica.Controllers
             };
         }
 
-        private void ShowSidebar ()
+        private void ShowSidebar()
         {
             ViewBag.ShowSideBar = true;
             ViewBag.AllCategories = GetCategories();
             ViewBag.AllProducts = GetProducts();
         }
 
-        private IEnumerable<ProductModel> GetProducts()
+        private IEnumerable<Product> GetProducts()
         {
-            return new List<ProductModel>
-/*Fix this with a working DB*/
+            return new List<Product>
+
+            ///*Fix this with a working DB*/
             {
-                new ProductModel {Id = 1, Name = "Stofzuiger1", Description ="adgfuiewfgueiwqgguewq", Price = 24.99, ImagePath = "http://placehold.it/700x400", URL = "www.google.com", MainCatId = 1, SubCatId = 1},
-                new ProductModel {Id = 2, Name = "Stofzuiger2", Description ="Hewwo", Price = 24.99, ImagePath = "http://placehold.it/700x400", URL = "www.google.com", MainCatId = 1, SubCatId = 1},
-                new ProductModel {Id = 3, Name = "Stofzuiger3", Description ="Dit is iets", Price = 24.99, ImagePath = "http://placehold.it/700x400", URL = "www.google.com", MainCatId = 1, SubCatId = 2},
-                new ProductModel {Id = 4, Name = "Stofzuiger4", Description ="Awooo", Price = 24.99, ImagePath = "http://placehold.it/700x400", URL = "www.google.com", MainCatId = 1, SubCatId = 3},
+                new Product { ID = 1, ProductNaam = "Stofzuiger1", ProductDescription = "adgfuiewfgueiwqgguewq", ProductPrice = 24, ProductImage = "http://placehold.it/700x400", URL = "www.google.com", Maincategory = "System", Subcategory = "Klokhuis" },
+                new Product { ID = 2, ProductNaam = "Stofzuiger2", ProductDescription = "Hewwo", ProductPrice = 24, ProductImage = "http://placehold.it/700x400", URL = "www.google.com", Maincategory = "System", Subcategory = "Klokhuis" },
+                new Product { ID = 3, ProductNaam = "Stofzuiger3", ProductDescription = "Dit is iets", ProductPrice = 24, ProductImage = "http://placehold.it/700x400", URL = "www.google.com", Maincategory = "System", Subcategory = "Klokhuis" },
+                new Product { ID = 4, ProductNaam = "Stofzuiger4", ProductDescription = "Awooo", ProductPrice = 24, ProductImage = "http://placehold.it/700x400", URL = "www.google.com", Maincategory = "System", Subcategory = "Klokhuis" },
 
-                new ProductModel {Id = 5, Name = "Lamp1", Description ="Dark light", Price = 24.99, ImagePath = "http://placehold.it/700x400", URL = "www.google.com", MainCatId = 2, SubCatId = 1},
-                new ProductModel {Id = 5, Name = "Lamp2", Description ="Oooh light", Price = 24.99, ImagePath = "http://placehold.it/700x400", URL = "www.google.com", MainCatId = 2, SubCatId = 1},
-
-                new ProductModel {Id = 5, Name = "Koelkast1", Description ="1 deurs koelkast", Price = 24.99, ImagePath = "http://placehold.it/700x400", URL = "www.google.com", MainCatId = 3, SubCatId = 1},
-                new ProductModel {Id = 5, Name = "Koelkast2", Description ="2 deurs koelkast", Price = 24.99, ImagePath = "http://placehold.it/700x400", URL = "www.google.com", MainCatId = 3, SubCatId = 2}
             };
         }
+
+
 
         public ActionResult Search(string searchString)
         {

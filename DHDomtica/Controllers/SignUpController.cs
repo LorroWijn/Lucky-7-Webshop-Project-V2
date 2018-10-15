@@ -3,15 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using DHDomtica.Models;
+
+// Deze en andere code voor sign-up zijn gebaseerd op de voorbeeldcode van CodAffection bereikbaar op https://www.youtube.com/watch?v=xBS9FMF2NFM
 
 namespace DHDomtica.Controllers
 {
     public class SignUpController : Controller
     {
+        [HttpGet]
         // GET: SignUp
-        public ActionResult Index()
+        public ActionResult Index(int id = 0)
         {
-            return View();
+            User usermodel = new User();
+            return View(usermodel);
         }
 
         // GET: SignUp/Details/5
@@ -28,18 +33,23 @@ namespace DHDomtica.Controllers
 
         // POST: SignUp/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Index(User userModel)
         {
-            try
+            using (DHDomoticaDBEntities DHDomoticadbModel = new DHDomoticaDBEntities())
+            // If loop met gebruikersnaam gelijk aan gebruikersnaamcheck hangen.
             {
-                // TODO: Add insert logic here
+                if (DHDomoticadbModel.User.Any(x => x.NickName == userModel.NickName))
+                {
+                    ViewBag.DuplicateMessage = "Gebruikersnaam is al in gebruik. Probeer een andere gebruikersnaam.";
+                    return View("Index", userModel);
+                }
 
-                return RedirectToAction("Index");
+                DHDomoticadbModel.User.Add(userModel);
+                DHDomoticadbModel.SaveChanges();
             }
-            catch
-            {
-                return View();
-            }
+            ModelState.Clear();
+            ViewBag.SuccessMessage = "Uw account is geregistreerd";
+            return View("Index", new User());
         }
 
         // GET: SignUp/Edit/5
