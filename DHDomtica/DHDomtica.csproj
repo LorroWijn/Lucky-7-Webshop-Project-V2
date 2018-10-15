@@ -164,29 +164,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\DHDomoticaDBModels.Context.cs">
+    <Compile Include="Models\DHDomotica.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DHDomoticaDBModels.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DHDomoticaDBModels.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DHDomoticaDBModels.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DHDomoticaDBModels.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DHDomoticaDBModels.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\MainCategory.cs">
-      <DependentUpon>DHDomoticaDBModels.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Product.cs">
-      <DependentUpon>DHDomoticaDBModels.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\User.cs">
-      <DependentUpon>DHDomoticaDBModels.tt</DependentUpon>
+      <DependentUpon>DHDomotica.dbml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -194,6 +175,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="VieModels\MainCategoryViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -216,16 +198,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\DHDomoticaDBModels.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DHDomoticaDBModels.edmx</DependentUpon>
-      <LastGenOutput>DHDomoticaDBModels.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\DHDomoticaDBModels.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DHDomoticaDBModels.edmx</DependentUpon>
-      <LastGenOutput>DHDomoticaDBModels.cs</LastGenOutput>
-    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -237,13 +209,14 @@
     <Content Include="Content\bootstrap\js\bootstrap.bundle.min.js.map" />
     <Content Include="Content\bootstrap\js\bootstrap.js.map" />
     <Content Include="Content\bootstrap\js\bootstrap.min.js.map" />
-    <EntityDeploy Include="Models\DHDomoticaDBModels.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DHDomoticaDBModels.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\DHDomoticaDBModels.edmx.diagram">
-      <DependentUpon>DHDomoticaDBModels.edmx</DependentUpon>
+    <Content Include="Models\DHDomotica.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>DHDomotica.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </Content>
+    <None Include="Models\DHDomotica.dbml.layout">
+      <DependentUpon>DHDomotica.dbml</DependentUpon>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -259,9 +232,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Web.config">
-      <SubType>Designer</SubType>
-    </Content>
+    <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

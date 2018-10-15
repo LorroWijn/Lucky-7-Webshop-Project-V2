@@ -1,6 +1,6 @@
 ﻿@using DHDomtica.Models
 <h1 class="my-4">DH-Domotica</h1>
-<div class="list-group">
+<div class="list-group">    
     @foreach (var c in (List<MainCategory>)ViewBag.AllCategories)
     {
         @Html.ActionLink(c.Name, "Categories", "Home", new { id = c.ID}, new { @class= "list-group-item child-list-group-item" })

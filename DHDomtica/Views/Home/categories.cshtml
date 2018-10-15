@@ -1,12 +1,16 @@
-﻿@using DHDomtica.Models
+﻿@model MainCategoryViewModel
+@using DHDomtica.Models
 @using System.Web.Mvc.Html;
 @{
     ViewBag.Title = "CategoryPage";
 }
 
-<h2>@Model.Name</h2>
+<h2>@Model.Category.Name</h2>
 
-@foreach (var p in (List<Product>)ViewBag.AllProducts)
-{
-    @Html.ActionLink(p.ProductNaam, "Products", "Home", new { ID = p.ID }, new { @class = "list-group-item child-list-group-item" })
+@{
+
+    foreach (Product p in Model.Products)
+    {
+        <h3> @p.ProductNaam</h3><h3> @p.ProductDescription </h3><br />
+    }
 }

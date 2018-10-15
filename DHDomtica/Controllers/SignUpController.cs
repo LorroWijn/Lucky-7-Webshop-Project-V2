@@ -35,17 +35,17 @@ namespace DHDomtica.Controllers
         [HttpPost]
         public ActionResult Index(User userModel)
         {
-            using (DHDomoticaDBEntities DHDomoticadbModel = new DHDomoticaDBEntities())
+            using (var DHDomoticadbModel = new DHDomoticaDataContext())
             // If loop met gebruikersnaam gelijk aan gebruikersnaamcheck hangen.
             {
-                if (DHDomoticadbModel.User.Any(x => x.NickName == userModel.NickName))
+                if (DHDomoticadbModel.Users.Any(x => x.NickName == userModel.NickName))
                 {
                     ViewBag.DuplicateMessage = "Gebruikersnaam is al in gebruik. Probeer een andere gebruikersnaam.";
                     return View("Index", userModel);
                 }
 
-                DHDomoticadbModel.User.Add(userModel);
-                DHDomoticadbModel.SaveChanges();
+              //  DHDomoticadbModel.Users.Add(userModel);
+               // DHDomoticadbModel.SubmitChanges;
             }
             ModelState.Clear();
             ViewBag.SuccessMessage = "Uw account is geregistreerd";

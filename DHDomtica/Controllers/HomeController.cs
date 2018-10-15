@@ -6,7 +6,6 @@ using System.Data.Linq.Mapping;
 using System.Runtime.Remoting.Messaging;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Mvc.Html;
 using DHDomtica.Models;
 
 namespace DHDomtica.Controllers
@@ -31,7 +30,6 @@ namespace DHDomtica.Controllers
         {
             ShowSidebar();
             ViewBag.Message = "Your contact page.";
-
             return View();
         }
 
@@ -55,15 +53,20 @@ namespace DHDomtica.Controllers
 
             if (categorie == null)
                 return HttpNotFound();
+            var ProductList = new MainCategoryViewModel()
+            {
+                Category = categorie,
+                Products = GetProducts().ToList().AsEnumerable()
 
-            return View(categorie);
+            };
+            return View(ProductList);
         }
 
-        public ActionResult Product(int ID)
+        public ActionResult Products(int id)
         {
             ShowSidebar();
 
-            var product = GetProducts().SingleOrDefault(p => p.ID == ID);
+            var product = GetProducts().SingleOrDefault(p => p.ID == id);
 
             if (product == null)
                 return HttpNotFound();
@@ -85,6 +88,7 @@ namespace DHDomtica.Controllers
 
         private void ShowSidebar()
         {
+            System.Diagnostics.Debug.WriteLine($"Sidebar {Request.RawUrl}");
             ViewBag.ShowSideBar = true;
             ViewBag.AllCategories = GetCategories();
             ViewBag.AllProducts = GetProducts();
@@ -92,24 +96,44 @@ namespace DHDomtica.Controllers
 
         private IEnumerable<Product> GetProducts()
         {
-            return new List<Product>
 
-            /*Fix this with a working DB*/
+            using (var db = new DHDomoticaDataContext())
             {
-                new Product { ID = 1, ProductNaam = "Stofzuiger1", ProductDescription = "adgfuiewfgueiwqgguewq", ProductPrice = 24, ProductImage = "http://placehold.it/700x400", URL = "www.google.com", Maincategory = "System", Subcategory = "Klokhuis" },
-                new Product { ID = 2, ProductNaam = "Stofzuiger2", ProductDescription = "Hewwo", ProductPrice = 24, ProductImage = "http://placehold.it/700x400", URL = "www.google.com", Maincategory = "System", Subcategory = "Klokhuis" },
-                new Product { ID = 3, ProductNaam = "Stofzuiger3", ProductDescription = "Dit is iets", ProductPrice = 24, ProductImage = "http://placehold.it/700x400", URL = "www.google.com", Maincategory = "System", Subcategory = "Klokhuis" },
-                new Product { ID = 4, ProductNaam = "Stofzuiger4", ProductDescription = "Awooo", ProductPrice = 24, ProductImage = "http://placehold.it/700x400", URL = "www.google.com", Maincategory = "System", Subcategory = "Klokhuis" },
 
-            };
+                var MainCategorySelected = "Smart Home";
+
+                var QuerydProducts = (from Product in db.Products
+                                      where Product.Maincategory == MainCategorySelected
+                                      select Product);
+
+                //IQueryable<object> q = QuerydProducts;
+                //List<object> l = new List<object>(q);
+
+                return QuerydProducts.ToList();
+            }
         }
 
+        //            return new List<ProductModel>
+        ///*Fix this with a working DB*/
+        //            {
+        //                new ProductModel {Id = 1, Name = "Stofzuiger1", Description ="adgfuiewfgueiwqgguewq", Price = 24.99, ImagePath = "http://placehold.it/700x400", URL = "www.google.com", MainCatId = 1, SubCatId = 1},
+        //                new ProductModel {Id = 2, Name = "Stofzuiger2", Description ="Hewwo", Price = 24.99, ImagePath = "http://placehold.it/700x400", URL = "www.google.com", MainCatId = 1, SubCatId = 1},
+        //                new ProductModel {Id = 3, Name = "Stofzuiger3", Description ="Dit is iets", Price = 24.99, ImagePath = "http://placehold.it/700x400", URL = "www.google.com", MainCatId = 1, SubCatId = 2},
+        //                new ProductModel {Id = 4, Name = "Stofzuiger4", Description ="Awooo", Price = 24.99, ImagePath = "http://placehold.it/700x400", URL = "www.google.com", MainCatId = 1, SubCatId = 3},
 
-        /*searhbar function*/
+        //                new ProductModel {Id = 5, Name = "Lamp1", Description ="Dark light", Price = 24.99, ImagePath = "http://placehold.it/700x400", URL = "www.google.com", MainCatId = 2, SubCatId = 1},
+        //                new ProductModel {Id = 5, Name = "Lamp2", Description ="Oooh light", Price = 24.99, ImagePath = "http://placehold.it/700x400", URL = "www.google.com", MainCatId = 2, SubCatId = 1},
+
+        //                new ProductModel {Id = 5, Name = "Koelkast1", Description ="1 deurs koelkast", Price = 24.99, ImagePath = "http://placehold.it/700x400", URL = "www.google.com", MainCatId = 3, SubCatId = 1},
+        //                new ProductModel {Id = 5, Name = "Koelkast2", Description ="2 deurs koelkast", Price = 24.99, ImagePath = "http://placehold.it/700x400", URL = "www.google.com", MainCatId = 3, SubCatId = 2}
+        //            };
+        //        }
+
+
         public ActionResult Search(string searchString)
         {
 
-            ViewBag.Message = "Er is geen zoekopdracht ingevoer.";
+            ViewBag.Message = "wel type domme kut";
             if (!String.IsNullOrEmpty(searchString))
             {
                 ViewBag.Message = "Geen overeenkomende zoekresultaten op: " + searchString;

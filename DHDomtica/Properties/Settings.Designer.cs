@@ -26,11 +26,11 @@ namespace DHDomtica.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-6O1S489;Initial Catalog=DHDomoticaDB;Integrated Security=True" +
-            "")]
-        public string DHDomoticaDBConnectionString {
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=LORENZOLAPTOP\\SQL2017;Initial Catalog=DHDomoticaDB;Integrated Securit" +
+            "y=True;MultipleActiveResultSets=True;Application Name=EntityFramework")]
+        public string DHDomoticaDBEntities {
             get {
-                return ((string)(this["DHDomoticaDBConnectionString"]));
+                return ((string)(this["DHDomoticaDBEntities"]));
             }
         }
     }
