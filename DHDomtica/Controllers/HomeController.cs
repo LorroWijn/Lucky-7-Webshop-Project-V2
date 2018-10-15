@@ -94,7 +94,7 @@ namespace DHDomtica.Controllers
         {
             return new List<Product>
 
-            ///*Fix this with a working DB*/
+            /*Fix this with a working DB*/
             {
                 new Product { ID = 1, ProductNaam = "Stofzuiger1", ProductDescription = "adgfuiewfgueiwqgguewq", ProductPrice = 24, ProductImage = "http://placehold.it/700x400", URL = "www.google.com", Maincategory = "System", Subcategory = "Klokhuis" },
                 new Product { ID = 2, ProductNaam = "Stofzuiger2", ProductDescription = "Hewwo", ProductPrice = 24, ProductImage = "http://placehold.it/700x400", URL = "www.google.com", Maincategory = "System", Subcategory = "Klokhuis" },
@@ -105,11 +105,11 @@ namespace DHDomtica.Controllers
         }
 
 
-
+        /*searhbar function*/
         public ActionResult Search(string searchString)
         {
 
-            ViewBag.Message = "wel type domme kut";
+            ViewBag.Message = "Er is geen zoekopdracht ingevoer.";
             if (!String.IsNullOrEmpty(searchString))
             {
                 ViewBag.Message = "Geen overeenkomende zoekresultaten op: " + searchString;
