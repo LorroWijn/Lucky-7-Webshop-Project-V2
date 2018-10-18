@@ -133,7 +133,7 @@ namespace DHDomtica.Controllers
         public ActionResult Search(string searchString)
         {
 
-            ViewBag.Message = "wel type domme kut";
+            ViewBag.Message = "Er is geen zoekopdracht ingevoer.";
             if (!String.IsNullOrEmpty(searchString))
             {
                 ViewBag.Message = "Geen overeenkomende zoekresultaten op: " + searchString;
