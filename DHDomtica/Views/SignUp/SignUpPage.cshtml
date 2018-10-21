@@ -9,21 +9,21 @@
 
 <h2>Aanmelden</h2>
 
-@using (Html.BeginForm("Index","SignUp",FormMethod.Post))
+@using (Html.BeginForm("SignUpPage","SignUpLogin",FormMethod.Post))
 {
     <h4 class="mb-3">Billing address</h4>
     <form class="needs-validation" novalidate="">
         <div class="row">
             <div class="col-md-6 mb-3">
-                <label for="FirstName">Voornaam</label>
-                <input class="form-control" id="FirstName" placeholder="" value="" required="" type="text">
+                <label for="UserFirstName">Voornaam</label>
+                <input class="form-control" id="UserFirstName" placeholder="" value="" required="" type="text">
                 <div class="invalid-feedback">
                     Vul een kloppende voornaam in.
                 </div>
             </div>
             <div class="col-md-6 mb-3">
-                <label for="LastName">Achternaam</label>
-                <input class="form-control" id="LastName" placeholder="" value="" required="" type="text">
+                <label for="UserLastName">Achternaam</label>
+                <input class="form-control" id="UserLastName" placeholder="" value="" required="" type="text">
                 <div class="invalid-feedback">
                     Vul een kloppende achternaam in.
                 </div>
@@ -31,8 +31,8 @@
             <!-- Select form for sexofUser-->
             <div class="col-md-4 mb-3">
                 <label for="state">Geslacht</label>
-                <select class="custom-select d-block w-100" id="sex" required="">
-                    <option value="">Kies...</option>
+                <select class="custom-select d-block w-100" id="UserGender" required="">
+                    <option value="">Kies een geslacht</option>
                     @foreach (var sexOfUser in sexOfUsers)
                     {
                         <option>@sexOfUser</option>
@@ -43,7 +43,7 @@
                 </div>
             </div>
         </div>
-        <div class="mb-3">
+        @*<div class="mb-3">
             <label for="username">Gebruikersnaam</label>
             <div class="input-group">
                 <div class="input-group-prepend">
@@ -54,21 +54,30 @@
                     Gebruikersnaam moet ingevuld worden.
                 </div>
             </div>
+        </div>*@
+        <!--Email/NickName form-->
+        <div class="mb-3">
+        <label for="email">E-mail</label>
+        <input class="form-control" id="UserNickName" placeholder="you@example.com" type="email">
+        <div class="invalid-feedback">
+            Vul een goed mailadres in voor updates over Uw bestelde producten.
+        </div>
         </div>
         <!--Password label and form-->
         <div class="mb3">
-            <label for="inputPassword">Wachtwoord</label>
+            <label for="UserPassword">Wachtwoord</label>
             <div class="input-group">
-                <input id="inputPassword" class="form-control" placeholder="Wachtwoord" required="" type="password">
+                <input id="UserPassword" class="form-control" placeholder="Wachtwoord" required="" type="password">
                 <div class="invalid-feedback" style="width: 100%;">
                     Wachtwoord moet ingevuld worden.
                 </div>
             </div>
         </div>
+        @* Uitzoeken hoe ik deze wachtwoorden met elkaar kan vergelijken *@
         <div class="mb3">
-            <label for="inputPassword">Herhaal wachtwoord</label>
+            <label for="RepeatPassword">Herhaal wachtwoord</label>
             <div class="input-group">
-                <input id="inputPassword" class="form-control" placeholder="Wachtwoord" required="" type="password">
+                <input id="RepeatPassword" class="form-control" placeholder="Wachtwoord" required="" type="password">
                 <div class="invalid-feedback" style="width: 100%;">
                     Wachtwoord moet ingevuld worden.
                 </div>
@@ -76,24 +85,24 @@
         </div>
         <!--Email form-->
         @*<div class="mb-3">
-            <label for="email">Email</label>
-            <input class="form-control" id="email" placeholder="you@example.com" type="email">
-            <div class="invalid-feedback">
-                Vul een goed mailadres in voor updates over Uw bestelde producten.
-            </div>*@
-        @*</div>*@
+        <label for="email">Email</label>
+        <input class="form-control" id="email" placeholder="you@example.com" type="email">
+        <div class="invalid-feedback">
+            Vul een goed mailadres in voor updates over Uw bestelde producten.
+        </div>
+        </div>*@
         <div class="mb-3">
-            <label for="adres">Adres</label>
-            <input class="form-control" id="address" placeholder="1234 Main St" required="" type="text">
+            <label for="UserBillingAddress">Adres</label>
+            <input class="form-control" id="UserBillingAddress" placeholder="Willekeurige straat 1234" required="" type="text">
             <div class="invalid-feedback">
                 Vul een kloppend adres in.
             </div>
         </div>
         <div class="row">
             <div class="col-md-5 mb-3">
-                <label for="country">Land</label>
-                <select class="custom-select d-block w-100" id="country" required="">
-                    <option value="">Kies...</option>
+                <label for="UserCountry">Land</label>
+                <select class="custom-select d-block w-100" id="UserCountry" required="">
+                    <option value="">Kies een land</option>
                     <option>Nederland</option>
                 </select>
                 <div class="invalid-feedback">
@@ -101,21 +110,21 @@
                 </div>
             </div>
             <div class="col-md-4 mb-3">
-                <label for="state">Provincie</label>
-                <select class="custom-select d-block w-100" id="state" required="">
-                    <option value="">Kies...</option>
+                <label for="state">UserProvince</label>
+                <select class="custom-select d-block w-100" id="UserProvince" required="">
+                    <option value="">Kies een provincie</option>
                     @foreach (var nameOfProvence in nameOfProvences)
                     {
                         <option>@nameOfProvence</option>
                     }
                 </select>
                 <div class="invalid-feedback">
-                    Geef een provincie in Nederland in.
+                    Geef een provincie op Nederland in.
                 </div>
             </div>
             <div class="col-md-3 mb-3">
-                <label for="zip">Postcode</label>
-                <input class="form-control" id="zip" placeholder="" required="" type="text">
+                <label for="zip">UserZipCode</label>
+                <input class="form-control" id="UserZipCode" placeholder="" required="" type="text">
                 <div class="invalid-feedback">
                     Vul een kloppende postcode in.
                 </div>

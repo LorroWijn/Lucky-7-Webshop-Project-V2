@@ -15,26 +15,26 @@ namespace DHDomtica.Models
 
         [Display(Name = "Voornaam")]
         [Required(ErrorMessage = "Een voornaam moet ingevuld worden")]
-        public string FirstName { get; set; }
+        public string UserFirstName { get; set; }
 
         [Display(Name = "Achternaam")]
         [Required(ErrorMessage = "Een achternaam moet ingevuld worden")]
-        public string LastName { get; set; }
+        public string UserLastName { get; set; }
 
         [Display(Name = "Geslacht")]
         [Required(ErrorMessage = "Geef Uw geslacht op")]
-        public string Gender { get; set; }
+        public string UserGender { get; set; }
 
         //[Required]
         //[Display(Name = "E-mailadres")]
         // public string NickName { get; set; }
-        // Nickname is E-mailadres
-
+       
+        // NickName = e-mailadres in onze database
         [Required]
         [Display(Name = "E-mailadres")]
         [RegularExpression(@"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z",
         ErrorMessage = "Vul een correct e-mailadres in")]
-        public string NickName { get; set; }
+        public string UserNickName { get; set; }
 
         [Display(Name = "Wachtwoord")]
         [DataType(DataType.Password)]
@@ -45,38 +45,48 @@ namespace DHDomtica.Models
         [Required(ErrorMessage = "Vul wachtwoordbevestiging in")]
         [Compare("Password", ErrorMessage = "Het wachtwoord en de wachtwoordbevestiging komen niet overeen.")]
         [DataType(DataType.Password)]
-        public string c_pwd { get; set; }
+        public string UserPasswordCheck { get; set; }
 
         [Display(Name = "Adres")]
         [Required(ErrorMessage = "Vul een adres in")]
-        public string BillingAddress { get; set; }
+        public string UserBillingAddress { get; set; }
 
         [Display(Name = "Land")]
         [Required(ErrorMessage = "Kies een land")]
-        public string Country { get; set; }
+        public string UserCountry { get; set; }
 
         [Display(Name = "Provincie")]
         [Required(ErrorMessage = "Kies een provincie")]
-        public string Province { get; set; }
+        public string UserProvince { get; set; }
 
         [Display(Name = "Postcode")]
         [Required(ErrorMessage = "Vul een postcode in")]
-        public string ZipCode { get; set; }
-        // Misschien nog aanpasse, zodat bepaalde waarden er wel of niet in kunnen.
-        // Later aanpassen aan nieuwe variabelnamen van database.
+        public string UserZipCode { get; set; }
+        // Misschien nog aanpassen, zodat bepaalde waarden er wel of niet in kunnen.
+        // Later aanpassen aan nieuwe variabelenamen van database.
     }
 
     public class SignUp
     {
         public void SignUpUser(Login li)
         {
-            // Databasecontext moet hier
-            DHDomoticaModels db = new DHDomoticamodels();
+            // Databasecontext staat in dbml file bij properties
+            // Deze waarden moeten nog worden aangepast aan de nieuwe databasewaarden
+            DHDomoticaDataContext db = new DHDomoticaDataContext();
             User rgs = new User();
             rgs.ID = li.ID;
-            rgs.NickName = li.NickName;
+            rgs.FirstName = li.UserFirstName;
+            rgs.LastName = li.UserLastName;
+            rgs.Gender = li.UserGender;
+            rgs.NickName = li.UserNickName;
             rgs.Password = li.UserPassword;
-            db.registers.InsertOnSubmit(rgs);
+            rgs.BillingAddress = li.UserBillingAddress;
+            rgs.Land = li.UserCountry;
+            // City moet nog provincie worden in database
+            rgs.City = li.UserProvince;
+            rgs.ZipCode = li.UserZipCode;
+
+            db.Users.InsertOnSubmit(rgs);
             db.SubmitChanges();
         }
     }
@@ -86,12 +96,11 @@ namespace DHDomtica.Models
         public string searchuser (Login li)
         {
             // Databasecontext moet hier
-            DHDomoticamodels db = new DHDomoticamodels();
+            DHDomoticaDataContext db = new DHDomoticaDataContext();
             User rgs = new User();
             string passout = "";
             // var pass = from m in db.registers where m.emailid == li.Emailid select m.userpassword;  
-            var pass = from m in db.registers where m.NickName == li.NickName select m.UserPassword;
-            // Pass kan aan database liggen, maar weet niet zeker.
+            var pass = from m in db.Users where m.NickName == li.UserNickName select m.Password;
             foreach (string query in pass)
             {
                 passout = query;

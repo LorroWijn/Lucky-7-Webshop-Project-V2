@@ -255,7 +255,7 @@
     <Content Include="Views\Home\InlogPage.cshtml" />
     <Content Include="Views\Home\Categories.cshtml" />
     <Content Include="Views\Home\Products.cshtml" />
-    <Content Include="Views\SignUp\Index.cshtml" />
+    <Content Include="Views\SignUp\SignUpPage.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>

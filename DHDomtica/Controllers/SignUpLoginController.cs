@@ -11,7 +11,7 @@ namespace DHDomtica.Controllers
     public class SignUpLoginController : Controller
     {
         // GET: SignUpLogin
-        public ActionResult Index()
+        public ActionResult SignUpLogin()
         {
             return View();
         }
@@ -29,17 +29,19 @@ namespace DHDomtica.Controllers
             {
                 DHDomtica.Models.SignUp en = new Models.SignUp();
                 en.SignUpUser(li);
-                ViewBag.name = li.NickName;
+                ViewBag.name = li.UserNickName;
 
                 // return View();  
-                return View("SubmitData");
+                return View("InlogPage");
             }
             else
             {
-                return View("Signup");
+                return View("SignUpPage");
             }
 
         }
+
+        // Volgende stukjes moeten aagepast worden aan waarden van loginpage, dus de cshtml file
         public ActionResult login(DHDomtica.Models.Login li)
         {
             return View(li);

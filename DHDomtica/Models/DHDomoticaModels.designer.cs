@@ -23,7 +23,7 @@ namespace DHDomtica.Models
 	
 	
 	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="DHDomoticaDB")]
-	public partial class UserDataContext : System.Data.Linq.DataContext
+	public partial class DHDomoticaDataContext : System.Data.Linq.DataContext
 	{
 		
 		private static System.Data.Linq.Mapping.MappingSource mappingSource = new AttributeMappingSource();
@@ -41,31 +41,31 @@ namespace DHDomtica.Models
     partial void DeleteMainCategory(MainCategory instance);
     #endregion
 		
-		public UserDataContext() : 
+		public DHDomoticaDataContext() : 
 				base(global::DHDomtica.Properties.Settings.Default.DHDomoticaDBConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public UserDataContext(string connection) : 
+		public DHDomoticaDataContext(string connection) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public UserDataContext(System.Data.IDbConnection connection) : 
+		public DHDomoticaDataContext(System.Data.IDbConnection connection) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public UserDataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
+		public DHDomoticaDataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public UserDataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
+		public DHDomoticaDataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();

@@ -33,5 +33,16 @@ namespace DHDomtica.Properties {
                 return ((string)(this["DHDomoticaDBEntities"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DANNYLAPTOP\\SQL2017;Initial Catalog=DHDomoticaDB;Integrated Security=" +
+            "True")]
+        public string DHDomoticaDBConnectionString {
+            get {
+                return ((string)(this["DHDomoticaDBConnectionString"]));
+            }
+        }
     }
 }
