@@ -11,7 +11,7 @@ namespace DHDomtica.Controllers
     public class SignUpLoginController : Controller
     {
         // GET: SignUpLogin
-        public ActionResult SignUpLogin()
+        public ActionResult SignUpPage()
         {
             return View();
         }

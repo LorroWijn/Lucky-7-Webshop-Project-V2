@@ -255,14 +255,12 @@
     <Content Include="Views\Home\InlogPage.cshtml" />
     <Content Include="Views\Home\Categories.cshtml" />
     <Content Include="Views\Home\Products.cshtml" />
-    <Content Include="Views\SignUp\SignUpPage.cshtml" />
+    <Content Include="Views\SignUpLogin\SignUpPage.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Categories\" />
-    <Folder Include="Views\SignIn\" />
-    <Folder Include="Views\SignUpLogin\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
