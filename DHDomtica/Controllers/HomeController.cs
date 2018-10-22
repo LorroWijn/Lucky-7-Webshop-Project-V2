@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using DHDomtica.Models;
 
+
 namespace DHDomtica.Controllers
 {
     public class HomeController : Controller
@@ -97,19 +98,21 @@ namespace DHDomtica.Controllers
         private IEnumerable<Product> GetProducts()
         {
 
-            using (var db = new DHDomoticaDataContext())
+            using (var db = new MyDBContext())
             {
 
-                var MainCategorySelected = "Smart Home";
+                /*var MainCategorySelected = "Smart Home";*/
 
-                var QuerydProducts = (from Product in db.Products
+                /*var QuerydProducts = (from Product in db.Products
                                       where Product.Maincategory == MainCategorySelected
-                                      select Product);
+                                      select Product);*/
 
                 //IQueryable<object> q = QuerydProducts;
                 //List<object> l = new List<object>(q);
+/*
 
-                return QuerydProducts.ToList();
+                return QuerydProducts.ToList();*/
+                return new List<Product>();
             }
         }
 

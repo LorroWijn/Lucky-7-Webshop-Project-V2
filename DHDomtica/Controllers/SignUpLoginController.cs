@@ -10,7 +10,7 @@ namespace DHDomtica.Controllers
 {
     public class SignUpLoginController : Controller
     {
-        // GET: SignUpLogin
+        /*// GET: SignUpLogin
         public ActionResult Index()
         {
             return View();
@@ -27,12 +27,12 @@ namespace DHDomtica.Controllers
         {
             if (ModelState.IsValid)
             {
-                DHDomtica.Models.SignUp en = new Models.SignUp();
-                en.SignUpUser(li);
-                ViewBag.name = li.NickName;
+                //DHDomtica.Models.SignUp en = new Models.SignUp();
+                //en.SignUpUser(li);
+                //ViewBag.name = li.NickName;
 
                 // return View();  
-                return View("SubmitData");
+                //return View("SubmitData");
             }
             else
             {
@@ -65,6 +65,6 @@ namespace DHDomtica.Controllers
         {
 
             return View();
-        }
+        }*/
     }
 }

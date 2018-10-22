@@ -11,7 +11,7 @@ namespace DHDomtica.Models
 {
     public class Login
     {
-        public int ID { get; set; }
+        /*public int ID { get; set; }
 
         [Display(Name = "Voornaam")]
         [Required(ErrorMessage = "Een voornaam moet ingevuld worden")]
@@ -63,12 +63,12 @@ namespace DHDomtica.Models
         [Required(ErrorMessage = "Vul een postcode in")]
         public string ZipCode { get; set; }
         // Misschien nog aanpasse, zodat bepaalde waarden er wel of niet in kunnen.
-        // Later aanpassen aan nieuwe variabelnamen van database.
+        // Later aanpassen aan nieuwe variabelnamen van database.*/
     }
 
     public class SignUp
     {
-        public void SignUpUser(Login li)
+        /*public void SignUpUser(Login li)
         {
             // Databasecontext moet hier
             DHDomoticaModels db = new DHDomoticamodels();
@@ -78,12 +78,12 @@ namespace DHDomtica.Models
             rgs.Password = li.UserPassword;
             db.registers.InsertOnSubmit(rgs);
             db.SubmitChanges();
-        }
+        }*/
     }
 
     public class SearchUser
     {
-        public string searchuser (Login li)
+        /*public string searchuser (Login li)
         {
             // Databasecontext moet hier
             DHDomoticamodels db = new DHDomoticamodels();
@@ -97,7 +97,7 @@ namespace DHDomtica.Models
                 passout = query;
             }
             return passout;
-        }
+        }*/
         
     }
 }
