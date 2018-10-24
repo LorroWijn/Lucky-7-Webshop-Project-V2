@@ -169,7 +169,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\SignUpLoginController.cs" />
+    <Compile Include="Controllers\SignInController.cs" />
+    <Compile Include="Controllers\SignUpController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -196,7 +197,6 @@
     <Compile Include="Models\Product.cs">
       <DependentUpon>DHDomoticaDBModels.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SignUpLogin.cs" />
     <Compile Include="Models\User.cs">
       <DependentUpon>DHDomoticaDBModels.tt</DependentUpon>
     </Compile>
@@ -272,7 +272,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -295,14 +297,13 @@
     <Content Include="Views\Home\InlogPage.cshtml" />
     <Content Include="Views\Home\Categories.cshtml" />
     <Content Include="Views\Home\Products.cshtml" />
-    <Content Include="Views\SignUp\Index.cshtml" />
+    <Content Include="Views\SignUp\SignUpPage.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Categories\" />
     <Folder Include="Views\SignIn\" />
-    <Folder Include="Views\SignUpLogin\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

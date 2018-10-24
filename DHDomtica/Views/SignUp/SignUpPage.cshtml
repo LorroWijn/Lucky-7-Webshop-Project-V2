@@ -9,7 +9,7 @@
 
 <h2>Aanmelden</h2>
 
-@using (Html.BeginForm("Index","SignUp",FormMethod.Post))
+@using (Html.BeginForm("SignUpPage","SignUp",FormMethod.Post))
 {
     <h4 class="mb-3">Billing address</h4>
     <form class="needs-validation" novalidate="">
@@ -31,7 +31,7 @@
             <!-- Select form for sexofUser-->
             <div class="col-md-4 mb-3">
                 <label for="state">Geslacht</label>
-                <select class="custom-select d-block w-100" id="sex" required="">
+                <select class="custom-select d-block w-100" id="Gender" required="">
                     <option value="">Kies...</option>
                     @foreach (var sexOfUser in sexOfUsers)
                     {
@@ -44,12 +44,12 @@
             </div>
         </div>
         <div class="mb-3">
-            <label for="username">Gebruikersnaam</label>
+            <label for="EMail">E-Mailadres</label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text">?</span>
                 </div>
-                <input class="form-control" id="username" placeholder="Gebruikersnaam" required="" type="text">
+                <input class="form-control" id="EMail" placeholder="Gebruikersnaam" required="" type="text">
                 <div class="invalid-feedback" style="width: 100%;">
                     Gebruikersnaam moet ingevuld worden.
                 </div>
@@ -57,42 +57,49 @@
         </div>
         <!--Password label and form-->
         <div class="mb3">
-            <label for="inputPassword">Wachtwoord</label>
+            <label for="Password">Wachtwoord</label>
             <div class="input-group">
-                <input id="inputPassword" class="form-control" placeholder="Wachtwoord" required="" type="password">
+                <input id="Password" class="form-control" placeholder="Wachtwoord" required="" type="password">
                 <div class="invalid-feedback" style="width: 100%;">
                     Wachtwoord moet ingevuld worden.
                 </div>
             </div>
         </div>
         <div class="mb3">
-            <label for="inputPassword">Herhaal wachtwoord</label>
+            <label for="PasswordCheck">Herhaal wachtwoord</label>
             <div class="input-group">
-                <input id="inputPassword" class="form-control" placeholder="Wachtwoord" required="" type="password">
+                <input id="PasswordCheck" class="form-control" placeholder="Wachtwoord" required="" type="password">
                 <div class="invalid-feedback" style="width: 100%;">
-                    Wachtwoord moet ingevuld worden.
+                    Wachtwoordcheck moet ingevuld worden.
                 </div>
             </div>
         </div>
         <!--Email form-->
         @*<div class="mb-3">
-            <label for="email">Email</label>
-            <input class="form-control" id="email" placeholder="you@example.com" type="email">
-            <div class="invalid-feedback">
-                Vul een goed mailadres in voor updates over Uw bestelde producten.
-            </div>*@
+        <label for="email">Email</label>
+        <input class="form-control" id="email" placeholder="you@example.com" type="email">
+        <div class="invalid-feedback">
+            Vul een goed mailadres in voor updates over Uw bestelde producten.
+        </div>*@
         @*</div>*@
         <div class="mb-3">
             <label for="adres">Adres</label>
-            <input class="form-control" id="address" placeholder="1234 Main St" required="" type="text">
+            <input class="form-control" id="BillingAddress" placeholder="Wijnhaven 107" required="" type="text">
             <div class="invalid-feedback">
                 Vul een kloppend adres in.
             </div>
         </div>
+        <div class="mb-3">
+            <label for="city">Stad</label>
+            <input class="form-control" id="City" placeholder="Rotterdam" required="" type="text">
+            <div class="invalid-feedback">
+                Vul een kloppende stad in.
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-5 mb-3">
-                <label for="country">Land</label>
-                <select class="custom-select d-block w-100" id="country" required="">
+                <label for="Country">Land</label>
+                <select class="custom-select d-block w-100" id="Country" required="">
                     <option value="">Kies...</option>
                     <option>Nederland</option>
                 </select>
@@ -101,8 +108,8 @@
                 </div>
             </div>
             <div class="col-md-4 mb-3">
-                <label for="state">Provincie</label>
-                <select class="custom-select d-block w-100" id="state" required="">
+                <label for="Province">Provincie</label>
+                <select class="custom-select d-block w-100" id="Province" required="">
                     <option value="">Kies...</option>
                     @foreach (var nameOfProvence in nameOfProvences)
                     {
@@ -110,12 +117,12 @@
                     }
                 </select>
                 <div class="invalid-feedback">
-                    Geef een provincie in Nederland in.
+                    Geef een provincie in Nederland op.
                 </div>
             </div>
             <div class="col-md-3 mb-3">
-                <label for="zip">Postcode</label>
-                <input class="form-control" id="zip" placeholder="" required="" type="text">
+                <label for="ZipCode">Postcode</label>
+                <input class="form-control" id="ZipCode" placeholder="" required="" type="text">
                 <div class="invalid-feedback">
                     Vul een kloppende postcode in.
                 </div>
