@@ -13,6 +13,19 @@ namespace DHDomtica.Controllers
 {
     public class HomeController : Controller
     {
+        //Begin database connection
+        private DHDomoticaDBEntities _context;
+
+        public HomeController()
+        {
+            _context = new DHDomoticaDBEntities();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _context.Dispose();
+        }
+        //End of Database connection
         public ActionResult Index()
         {
             ShowSidebar();
@@ -50,7 +63,7 @@ namespace DHDomtica.Controllers
         {
             ShowSidebar();
 
-            var categorie = GetCategories().SingleOrDefault(c => c.ID == id);
+            var categorie = _context.MainCategory.SingleOrDefault(c => c.ID == id);
 
             if (categorie == null)
                 return HttpNotFound();
@@ -75,23 +88,23 @@ namespace DHDomtica.Controllers
             return View(product);
         }
 
-        private IEnumerable<MainCategory> GetCategories()
-        {
-            return new List<MainCategory>
-            {
-/*Fix this with a working DB*/
-                new MainCategory {ID = 1, Name = "Stofzuigers"},
-                new MainCategory {ID = 2, Name = "Lampen"},
-                new MainCategory {ID = 3, Name = "Koelkasten"},
-                new MainCategory {ID = 4, Name = "Broodmachines"},
-            };
-        }
+//        private IEnumerable<MainCategory> GetCategories()
+//        {
+//            return new List<MainCategory>
+//            {
+///*Fix this with a working DB*/
+//                new MainCategory {ID = 1, Name = "Stofzuigers"},
+//                new MainCategory {ID = 2, Name = "Lampen"},
+//                new MainCategory {ID = 3, Name = "Koelkasten"},
+//                new MainCategory {ID = 4, Name = "Broodmachines"},
+//            };
+//        }
 
         private void ShowSidebar()
         {
             System.Diagnostics.Debug.WriteLine($"Sidebar {Request.RawUrl}");
             ViewBag.ShowSideBar = true;
-            ViewBag.AllCategories = GetCategories();
+            ViewBag.AllCategories = _context.MainCategory.ToList();
             ViewBag.AllProducts = GetProducts();
         }
 
