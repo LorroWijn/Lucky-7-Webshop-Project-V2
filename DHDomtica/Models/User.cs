@@ -24,5 +24,6 @@ namespace DHDomtica.Models
         public string Province { get; set; }
         public string City { get; set; }
         public string ZipCode { get; set; }
+        public string BillingAddress { get; set; }
     }
 }
