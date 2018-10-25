@@ -8,16 +8,17 @@
 
 <h2>@Model.Category.Name</h2>
 
-@{
+<div class="row">
+    @{
 
-    foreach (Product p in Model.Products)
-    {
+        foreach (Product p in Model.Products)
+        {
+ 
         <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
                 <img class="card-img-top" src="@p.Image" alt="Afbeelding">
                 <div class="card-body">
-                    <h4 class="card-title"> @p.Name</h4>
-
+                    <h4>@Html.ActionLink(p.Name,"Products","Home", new{id = p.ID}, new{@class="card-title"})</h4>
                     <p>&#8364 @p.Price </p>
                 </div>
                 <div class="card-footer">
@@ -26,4 +27,5 @@
             </div>
         </div>
     }
-}
+    }
+</div>
