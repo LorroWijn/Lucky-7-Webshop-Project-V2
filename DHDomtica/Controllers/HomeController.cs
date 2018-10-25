@@ -80,7 +80,7 @@ namespace DHDomtica.Controllers
         {
             ShowSidebar();
 
-            var product = GetProducts().SingleOrDefault(p => p.ID == id);
+            var product = _context.Product.SingleOrDefault(p => p.ID == id);
 
             if (product == null)
                 return HttpNotFound();

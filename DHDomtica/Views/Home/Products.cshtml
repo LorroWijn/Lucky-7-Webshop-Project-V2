@@ -1,9 +1,14 @@
 ﻿@using DHDomtica.Models
+@using System.Web.Mvc.Html;
 @{
     ViewBag.Title = "ProductModel";
 }
 
-<h2>@Model.Name</h2>
+<h2>@Model.Product.Name</h2>
 
-@Model.Description
+<p>@Model.Product.Description</p>
 
+@for(Product p in Model.Products)
+    {
+        <p>@p.Name</p>
+    }
