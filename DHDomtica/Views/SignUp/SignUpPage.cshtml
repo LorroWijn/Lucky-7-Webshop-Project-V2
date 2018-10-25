@@ -2,8 +2,108 @@
 
 @{
     ViewBag.Title = "Account aanmaken";
-     var nameOfProvences = new[] { "Groningen", "Friesland", "Drenthe", "Overijssel", "Flevoland", "Gelderland", "Utrecht", "Noord-Holland", "Zuid-Holland", "Zeeland", "Noord-Brabant", "Limburg" };
-    var sexOfUsers = new[] { "Man", "Vrouw", "X" };
+}
+
+@{
+    List<SelectListItem> sexOfUsers = new List<SelectListItem>();
+    sexOfUsers.Add(new SelectListItem
+    {
+        Text = "Man",
+        Value = "Man",
+    });
+    sexOfUsers.Add(new SelectListItem
+    {
+        Text = "Vrouw",
+        Value = "Vrouw",
+    });
+    sexOfUsers.Add(new SelectListItem
+    {
+        Text = "X",
+        Value = "X"
+    });
+}
+
+@{
+    List<SelectListItem> countrydropdown = new List<SelectListItem>();
+    countrydropdown.Add(new SelectListItem
+    {
+        Text = "Nederland",
+        Value = "Nederland",
+    });
+    countrydropdown.Add(new SelectListItem
+    {
+        Text = "Buiten Nederland",
+        Value = "Buiten Nederland",
+    });
+}
+
+@{
+    List<SelectListItem> provincedropdown = new List<SelectListItem>();
+    provincedropdown.Add(new SelectListItem
+    {
+        Text = "Friesland",
+        Value = "Friesland",
+    });
+    provincedropdown.Add(new SelectListItem
+    {
+        Text = "Groningen",
+        Value = "Groningen",
+    });
+    provincedropdown.Add(new SelectListItem
+    {
+        Text = "Drenthe",
+        Value = "Drenthe",
+    });
+    provincedropdown.Add(new SelectListItem
+    {
+        Text = "Overijssel",
+        Value = "Overijssel",
+    });
+    provincedropdown.Add(new SelectListItem
+    {
+        Text = "Flevoland",
+        Value = "Flevoland",
+    });
+    provincedropdown.Add(new SelectListItem
+    {
+        Text = "Gelderland",
+        Value = "Gelderland",
+    });
+    provincedropdown.Add(new SelectListItem
+    {
+        Text = "Utrecht",
+        Value = "Utrecht",
+    });
+    provincedropdown.Add(new SelectListItem
+    {
+        Text = "Noord-Holland",
+        Value = "Noord-Holland",
+    });
+    provincedropdown.Add(new SelectListItem
+    {
+        Text = "Zuid-Holland",
+        Value = "Zuid-Holland",
+    });
+    provincedropdown.Add(new SelectListItem
+    {
+        Text = "Zeeland",
+        Value = "Zeeland",
+    });
+    provincedropdown.Add(new SelectListItem
+    {
+        Text = "Noord-Brabant",
+        Value = "Noord-Brabant",
+    });
+    provincedropdown.Add(new SelectListItem
+    {
+        Text = "Limburg",
+        Value = "Limburg",
+    });
+    provincedropdown.Add(new SelectListItem
+    {
+        Text = "Overig",
+        Value = "Overig",
+    });
 }
 
 <h2>Aanmeldpagina</h2>
@@ -45,7 +145,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Gender, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.DropDownListFor(x => Model.Gender, sexOfUsers, htmlAttributes: new { @class = "form-control", id = "Gender" })
             @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -107,7 +207,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Country, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Country, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.DropDownListFor(x => Model.Country, countrydropdown, htmlAttributes: new { @class = "form-control", id = "Country" })
             @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -115,7 +215,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Province, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Province, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.DropDownListFor(x => Model.Province, provincedropdown, htmlAttributes: new { @class = "form-control", id = "Province" })
             @Html.ValidationMessageFor(model => model.Province, "", new { @class = "text-danger" })
         </div>
     </div>

@@ -18,20 +18,24 @@ namespace DHDomtica.Models
     {
         public int ID { get; set; }
 
+        [DataType(DataType.Text)]
         [DisplayName("Voornaam")]
         [Required(ErrorMessage = "Vul Uw voornaam in")]
         public string FirstName { get; set; }
 
+        [DataType(DataType.Text)]
         [DisplayName("Achternaam")]
         [Required(ErrorMessage = "Vul Uw achternaam in")]
         public string LastName { get; set; }
 
+        [DataType(DataType.Text)]
         [DisplayName("Geslacht")]
         [Required(ErrorMessage = "Vul Uw geslacht in")]
         public string Gender { get; set; }
 
+        [DataType(DataType.EmailAddress)]
         [DisplayName("E-mail")]
-        [Required(ErrorMessage = "Vul Uw E-mail in")]
+        [Required(ErrorMessage = "Vul een correct E-mailadres in")]
         public string EMail { get; set; }
 
         [DataType(DataType.Password)]
@@ -45,22 +49,27 @@ namespace DHDomtica.Models
         [Compare("Password")]
         public string ConfirmPassword { get; set; }
 
+        [DataType(DataType.Text)]
         [DisplayName("Land")]
         [Required(ErrorMessage = "Vul Uw land in")]
         public string Country { get; set; }
 
+        [DataType(DataType.Text)]
         [DisplayName("Provincie")]
         [Required(ErrorMessage = "Vul Uw provincie in")]
         public string Province { get; set; }
 
+        [DataType(DataType.Text)]
         [DisplayName("Stad")]
         [Required(ErrorMessage = "Vul Uw stad in")]
         public string City { get; set; }
 
+        [DataType(DataType.PostalCode)]
         [DisplayName("Postcode")]
-        [Required(ErrorMessage = "Vul Uw postcode in")]
+        [Required(ErrorMessage = "Vul een correcte postcode in")]
         public string ZipCode { get; set; }
 
+        [DataType(DataType.Text)]
         [DisplayName("Woonadres")]
         [Required(ErrorMessage = "Vul Uw woonadres in")]
         public string BillingAddress { get; set; }
