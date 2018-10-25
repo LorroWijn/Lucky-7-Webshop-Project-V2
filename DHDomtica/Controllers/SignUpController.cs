@@ -50,6 +50,9 @@ namespace DHDomtica.Controllers
             ModelState.Clear();
             ViewBag.SuccessMessage = "Uw account is geregistreerd";
             return View("InlogPage", new User());
+
+            // Migrations moeten waarschijnlijk moeten worden toegevoegd. Migrations kijken of ik ze een datumstempel kan geven.
+            // Kijken naar savechanges en Add en hoe dat werkt.
         }
 
         // GET: SignUp/Edit/5
