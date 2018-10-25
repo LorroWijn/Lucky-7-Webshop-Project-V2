@@ -70,7 +70,7 @@ namespace DHDomtica.Controllers
             var ProductList = new MainCategoryViewModel()
             {
                 Category = categorie,
-                Products = GetProducts().ToList().AsEnumerable()
+                Products = _context.Product.ToList().AsEnumerable()
 
             };
             return View(ProductList);
@@ -88,17 +88,6 @@ namespace DHDomtica.Controllers
             return View(product);
         }
 
-//        private IEnumerable<MainCategory> GetCategories()
-//        {
-//            return new List<MainCategory>
-//            {
-///*Fix this with a working DB*/
-//                new MainCategory {ID = 1, Name = "Stofzuigers"},
-//                new MainCategory {ID = 2, Name = "Lampen"},
-//                new MainCategory {ID = 3, Name = "Koelkasten"},
-//                new MainCategory {ID = 4, Name = "Broodmachines"},
-//            };
-//        }
 
         private void ShowSidebar()
         {
@@ -128,23 +117,6 @@ namespace DHDomtica.Controllers
                 return new List<Product>();
             }
         }
-
-        //            return new List<ProductModel>
-        ///*Fix this with a working DB*/
-        //            {
-        //                new ProductModel {Id = 1, Name = "Stofzuiger1", Description ="adgfuiewfgueiwqgguewq", Price = 24.99, ImagePath = "http://placehold.it/700x400", URL = "www.google.com", MainCatId = 1, SubCatId = 1},
-        //                new ProductModel {Id = 2, Name = "Stofzuiger2", Description ="Hewwo", Price = 24.99, ImagePath = "http://placehold.it/700x400", URL = "www.google.com", MainCatId = 1, SubCatId = 1},
-        //                new ProductModel {Id = 3, Name = "Stofzuiger3", Description ="Dit is iets", Price = 24.99, ImagePath = "http://placehold.it/700x400", URL = "www.google.com", MainCatId = 1, SubCatId = 2},
-        //                new ProductModel {Id = 4, Name = "Stofzuiger4", Description ="Awooo", Price = 24.99, ImagePath = "http://placehold.it/700x400", URL = "www.google.com", MainCatId = 1, SubCatId = 3},
-
-        //                new ProductModel {Id = 5, Name = "Lamp1", Description ="Dark light", Price = 24.99, ImagePath = "http://placehold.it/700x400", URL = "www.google.com", MainCatId = 2, SubCatId = 1},
-        //                new ProductModel {Id = 5, Name = "Lamp2", Description ="Oooh light", Price = 24.99, ImagePath = "http://placehold.it/700x400", URL = "www.google.com", MainCatId = 2, SubCatId = 1},
-
-        //                new ProductModel {Id = 5, Name = "Koelkast1", Description ="1 deurs koelkast", Price = 24.99, ImagePath = "http://placehold.it/700x400", URL = "www.google.com", MainCatId = 3, SubCatId = 1},
-        //                new ProductModel {Id = 5, Name = "Koelkast2", Description ="2 deurs koelkast", Price = 24.99, ImagePath = "http://placehold.it/700x400", URL = "www.google.com", MainCatId = 3, SubCatId = 2}
-        //            };
-        //        }
-
 
         public ActionResult Search(string searchString)
         {

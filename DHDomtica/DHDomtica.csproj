@@ -226,6 +226,7 @@
     <Content Include="Content\bootstrap\js\bootstrap.min.js" />
     <Content Include="Content\bootstrap\css\child-shop-homepage.css" />
     <Content Include="Content\bootstrap\css\shop-homepage.css" />
+    <Content Include="Content\Images\_navbarLogo.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
