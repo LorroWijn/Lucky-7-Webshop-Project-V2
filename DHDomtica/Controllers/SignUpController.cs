@@ -33,6 +33,7 @@ namespace DHDomtica.Controllers
 
         // POST: SignUp/Create
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult SignUpPage(User userModel)
         {
             using (DHDomoticaDBEntities DHDomoticadbModel = new DHDomoticaDBEntities())
@@ -49,7 +50,7 @@ namespace DHDomtica.Controllers
             }
             ModelState.Clear();
             ViewBag.SuccessMessage = "Uw account is geregistreerd";
-            return View("InlogPage", new User());
+            return View("SignUpPage", new User());
 
             // Migrations moeten waarschijnlijk moeten worden toegevoegd. Migrations kijken of ik ze een datumstempel kan geven.
             // Kijken naar savechanges en Add en hoe dat werkt.

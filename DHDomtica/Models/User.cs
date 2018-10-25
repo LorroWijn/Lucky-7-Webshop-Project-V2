@@ -11,19 +11,58 @@ namespace DHDomtica.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
     public partial class User
     {
         public int ID { get; set; }
+
+        [DisplayName("Voornaam")]
+        [Required(ErrorMessage = "Vul Uw voornaam in")]
         public string FirstName { get; set; }
+
+        [DisplayName("Achternaam")]
+        [Required(ErrorMessage = "Vul Uw achternaam in")]
         public string LastName { get; set; }
+
+        [DisplayName("Geslacht")]
+        [Required(ErrorMessage = "Vul Uw geslacht in")]
         public string Gender { get; set; }
+
+        [DisplayName("E-mail")]
+        [Required(ErrorMessage = "Vul Uw E-mail in")]
         public string EMail { get; set; }
+
+        [DataType(DataType.Password)]
+        [DisplayName("Wachtwoord")]
+        [Required(ErrorMessage = "Vul Uw wachtwoord in")]
         public string Password { get; set; }
+
+        [DataType(DataType.Password)]
+        [DisplayName("Bevestig wachtwoord")]
+        [Required(ErrorMessage = "Bevestig Uw wachtwoord")]
+        [Compare("Password")]
+        public string ConfirmPassword { get; set; }
+
+        [DisplayName("Land")]
+        [Required(ErrorMessage = "Vul Uw land in")]
         public string Country { get; set; }
+
+        [DisplayName("Provincie")]
+        [Required(ErrorMessage = "Vul Uw provincie in")]
         public string Province { get; set; }
+
+        [DisplayName("Stad")]
+        [Required(ErrorMessage = "Vul Uw stad in")]
         public string City { get; set; }
+
+        [DisplayName("Postcode")]
+        [Required(ErrorMessage = "Vul Uw postcode in")]
         public string ZipCode { get; set; }
+
+        [DisplayName("Woonadres")]
+        [Required(ErrorMessage = "Vul Uw woonadres in")]
         public string BillingAddress { get; set; }
     }
 }

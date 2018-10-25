@@ -1,135 +1,132 @@
-﻿
-@{
-    ViewBag.Title = "Aanmeldpagina";
+﻿@model DHDomtica.Models.User
 
-    //Array declaration
-    var nameOfProvences = new[] { "Groningen", "Friesland", "Drenthe", "Overijssel", "Flevoland", "Gelderland", "Utrecht", "Noord-Holland", "Zuid-Holland", "Zeeland", "Noord-Brabant", "Limburg" };
+@{
+    ViewBag.Title = "Account aanmaken";
+     var nameOfProvences = new[] { "Groningen", "Friesland", "Drenthe", "Overijssel", "Flevoland", "Gelderland", "Utrecht", "Noord-Holland", "Zuid-Holland", "Zeeland", "Noord-Brabant", "Limburg" };
     var sexOfUsers = new[] { "Man", "Vrouw", "X" };
 }
 
-<h2>Aanmelden</h2>
+<h2>Aanmeldpagina</h2>
 
-@using (Html.BeginForm("SignUpPage","SignUp",FormMethod.Post))
+@* Encryption toevoegen, list van gender enz toevoegen *@
+
+
+@using (Html.BeginForm("SignUpPage", "SignUp", FormMethod.Post))
 {
-    <h4 class="mb-3">Billing address</h4>
-    <form class="needs-validation" novalidate="">
-        <div class="row">
-            <div class="col-md-6 mb-3">
-                <label for="FirstName">Voornaam</label>
-                <input class="form-control" id="FirstName" placeholder="" value="" required="" type="text">
-                <div class="invalid-feedback">
-                    Vul een kloppende voornaam in.
-                </div>
-            </div>
-            <div class="col-md-6 mb-3">
-                <label for="LastName">Achternaam</label>
-                <input class="form-control" id="LastName" placeholder="" value="" required="" type="text">
-                <div class="invalid-feedback">
-                    Vul een kloppende achternaam in.
-                </div>
-            </div>
-            <!-- Select form for sexofUser-->
-            <div class="col-md-4 mb-3">
-                <label for="state">Geslacht</label>
-                <select class="custom-select d-block w-100" id="Gender" required="">
-                    <option value="">Kies...</option>
-                    @foreach (var sexOfUser in sexOfUsers)
-                    {
-                        <option>@sexOfUser</option>
-                    }
-                </select>
-                <div class="invalid-feedback">
-                    Vul een kloppend geslacht in.
-                </div>
-            </div>
-        </div>
-        <div class="mb-3">
-            <label for="EMail">E-Mailadres</label>
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">?</span>
-                </div>
-                <input class="form-control" id="EMail" placeholder="Vb: willekeurigpersoon@gmail.com" required="" type="text">
-                <div class="invalid-feedback" style="width: 100%;">
-                    Gebruikersnaam moet ingevuld worden.
-                </div>
-            </div>
-        </div>
-        <!--Password label and form-->
-        <div class="mb3">
-            <label for="Password">Wachtwoord</label>
-            <div class="input-group">
-                <input id="Password" class="form-control" placeholder="Wachtwoord" required="" type="password">
-                <div class="invalid-feedback" style="width: 100%;">
-                    Wachtwoord moet ingevuld worden.
-                </div>
-            </div>
-        </div>
-        <div class="mb3">
-            <label for="PasswordCheck">Herhaal wachtwoord</label>
-            <div class="input-group">
-                <input id="PasswordCheck" class="form-control" placeholder="Herhaling wachtwoord" required="" type="password">
-                <div class="invalid-feedback" style="width: 100%;">
-                    Wachtwoordcheck moet ingevuld worden.
-                </div>
-            </div>
-        </div>
-        <!--Email form-->
-        @*<div class="mb-3">
-        <label for="email">Email</label>
-        <input class="form-control" id="email" placeholder="you@example.com" type="email">
-        <div class="invalid-feedback">
-            Vul een goed mailadres in voor updates over Uw bestelde producten.
-        </div>*@
-        @*</div>*@
-        <div class="mb-3">
-            <label for="adres">Adres</label>
-            <input class="form-control" id="BillingAddress" placeholder="Vb: Wijnhaven 107" required="" type="text">
-            <div class="invalid-feedback">
-                Vul een kloppend adres in.
-            </div>
-        </div>
-        <div class="mb-3">
-            <label for="city">Stad</label>
-            <input class="form-control" id="City" placeholder="Vb: Rotterdam" required="" type="text">
-            <div class="invalid-feedback">
-                Vul een kloppende stad in.
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-5 mb-3">
-                <label for="Country">Land</label>
-                <select class="custom-select d-block w-100" id="Country" required="">
-                    <option value="">Kies...</option>
-                    <option>Nederland</option>
-                </select>
-                <div class="invalid-feedback">
-                    Vul een kloppend land in.
-                </div>
-            </div>
-            <div class="col-md-4 mb-3">
-                <label for="Province">Provincie</label>
-                <select class="custom-select d-block w-100" id="Province" required="">
-                    <option value="">Kies...</option>
-                    @foreach (var nameOfProvence in nameOfProvences)
-                    {
-                        <option>@nameOfProvence</option>
-                    }
-                </select>
-                <div class="invalid-feedback">
-                    Geef een provincie in Nederland op.
-                </div>
-            </div>
-            <div class="col-md-3 mb-3">
-                <label for="ZipCode">Postcode</label>
-                <input class="form-control" id="ZipCode" placeholder="Vb: 3011 WN" required="" type="text">
-                <div class="invalid-feedback">
-                    Vul een kloppende postcode in.
-                </div>
-            </div>
-        </div>
+    @Html.AntiForgeryToken()
 
-        <hr class="mb-4">
-        <button class="btn btn-primary btn-lg btn-block" type="submit">Aanmelden</button>
-    </form>
+    <div class="form-horizontal">
+        <hr />
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <label class="label-success">@ViewBag.SuccessMessage</label>
+            </div>
+        </div>
+    </div>
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Gender, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.EMail, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.EMail, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.EMail, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <label class="label-danger">@ViewBag.DuplicateMessage</label>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.BillingAddress, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.BillingAddress, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.BillingAddress, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ZipCode, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.ZipCode, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ZipCode, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Country, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Country, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Province, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Province, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Province, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Aanmelden" class="btn btn-default" />
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
 }
