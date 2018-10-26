@@ -120,14 +120,28 @@ namespace DHDomtica.Controllers
 
         public ActionResult Search(string searchString)
         {
-
-            ViewBag.Message = "Er is geen zoekopdracht ingevoer.";
-            if (!String.IsNullOrEmpty(searchString))
+            if (String.IsNullOrEmpty(searchString))
             {
-                ViewBag.Message = "Geen overeenkomende zoekresultaten op: " + searchString;
+                ViewBag.Message = "Er is geen zoekopdracht ingevoerd.";
             }
-            return View();
-        }
+                int cid = 4;
+                var categorie = _context.MainCategory.SingleOrDefault(c => c.ID == cid);
+
+                if (categorie == null)
+                    return HttpNotFound();
+                var ProductList = new MainCategoryViewModel()
+                {
+                    Category = categorie,
+                    Products = _context.Product.Where(c => c.Name.Contains(searchString)).ToList().AsEnumerable()
+                    
+                };
+                if ( ProductList.Products.ToList().Count == 0)
+                {
+                    ViewBag.Message = "Geen overeenkomende zoekresultaten op: " + searchString;
+            }
+
+            return View(ProductList);
+                   }
 
     }
 }
