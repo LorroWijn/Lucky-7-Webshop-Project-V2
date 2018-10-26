@@ -70,7 +70,7 @@ namespace DHDomtica.Controllers
             var ProductList = new MainCategoryViewModel()
             {
                 Category = categorie,
-                Products = _context.Product.ToList().AsEnumerable()
+                Products = _context.Product.Where(c => c.MainCategoryID.Equals(id)).ToList().AsEnumerable()
 
             };
             return View(ProductList);
