@@ -20,7 +20,7 @@
                     <div class="card h-100">
                         <img class="card-img-top" src="@p.Image" alt="Afbeelding">
                         <div class="card-body">
-                            <h4>@Html.ActionLink(p.Name, "Products", "Home", new { id = p.ID }, new { @class = "card-title" })</h4>
+                            <h4>@Html.ActionLink(p.Name, "ProductDetails", "Store", new { id = p.ID }, new { @class = "card-title" })</h4>
                             <p>&#8364 @p.Price </p>
                         </div>
                         <div class="card-footer">
