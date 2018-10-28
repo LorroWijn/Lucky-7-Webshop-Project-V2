@@ -53,11 +53,6 @@ namespace DHDomtica.Controllers
             return View();
         }
 
-        public ActionResult InlogPage()
-        {
-            return View();
-        }
-
         private void ShowSidebar()
         {
             System.Diagnostics.Debug.WriteLine($"Sidebar {Request.RawUrl}");

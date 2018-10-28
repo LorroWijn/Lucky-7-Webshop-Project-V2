@@ -325,7 +325,7 @@
     <Content Include="Views\Shared\_Footer.cshtml" />
     <Content Include="Views\Shared\_SideBar.cshtml" />
     <Content Include="Views\Home\ShoppingCart.cshtml" />
-    <Content Include="Views\Home\InlogPage.cshtml" />
+    <Content Include="Views\SignIn\SignInPage.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
@@ -345,7 +345,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Categories\" />
-    <Folder Include="Views\SignIn\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
