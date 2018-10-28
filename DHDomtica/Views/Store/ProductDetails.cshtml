@@ -4,48 +4,24 @@
     ViewBag.Title = "ProductDetails";
 }
 
-<h2>ProductDetails</h2>
+<div class="col-lg-10">
 
-<div>
-    <h4>Product</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <img class="card-img-top" style="width:400px;" src="@Html.DisplayFor(model => model.Image)" alt="Afbeelding">
-        <dt>
-            @Html.DisplayNameFor(model => model.MainCategory.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MainCategory.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-
-    </dl>
+    <div class="card mt-4">
+        <img class="card-img-top img-fluid" src="@Html.DisplayFor(model => model.Image)" alt="Image">
+        <div class="card-body">
+            <h3 class="card-title">@Html.DisplayFor(model => model.Name)</h3>
+            <h3 class="card-text">@Html.DisplayFor(model => model.MainCategory.Name)</h3>
+            <h4>&#8364  @Html.DisplayFor(model => model.Price)</h4>
+            <p class="card-text">@Html.DisplayFor(model => model.Description)</p>
+            @*<span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
+            4.0 stars*@
+            <hr>
+            @*<a href="#" class="btn btn-success">add to cart</a>*@
+        </div>
+    </div>
 </div>
+<hr/>
 <p>
     @*@Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |*@
-    @Html.ActionLink("Back to List", "Categories", new { id  = Model.MainCategory.ID})
+    @Html.ActionLink("Back to List", "Categories", new { id  = Model.MainCategory.ID}, new{@class="btn btn-success"})
 </p>
