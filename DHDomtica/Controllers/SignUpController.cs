@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DHDomtica.Models;
+using DHDomtica.Supportclasses;
 
 // Deze en andere code voor sign-up zijn gebaseerd op de voorbeeldcode van CodAffection bereikbaar op https://www.youtube.com/watch?v=xBS9FMF2NFM
 
@@ -36,6 +37,8 @@ namespace DHDomtica.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult SignUpPage(User userModel)
         {
+            userModel.Password = Crypto.Hash(userModel.Password);
+            userModel.ConfirmPassword = Crypto.Hash(userModel.ConfirmPassword);
             using (DHDomoticaDBEntities DHDomoticadbModel = new DHDomoticaDBEntities())
             // If loop met passwordcheck gelijk aan gebruikersnaamcheck hangen.
             {
@@ -51,9 +54,6 @@ namespace DHDomtica.Controllers
             ModelState.Clear();
             ViewBag.SuccessMessage = "Uw account is geregistreerd";
             return View("SignUpPage", new User());
-
-            // Migrations moeten waarschijnlijk moeten worden toegevoegd. Migrations kijken of ik ze een datumstempel kan geven.
-            // Kijken naar savechanges en Add en hoe dat werkt.
         }
 
         // GET: SignUp/Edit/5
