@@ -10,12 +10,12 @@
 <h3>@ViewBag.Message</h3>
 <div class="row">
     @{
-        int counter = 0;
+        //int counter = 0;
         foreach (Product p in Model.Products)
         {
-            counter++;
-            if (counter > 0 && counter < 25)
-            {
+            //counter++;
+            //if (counter > 0 && counter < 25)
+
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="card h-100">
                         <img class="card-img-top" src="@p.Image" alt="Afbeelding">
@@ -28,7 +28,7 @@
                         </div>
                     </div>
                 </div>
+
             }
         }
-    }
 </div>

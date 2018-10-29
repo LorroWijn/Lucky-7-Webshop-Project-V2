@@ -65,8 +65,9 @@ namespace DHDomtica.Controllers
         {
             if (String.IsNullOrEmpty(searchString))
             {
-                ViewBag.Message = "Er is geen zoekopdracht ingevoerd.";
+                ViewBag.Message = "Er is geen zoekopdracht ingevoerd. Hier zijn al onze producten.";
             }
+            //else{
                 int cid = 4;
                 var categorie = _context.MainCategory.SingleOrDefault(c => c.ID == cid);
 
@@ -77,16 +78,15 @@ namespace DHDomtica.Controllers
                 {
                     Category = categorie,
                     Products = _context.Product.Where(c => c.Name.Contains(searchString)).ToList().AsEnumerable()
-                    
+
                 };
 
-                if ( ProductList.Products.ToList().Count == 0)
+                if (ProductList.Products.ToList().Count == 0)
                 {
                     ViewBag.Message = "Geen overeenkomende zoekresultaten op: " + searchString;
                 }
-
             return View(ProductList);
+            //}
         }
-
     }
 }
