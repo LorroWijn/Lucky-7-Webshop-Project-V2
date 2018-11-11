@@ -30,12 +30,13 @@ namespace DHDomtica.Models
 
         [DataType(DataType.Text)]
         [DisplayName("Geslacht")]
-        [Required(ErrorMessage = "Vul Uw geslacht in")]
+        [Required(ErrorMessage = "Kies Uw geslacht")]
         public string Gender { get; set; }
 
         [DataType(DataType.EmailAddress)]
         [DisplayName("E-mail")]
-        [Required(ErrorMessage = "Vul een correct E-mailadres in")]
+        [Required(ErrorMessage = "Vul Uw E-mailadres in")]
+        [RegularExpression(@"^[\w-]+(?:\.[\w-]+)*@(?:[\w-]+\.)+[a-zA-Z]{2,7}$", ErrorMessage = "Vul een correct E-mailadres in, zoals 0956570@hr.nl")]
         public string EMail { get; set; }
 
         [DataType(DataType.Password)]
@@ -51,12 +52,12 @@ namespace DHDomtica.Models
 
         [DataType(DataType.Text)]
         [DisplayName("Land")]
-        [Required(ErrorMessage = "Vul Uw land in")]
+        [Required(ErrorMessage = "Kies Uw land")]
         public string Country { get; set; }
 
         [DataType(DataType.Text)]
         [DisplayName("Provincie")]
-        [Required(ErrorMessage = "Vul Uw provincie in")]
+        [Required(ErrorMessage = "Kies Uw provincie")]
         public string Province { get; set; }
 
         [DataType(DataType.Text)]
@@ -66,12 +67,14 @@ namespace DHDomtica.Models
 
         [DataType(DataType.PostalCode)]
         [DisplayName("Postcode")]
-        [Required(ErrorMessage = "Vul een correcte postcode in")]
+        [Required(ErrorMessage = "Vul Uw postcode in")]
+        [RegularExpression(@"^[1-9][0-9]{3}\s*(?:[a-zA-Z]{2})?$", ErrorMessage = "Vul een correcte Nederlandse postcode in, zoals 3011 WN")]
         public string ZipCode { get; set; }
 
         [DataType(DataType.Text)]
         [DisplayName("Woonadres")]
         [Required(ErrorMessage = "Vul Uw woonadres in")]
+        [RegularExpression(@"^([1-9][e][\s])*([a-zA-Z]+(([\.][\s])|([\s]))?)+[1-9][0-9]*(([-][1-9][0-9]*)|([\s]?[a-zA-Z]+))?$", ErrorMessage = "Vul een correct Nederlands adres in zonder komma, zoals Wijnhaven 107")]
         public string BillingAddress { get; set; }
     }
 }

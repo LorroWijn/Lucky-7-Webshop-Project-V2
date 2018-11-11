@@ -53,7 +53,9 @@ namespace DHDomtica.Controllers
             }
             ModelState.Clear();
             ViewBag.SuccessMessage = "Uw account is geregistreerd";
-            return View("SignUpPage", new User());
+            //return View("SignUpPage", new User());
+            return RedirectToAction("SignInPage", "SignIn");
+            ViewBag.SuccessMessage = "Uw account is geregistreerd";
         }
 
         // GET: SignUp/Edit/5

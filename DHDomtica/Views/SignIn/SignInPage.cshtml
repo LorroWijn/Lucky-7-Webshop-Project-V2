@@ -60,16 +60,15 @@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Inloggen" button class="btn btn-outline-success my-2 my-sm-0"/>
+            <input type="submit" value="Inloggen" button class="btn btn-outline-success my-2 my-sm-0" />
         </div>
     </div>
 
     <div class="row">
 
         <div class="col-md-4">
-            <h2>Account aanmaken</h2>
-            <p>Ben je nog geen klant bij ons en wil je een account aanmaken? </p>
-            @Html.ActionLink("Aanmelden", "SignUpPage", "SignUp", null, new { @class = "child-text" })
+            <h2>Account aanmaken?</h2>
+            @Html.ActionLink("Klik hier om U aan te melden", "SignUpPage", "SignUp", null, new { @class = "child-text" })
         </div>
 
     </div>
