@@ -20,7 +20,7 @@
                 @*<li class="nav-item">@Html.ActionLink("Home", "Index", "Home")</li>*@
                 <li>
                     @using (Html.BeginForm("Search", "Home"))
-                    {   <div class="container">
+                    {<div class="container">
                             <div class="row">
                                 <div class="input-group-btn search-panel">
                                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -56,7 +56,15 @@
                         <i class="fas fa-shopping-cart fa-lg"></i>
                     </a>
                 </li>
-                <li class="nav-item">@Html.ActionLink("Login", "SignInPage", "SignIn", null, new{@class ="nav-link"})</li>
+                <li class="nav-item">
+                @*if (Login is true?)
+                {
+                    Controller info and changed button
+                  }else
+                  {*@
+                  @Html.ActionLink("Login", "SignInPage", "SignIn", null, new { @class = "nav-link" })
+                  @*}*@
+                </li>
             </ul>
         </div>
     </div>
