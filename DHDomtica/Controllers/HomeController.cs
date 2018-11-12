@@ -77,7 +77,9 @@ namespace DHDomtica.Controllers
                 var ProductList = new MainCategoryViewModel()
                 {
                     Category = categorie,
-                    Products = _context.Product.Where(c => c.Name.Contains(searchString)).ToList().AsEnumerable()
+                    Products = _context.Product
+                        .Where(c => c.Name.Contains(searchString) || c.Description.Contains(searchString))
+                        .ToList().AsEnumerable()
 
                 };
 
