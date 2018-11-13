@@ -22,22 +22,19 @@
                     @using (Html.BeginForm("Search", "Home"))
                     {<div class="container">
                             <div class="row">
-                                <div class="input-group-btn search-panel">
-                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                        <span id="search_concept">Filter by</span> <span class="caret"></span>
+                                <div class="input-group-btn search-panel form-inline">
+                                    <select class="form-control">
+                                        <option value="-1">Alles</option>
+                                        <option value="1">Camera's</option>
+                                        <option value="2">Controller</option>
+                                        <option value="3">Modules</option>
+                                        <option value="4">Sensoren</option>
+                                        <option value="5">Smart Home</option>
+                                    </select>
+                                    <input class="form-control" name="searchString" type="search" placeholder="Search" aria-label="Search">
+                                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                                        <i class="fas fa-search"></i>
                                     </button>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li><a href="">Contains</a></li>
-                                        <li><a href="">It's equal</a></li>
-                                        <li><a href="">Greather than ></a></li>
-                                        <li><a href="">Less than < </a></li>
-                                        <li class="divider"></li>
-                                        <li><a href="#all">Alles</a></li>
-                                    </ul>
-                                </div>
-                                <div class="form-inline">
-                                    <input class="form-control mr-sm-2" name="searchString" type="search" placeholder="Search" aria-label="Search">
-                                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                                 </div>
                             </div>
                         </div>
