@@ -61,34 +61,45 @@ namespace DHDomtica.Controllers
             ViewBag.AllProducts = _context.Product.ToList();
         }
 
-        public ActionResult Search(string searchString)
+        public ActionResult Search(int selectedValue, string searchString)
         {
             if (String.IsNullOrEmpty(searchString))
             {
                 ViewBag.Message = "Er is geen zoekopdracht ingevoerd. Hier zijn al onze producten.";
             }
-            //else{
-                int cid = 4;
-                var categorie = _context.MainCategory.SingleOrDefault(c => c.ID == cid);
+            var category = _context.MainCategory.FirstOrDefault();
+            int cid = selectedValue;
 
-                if (categorie == null)
-                    return HttpNotFound();
 
-                var ProductList = new MainCategoryViewModel()
+            var ProductList = new MainCategoryViewModel();
+            if (cid == 0)
+            {
+                ProductList = new MainCategoryViewModel()
                 {
-                    Category = categorie,
+                    Category = category,
                     Products = _context.Product
-                        .Where(c => c.Name.Contains(searchString) || c.Description.Contains(searchString))
-                        .ToList().AsEnumerable()
+                            .Where(c => c.Name.Contains(searchString) || c.Description.Contains(searchString))
+                            .ToList().AsEnumerable()
 
                 };
-
-                if (ProductList.Products.ToList().Count == 0)
+            }
+            else
+            {
+                ProductList = new MainCategoryViewModel()
                 {
-                    ViewBag.Message = "Geen overeenkomende zoekresultaten op: " + searchString;
-                }
+                    Category = category,
+                    Products = _context.Product
+                            .Where(c => (c.Name.Contains(searchString) || c.Description.Contains(searchString)) && c.MainCategoryID.Equals(cid))
+                            .ToList().AsEnumerable()
+
+                };
+            }
+            if (ProductList.Products.ToList().Count == 0)
+            {
+                ViewBag.Message = "Geen overeenkomende zoekresultaten op: " + searchString;
+            }
             return View(ProductList);
-            //}
+
         }
     }
 }
