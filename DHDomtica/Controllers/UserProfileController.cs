@@ -9,9 +9,17 @@ namespace DHDomtica.Controllers
     public class UserProfileController : Controller
     {
         // GET: UserProfile
-        public ActionResult UserProfilePage()
+        public ActionResult Index()
         {
+            ShowUserSidebar();
             return View();
+        }
+
+        //Code for the UsersideBar
+        private void ShowUserSidebar()
+        {
+            System.Diagnostics.Debug.WriteLine($"UserSidebar {Request.RawUrl}");
+            ViewBag.ShowUserSideBar = true;
         }
     }
 }

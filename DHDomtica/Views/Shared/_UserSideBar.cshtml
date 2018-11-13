@@ -1,0 +1,12 @@
+﻿@using DHDomtica.Models
+@using WebGrease.Activities
+<h1 class="my-4">Auccount opties</h1>
+<div class="list-group">
+
+
+    @Html.ActionLink("Orderstatus", "", "UserProfile", new { @class = "list-group-item child-list-group-item" })
+    @Html.ActionLink("Persoonlijke gegevens", "", "UserProfile", new { @class = "list-group-item child-list-group-item" })
+    @Html.ActionLink("WensLijst", "Wishlist", "Store", new { @class = "list-group-item child-list-group-item" })
+    @Html.ActionLink("Log uit", "", "UserProfile", new { @class = "list-group-item child-list-group-item" })
+    
+</div>
