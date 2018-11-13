@@ -33,6 +33,11 @@ namespace DHDomtica.Controllers
             return View();
         }
 
+        public ActionResult BlogDom()
+        {
+            return View();
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
