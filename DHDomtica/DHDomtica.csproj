@@ -325,7 +325,7 @@
     <Content Include="Views\Shared\_NavBar.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
     <Content Include="Views\Shared\_SideBar.cshtml" />
-    <Content Include="Views\Home\ShoppingCart.cshtml" />
+    <Content Include="Views\Store\ShoppingCart.cshtml" />
     <Content Include="Views\SignIn\SignInPage.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />

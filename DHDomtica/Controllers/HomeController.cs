@@ -51,13 +51,6 @@ namespace DHDomtica.Controllers
             return View();
         }
 
-       public ActionResult ShoppingCart()
-        {
-            ViewBag.Message = "Welcome in the shoppingcart";
-
-            return View();
-        }
-
         private void ShowSidebar()
         {
             System.Diagnostics.Debug.WriteLine($"Sidebar {Request.RawUrl}");

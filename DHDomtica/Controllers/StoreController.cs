@@ -20,6 +20,13 @@ namespace DHDomtica.Controllers
             return View();
         }
 
+        public ActionResult ShoppingCart()
+        {
+            ViewBag.Message = "Welcome in the shoppingcart";
+
+            return View();
+        }
+
         //Code for the Store/ProductDetails
         // GET: ProductDetails
         public ActionResult ProductDetails(int? id)
