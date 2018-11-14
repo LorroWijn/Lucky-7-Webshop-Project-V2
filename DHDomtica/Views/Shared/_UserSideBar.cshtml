@@ -1,12 +1,15 @@
 ﻿@using DHDomtica.Models
 @using WebGrease.Activities
-<h1 class="my-4">Auccount opties</h1>
+<h1 class="my-4">Account opties</h1>
 <div class="list-group">
 
+    @*Index is orderstatus in deze code*@
+    @Html.ActionLink("Orderstatus", "Index", "UserProfile", null, new { @class = "list-group-item child-list-group-item" })
+    @Html.ActionLink("WensLijst", "Wishlist", "Store", null, new { @class = "list-group-item child-list-group-item" })
+    @Html.ActionLink("Persoonlijke gegevens", "PersonalInformation", "UserProfile", null, new { @class = "list-group-item child-list-group-item" })
+    @Html.ActionLink("Wachtwoord vergeten?", "ChangePassword", "UserProfile", null, new { @class = "list-group-item child-list-group-item" })
+    @Html.ActionLink("Log uit", "", "UserProfile", null, new { @class = "list-group-item child-list-group-item" })
+    @*Het knopje log uit moet nog veranderd worden naar een functie die uitlogt*@
 
-    @Html.ActionLink("Orderstatus", "", "UserProfile", new { @class = "list-group-item child-list-group-item" })
-    @Html.ActionLink("Persoonlijke gegevens", "", "UserProfile", new { @class = "list-group-item child-list-group-item" })
-    @Html.ActionLink("WensLijst", "Wishlist", "Store", new { @class = "list-group-item child-list-group-item" })
-    @Html.ActionLink("Log uit", "", "UserProfile", new { @class = "list-group-item child-list-group-item" })
-    
+    @*Html.ActionLink("Login", "SignInPage", "SignIn", null, new { @class = "nav-link" })*@
 </div>

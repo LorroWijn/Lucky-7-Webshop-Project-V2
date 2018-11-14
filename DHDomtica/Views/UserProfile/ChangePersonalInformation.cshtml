@@ -1,7 +1,7 @@
 ﻿@model DHDomtica.Models.User
 
 @{
-    ViewBag.Title = "Account aanmaken";
+    ViewBag.Title = "ChangePersonalInformation";
 }
 
 @{
@@ -106,21 +106,30 @@
     });
 }
 
-<h2>Aanmeldpagina</h2>
+<h2>Persoonlijke informatie aanpassen</h2>
 
-@using (Html.BeginForm("SignUpPage", "SignUp", FormMethod.Post))
+@using (Html.BeginForm("ChangePersonalInformation", "UserProfile", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <hr />
+    @*<div class="form-horizontal">
+            <hr />
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <label class="label-success">@ViewBag.AccountInformationChangedMessage</label>
+                    @*Message moet veranderd worden
+                </div>
+            </div>
+        </div>*@
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <label class="label-success">@ViewBag.SuccessMessage</label>
+    <div class="form-horizontal">
+            <hr />
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <label class="label-success">@ViewBag.BadPasswordMessage</label>
+                </div>
             </div>
         </div>
-    </div>
 
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="form-group">
@@ -158,22 +167,6 @@
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <label class="label-danger">@ViewBag.DuplicateMessage</label>
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
         </div>
     </div>
 
@@ -218,9 +211,24 @@
     </div>
 
     <div class="form-group">
+        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <p>Wanneer Uw account succesvol is aangemaakt wordt U terug naar het inlogscherm gestuurd</p>
-            <input type="submit" value="Aanmelden" button class="btn btn-outline-success my-2 my-sm-0" />
+            <input type="submit" value="Account aanpassen" button class="btn btn-outline-success my-2 my-sm-0" />
         </div>
     </div>
 }
@@ -228,3 +236,6 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+@*Misschien moet hier nog een pagina voor met de persoonlijke informatie erop. Vervolgens hierop een passwordcheck doen en dan naar de edit pagina verwijzen.*@
+
+

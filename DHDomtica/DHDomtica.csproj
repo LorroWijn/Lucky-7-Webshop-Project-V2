@@ -344,6 +344,9 @@
     <Content Include="Views\Store\Wishlist.cshtml" />
     <Content Include="Views\UserProfile\Index.cshtml" />
     <Content Include="Views\Shared\_UserSideBar.cshtml" />
+    <Content Include="Views\UserProfile\PersonalInformation.cshtml" />
+    <Content Include="Views\UserProfile\ChangePassword.cshtml" />
+    <Content Include="Views\UserProfile\ChangePersonalInformation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

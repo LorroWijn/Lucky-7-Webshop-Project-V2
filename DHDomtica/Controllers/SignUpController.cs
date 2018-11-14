@@ -40,7 +40,6 @@ namespace DHDomtica.Controllers
             userModel.Password = Crypto.Hash(userModel.Password);
             userModel.ConfirmPassword = Crypto.Hash(userModel.ConfirmPassword);
             using (DHDomoticaDBEntities DHDomoticadbModel = new DHDomoticaDBEntities())
-            // If loop met passwordcheck gelijk aan gebruikersnaamcheck hangen.
             {
                 if (DHDomoticadbModel.User.Any(x => x.EMail == userModel.EMail))
                 {
