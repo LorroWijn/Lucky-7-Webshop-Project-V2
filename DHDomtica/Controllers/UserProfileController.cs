@@ -36,6 +36,7 @@ namespace DHDomtica.Controllers
                 userModel = DHDomoticadbModel.User.Where(z => z.ID == id).FirstOrDefault();
                 ShowUserSidebar();
                 return View(userModel);
+                // Moet nog aangepast worden zodat informatie uit de cookies gehaald wordt.
             }
         }
 
@@ -46,7 +47,7 @@ namespace DHDomtica.Controllers
             User usermodel = new User();
             ShowUserSidebar();
             return View();
-            // User usermodel regel veranderen in dat deze ingevuld wordt door de database
+            // User usermodel regel veranderen in dat deze ingevuld wordt door de database.
         }
 
         [HttpPost]
@@ -84,40 +85,47 @@ namespace DHDomtica.Controllers
             }
         }
 
-        // Alles van wachtwoord veranderen hierna
-        //public ActionResult ChangePassword()
-        //{
-        //    ShowUserSidebar();
-        //    return View();
-        //
+        //Alles van wachtwoord veranderen hierna
+        public ActionResult ChangePassword()
+        {
+            ShowUserSidebar();
+            return View();
+        }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult SignInPage(User userModel)
-        //{
-        //    using (DHDomoticaDBEntities DHDomoticadbModel = new DHDomoticaDBEntities())
-        //    {
-        //        if (userModel.Password == null)
-        //        {
-        //            geen geldige credentials ingevoerd
-        //            return View("SignInPage", new User());
-        //        }
-        //        else
-        //        {
-        //            var ePwd = Crypto.Hash(userModel.Password);
-        //            var x = DHDomoticadbModel.User.FirstOrDefault(u => u.EMail == userModel.EMail && u.Password == ePwd);
 
-        //            if (x == null)
-        //            {
-        //                geen geldige credentials ingevoerd
-        //                return View("SignInPage", new User());
-        //            }
-        //            else
-        //            {
-        //                return RedirectToAction("Index", "Home");
-        //            }
-        //        }
-        //    }
-        //}
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SignInPage(UserPasswordChange userModel)
+        {
+            using (DHDomoticaDBEntities DHDomoticadbModel = new DHDomoticaDBEntities())
+            {
+                if (userModel.Password == null)
+                {
+                    //geen wachtwoord ingevuld
+                    ViewBag.BadPasswordMessage = "Uw ingevulde wachtwoord komt niet overeen met Uw huidige wachtwoord";
+                    return View("ChangePassword", userModel);
+                }
+                else
+                {
+                    var cPwd = Crypto.Hash(userModel.OldPassword);
+                    var p = DHDomoticadbModel.User.Where(u => u.Password == cPwd).FirstOrDefault();
+
+                    if (p == null)
+                    {
+                        //geen goede huidige wachtwoord ingevuld
+                        ViewBag.BadPasswordMessage = "Uw ingevulde wachtwoord komt niet overeen met Uw huidige wachtwoord";
+                        return View("ChangePassword", userModel);
+                    }
+                    else
+                    {
+                        DHDomoticadbModel.Entry(userModel).State = System.Data.Entity.EntityState.Modified;
+                        DHDomoticadbModel.SaveChanges();
+                        ModelState.Clear();
+                        return RedirectToAction("PersonalInformation", "UserProfile");
+                    }
+
+                }
+            }
+        }
     }
 }
