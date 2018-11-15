@@ -12,21 +12,23 @@ namespace DHDomtica.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    
+
     public partial class DHDomoticaDBEntities : DbContext
     {
         public DHDomoticaDBEntities()
             : base("name=DHDomoticaDBEntities")
         {
         }
-    
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
         }
-    
+
         public virtual DbSet<MainCategory> MainCategory { get; set; }
         public virtual DbSet<Product> Product { get; set; }
         public virtual DbSet<User> User { get; set; }
+        // public virtual UserPasswordChange UserPasswordChange { get; set; }
+        // Weet niet of dit klopt. Misschien nog aanpassen.
     }
 }

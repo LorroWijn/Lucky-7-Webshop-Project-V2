@@ -101,27 +101,35 @@ namespace DHDomtica.Controllers
             {
                 if (userModel.Password == null)
                 {
-                    //geen wachtwoord ingevuld
+                    //Geen wachtwoord ingevuld
                     ViewBag.BadPasswordMessage = "Uw ingevulde wachtwoord komt niet overeen met Uw huidige wachtwoord";
                     return View("ChangePassword", userModel);
                 }
                 else
                 {
                     var cPwd = Crypto.Hash(userModel.OldPassword);
+                    userModel.Password = Crypto.Hash(userModel.Password);
+                    userModel.ConfirmPassword = Crypto.Hash(userModel.ConfirmPassword);
                     var p = DHDomoticadbModel.User.Where(u => u.Password == cPwd).FirstOrDefault();
+                    // var p = DHDomoticadbModel.User.SingleOrDefault(u => u.Password == cPwd);
+                    // Als de vorige niet werkt dan deze proberen.
 
                     if (p == null)
                     {
-                        //geen goede huidige wachtwoord ingevuld
+                        //Niet goede huidige wachtwoord ingevuld
                         ViewBag.BadPasswordMessage = "Uw ingevulde wachtwoord komt niet overeen met Uw huidige wachtwoord";
                         return View("ChangePassword", userModel);
                     }
                     else
                     {
+                        p.Password = userModel.Password;
                         DHDomoticadbModel.Entry(userModel).State = System.Data.Entity.EntityState.Modified;
                         DHDomoticadbModel.SaveChanges();
                         ModelState.Clear();
                         return RedirectToAction("PersonalInformation", "UserProfile");
+                        // The error stems from line entity.Entry(account). 
+                        //Either: 1) UpdateAccount is not a type in your DbContext models OR 
+                        //2) It is a type but you still have to retrieve the instance first OR attach this instance to the DbContext. 
                     }
 
                 }
