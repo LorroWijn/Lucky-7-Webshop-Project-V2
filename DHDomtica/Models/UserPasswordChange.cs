@@ -16,12 +16,12 @@ namespace DHDomtica.Models
 
         [DataType(DataType.Password)]
         [DisplayName("Wachtwoord")]
-        [Required(ErrorMessage = "Vul Uw wachtwoord in")]
+        [Required(ErrorMessage = "Vul Uw nieuwe wachtwoord in")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
         [DisplayName("Bevestig wachtwoord")]
-        [Required(ErrorMessage = "Bevestig Uw wachtwoord")]
+        [Required(ErrorMessage = "Bevestig Uw nieuwe wachtwoord")]
         [Compare("Password")]
         public string ConfirmPassword { get; set; }
     }
