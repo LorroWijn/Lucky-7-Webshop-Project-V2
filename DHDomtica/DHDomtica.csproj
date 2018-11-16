@@ -349,12 +349,9 @@
     <Content Include="Views\UserProfile\PersonalInformation.cshtml" />
     <Content Include="Views\UserProfile\ChangePassword.cshtml" />
     <Content Include="Views\UserProfile\ChangePersonalInformation.cshtml" />
-<<<<<<< HEAD
     <Content Include="Views\Shared\AdminSideBar.cshtml" />
-=======
     <Content Include="Views\Home\BlogDom.cshtml" />
     <Content Include="Views\Home\BlogAlexa.cshtml" />
->>>>>>> df764b7b1b979adb6a872c219644464841fbdc40
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
