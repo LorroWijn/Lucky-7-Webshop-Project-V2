@@ -168,7 +168,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AdminManageUserController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\AdminManageProductsController.cs" />
     <Compile Include="Controllers\SignInController.cs" />
     <Compile Include="Controllers\SignUpController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
@@ -349,13 +351,24 @@
     <Content Include="Views\UserProfile\PersonalInformation.cshtml" />
     <Content Include="Views\UserProfile\ChangePassword.cshtml" />
     <Content Include="Views\UserProfile\ChangePersonalInformation.cshtml" />
-    <Content Include="Views\Shared\AdminSideBar.cshtml" />
+    <Content Include="Views\Shared\_AdminSideBar.cshtml" />
     <Content Include="Views\Home\BlogDom.cshtml" />
     <Content Include="Views\Home\BlogAlexa.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\AdminChangePassword.cshtml" />
+    <Content Include="Views\AdminManageProducts\Create.cshtml" />
+    <Content Include="Views\AdminManageProducts\Delete.cshtml" />
+    <Content Include="Views\AdminManageProducts\Details.cshtml" />
+    <Content Include="Views\AdminManageProducts\Edit.cshtml" />
+    <Content Include="Views\AdminManageProducts\Index.cshtml" />
+    <Content Include="Views\AdminManageUser\Create.cshtml" />
+    <Content Include="Views\AdminManageUser\Delete.cshtml" />
+    <Content Include="Views\AdminManageUser\Details.cshtml" />
+    <Content Include="Views\AdminManageUser\Edit.cshtml" />
+    <Content Include="Views\AdminManageUser\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Admin\" />
     <Folder Include="Views\Categories\" />
   </ItemGroup>
   <ItemGroup>
