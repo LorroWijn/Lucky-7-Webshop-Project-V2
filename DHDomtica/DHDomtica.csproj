@@ -167,6 +167,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SignInController.cs" />
     <Compile Include="Controllers\SignUpController.cs" />
@@ -348,9 +349,11 @@
     <Content Include="Views\UserProfile\PersonalInformation.cshtml" />
     <Content Include="Views\UserProfile\ChangePassword.cshtml" />
     <Content Include="Views\UserProfile\ChangePersonalInformation.cshtml" />
+    <Content Include="Views\Shared\AdminSideBar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Admin\" />
     <Folder Include="Views\Categories\" />
   </ItemGroup>
   <ItemGroup>

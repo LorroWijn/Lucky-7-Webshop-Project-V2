@@ -77,6 +77,7 @@ namespace DHDomtica.Controllers
                     {
                         DHDomoticadbModel.Entry(userModel).State = System.Data.Entity.EntityState.Modified;
                         DHDomoticadbModel.SaveChanges();
+                        // Misschien ook hier de entries aanpassen, zodat de goede worden gepakt.
                         ModelState.Clear();
                         return RedirectToAction("PersonalInformation", "UserProfile");
                     }
@@ -99,7 +100,7 @@ namespace DHDomtica.Controllers
         {
             using (DHDomoticaDBEntities DHDomoticadbModel = new DHDomoticaDBEntities())
             {
-                if (userModel.Password == null)
+                if (userModel.ChangePassword == null)
                 {
                     //Geen wachtwoord ingevuld
                     ViewBag.BadPasswordMessage = "Uw ingevulde wachtwoord komt niet overeen met Uw huidige wachtwoord";
@@ -108,8 +109,8 @@ namespace DHDomtica.Controllers
                 else
                 {
                     var cPwd = Crypto.Hash(userModel.OldPassword);
-                    userModel.Password = Crypto.Hash(userModel.Password);
-                    userModel.ConfirmPassword = Crypto.Hash(userModel.ConfirmPassword);
+                    userModel.ChangePassword = Crypto.Hash(userModel.ChangePassword);
+                    userModel.ChangeConfirmPassword = Crypto.Hash(userModel.ChangeConfirmPassword);
                     var p = DHDomoticadbModel.User.Where(u => u.Password == cPwd).FirstOrDefault();
                     // var p = DHDomoticadbModel.User.SingleOrDefault(u => u.Password == cPwd);
                     // Als de vorige niet werkt dan deze proberen.
@@ -122,8 +123,10 @@ namespace DHDomtica.Controllers
                     }
                     else
                     {
-                        p.Password = userModel.Password;
-                        DHDomoticadbModel.Entry(userModel).State = System.Data.Entity.EntityState.Modified;
+                        p.Password = Crypto.Hash(userModel.ChangePassword);
+                        p.ConfirmPassword = Crypto.Hash(userModel.ChangePassword);
+                        DHDomoticadbModel.Entry(DHDomoticadbModel.User).State = System.Data.Entity.EntityState.Modified;
+                        // Vorige regel moet aangepast worden aan dat het in de goede model gegooid wordt. DHDomoticadbModel.User of p. Ik weet niet welke goed is.
                         DHDomoticadbModel.SaveChanges();
                         ModelState.Clear();
                         return RedirectToAction("PersonalInformation", "UserProfile");
