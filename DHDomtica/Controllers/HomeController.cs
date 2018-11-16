@@ -33,6 +33,16 @@ namespace DHDomtica.Controllers
             return View();
         }
 
+        public ActionResult BlogDom()
+        {
+            return View();
+        }
+
+        public ActionResult BlogAlexa()
+        {
+            return View();
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -43,13 +53,6 @@ namespace DHDomtica.Controllers
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
-            return View();
-        }
-
-       public ActionResult ShoppingCart()
-        {
-            ViewBag.Message = "Welcome in the shoppingcart";
-
             return View();
         }
 

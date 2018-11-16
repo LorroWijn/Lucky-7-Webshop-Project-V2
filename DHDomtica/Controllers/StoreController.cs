@@ -70,5 +70,12 @@ namespace DHDomtica.Controllers
             };
             return View(ProductList);
         }
+
+        public ActionResult ShoppingCart()
+        {
+            ViewBag.Message = "Welcome in the shoppingcart";
+
+            return View();
+        }
     }
 }
