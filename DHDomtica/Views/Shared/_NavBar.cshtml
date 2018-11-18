@@ -54,13 +54,14 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                @*if (Login is true?)
-                {
-                    Controller info and changed button
-                  }else
-                  {*@
-                  @Html.ActionLink("Login", "SignInPage", "SignIn", null, new { @class = "nav-link" })
-                  @*}*@
+                    @if (HomeController.LoggedIn == true)
+                    {
+                        @Html.ActionLink(HomeController.HelloWorld, "Index", "UserProfile", null, new { @class = "nav-link" });
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Login", "SignInPage", "SignIn", null, new { @class = "nav-link" });
+                    }
                 </li>
             </ul>
         </div>

@@ -11,6 +11,7 @@ namespace DHDomtica.Controllers
 {
     public class UserProfileController : Controller
     {
+        
         // GET: UserProfile
         // Orderstatus is index. Alle code van orderstatus hierna
         public ActionResult Index()
@@ -49,6 +50,8 @@ namespace DHDomtica.Controllers
             return View();
             // User usermodel regel veranderen in dat deze ingevuld wordt door de database.
         }
+
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -134,7 +137,6 @@ namespace DHDomtica.Controllers
                         //Either: 1) UpdateAccount is not a type in your DbContext models OR 
                         //2) It is a type but you still have to retrieve the instance first OR attach this instance to the DbContext. 
                     }
-
                 }
             }
         }

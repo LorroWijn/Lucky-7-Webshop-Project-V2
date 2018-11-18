@@ -9,11 +9,13 @@ using System.Web;
 using System.Web.Mvc;
 using DHDomtica.Models;
 
-
 namespace DHDomtica.Controllers
 {
     public class HomeController : Controller
     {
+        public static bool LoggedIn;
+        public static string HelloWorld;
+
         //Begin database connection
         private DHDomoticaDBEntities _context;
 
@@ -29,8 +31,22 @@ namespace DHDomtica.Controllers
         //End of Database connection
         public ActionResult Index()
         {
-            ShowSidebar();
-            return View();
+            
+            if (System.Web.HttpContext.Current.Request.Cookies["UserEMail"] != null)
+            {
+                HttpCookie NewCookie = Request.Cookies["UserName"];
+                HelloWorld = NewCookie.Value;
+                LoggedIn = true;
+                ShowSidebar();
+                return View();
+            }
+            else
+            {
+                LoggedIn = false;
+                ShowSidebar();
+                return View();
+            }
+
         }
 
         public ActionResult BlogDom()
