@@ -182,6 +182,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\EmailFormModel.cs" />
     <Compile Include="Models\UserPasswordChange.cs" />
     <Compile Include="Supportclasses\Crypto.cs" />
     <Compile Include="Models\DHDomoticaDBModels.Context.cs">
@@ -378,6 +379,7 @@
     <Content Include="Views\Shared\_Grid.cshtml" />
     <Content Include="Views\Store\Products.cshtml" />
     <Content Include="Views\Store\Pagination.cshtml" />
+    <Content Include="Views\Home\Sent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -8,6 +8,8 @@ using System.Runtime.Remoting.Messaging;
 using System.Web;
 using System.Web.Mvc;
 using DHDomtica.Models;
+using System.Net.Mail;
+using System.Threading.Tasks;
 
 namespace DHDomtica.Controllers
 {
@@ -66,9 +68,40 @@ namespace DHDomtica.Controllers
             return View();
         }
 
-        public ActionResult Contact()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Contact(EmailFormModel model)
         {
-            ViewBag.Message = "Your contact page.";
+            if (ModelState.IsValid)
+            {
+                var body = "<p>Email From: {0} ({1})</p><p>Message:</p><p>{2}</p>";
+                var message = new MailMessage();
+                message.To.Add(new MailAddress("Timvan_leeuwen@Live.nl"));  // replace with valid value 
+                message.From = new MailAddress("Timvan_leeuwen@Live.nl");  // replace with valid value
+                message.Subject = "Your email subject";
+                message.Body = string.Format(body, model.FromName, model.FromEmail, model.Message);
+                message.IsBodyHtml = true;
+
+                using (var smtp = new SmtpClient())
+                {
+                    var credential = new NetworkCredential
+                    {
+                        UserName = "Timvan_leeuwen@Live.nl",  // replace with valid value
+                        Password = "fr12-1993"  // replace with valid value
+                    };
+                    smtp.Credentials = credential;
+                    smtp.Host = "smtp-mail.outlook.com";
+                    smtp.Port = 587;
+                    smtp.EnableSsl = true;
+                    await smtp.SendMailAsync(message);
+                    return RedirectToAction("Sent");
+                }
+            }
+            return View(model);
+        }
+
+        public ActionResult Sent()
+        {
             return View();
         }
 
