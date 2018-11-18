@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Product>
+@using DHDomtica.Models
+@using System.Web.Mvc.Html
+@using GridMvc.Html;
+@{
+    ViewBag.Title = "Products page biatch";
+}
+
+<h2>Category name</h2>
+
+@Html.Grid(Model).Columns(columns =>
+{
+    /* Adding not mapped column, that renders body, using inline Razor html helper */
+    columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(d =>
+            @<b>
+                @Html.ActionLink("Edit", "ProductDetails/"+d.ID)
+            </b>);
+
+    /* Adding "OrderID" column: */
+    columns.Add(o => o.Name)
+        .Titled("Product ID")
+        .SetWidth(100);
+
+    /* Adding "OrderID" column: */
+    columns.Add(o => o.Description)
+        .Titled("Product Name")
+        .SetWidth(100);
+
+ 
+
+
+})WithPaging(15).Sortable().Filterable().WithMultipleFilters();

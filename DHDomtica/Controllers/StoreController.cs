@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Common.CommandTrees;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -68,6 +70,44 @@ namespace DHDomtica.Controllers
                 Products = db.Product.Where(c => c.MainCategoryID.Equals(id)).ToList().AsEnumerable()
 
             };
+            return View(ProductList);
+        }
+
+        //Generating ProductList by category ID
+        public ActionResult Products(int id)
+        {
+            ShowSidebar();
+
+            return View(db.Set<Product>());
+        }
+        //pagination
+        public ActionResult Pagination(int categoryId, int pageId)
+        {
+            ShowSidebar();
+
+            ViewBag.PageId = pageId;
+            var categorie = db.MainCategory.SingleOrDefault(c => c.ID == categoryId);
+
+            if (categorie == null)
+                return HttpNotFound();
+
+            int items = 12;
+            int skipPages = 0;
+            /*var maxProducts = db.Product.Where(c => c.MainCategoryID.Equals(categoryId)).ToList().AsEnumerable();
+            int maxPages = maxProducts / 12;*/
+            if (pageId > 1)
+            {
+                skipPages = items * pageId;
+            }
+            
+
+            var ProductList = new MainCategoryViewModel()
+            {
+                Category = categorie,
+                Products = db.Product.Where(c => c.MainCategoryID.Equals(categoryId)).ToList().AsEnumerable().Skip(skipPages).Take(items)
+                
+            };
+
             return View(ProductList);
         }
 

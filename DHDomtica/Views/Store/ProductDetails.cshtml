@@ -16,12 +16,13 @@
             @*<span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
             4.0 stars*@
             <hr>
-            @*<a href="#" class="btn btn-success">add to cart</a>*@
+            <a href="#" class="btn btn-success">In winkelwagen</a>
         </div>
     </div>
 </div>
 <hr/>
 <p>
     @*@Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |*@
-    @Html.ActionLink("Back to List", "Categories", new { id  = Model.MainCategory.ID}, new{@class="btn btn-success"})
+    @*@Html.ActionLink("Back to List", "Categories", new { id = Model.MainCategory.ID }, new { @class = "btn btn-success" })*@
+    @Html.ActionLink("Terug", "Pagination", new { categoryId = Model.MainCategory.ID, pageId = (ViewBag.PageId) }, new { @class = "btn btn-success" })
 </p>
