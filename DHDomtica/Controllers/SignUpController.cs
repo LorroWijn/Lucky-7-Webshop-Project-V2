@@ -61,21 +61,13 @@ namespace DHDomtica.Controllers
             var message = new MailMessage();
             message.To.Add(new MailAddress(userModel.EMail));  // replace with valid value 
             message.From = new MailAddress("DHDomotica@outlook.com");  // replace with valid value
-            message.Subject = "Your email subject";
+            message.Subject = "Account registratie";
             message.Body = body;
             message.IsBodyHtml = true;
 
             using (var smtp = new SmtpClient())
             {
-                var credential = new NetworkCredential
-                {
-                    UserName = "DHDomotica@outlook.com",  // replace with valid value
-                    Password = "DHDadmin"  // replace with valid value
-                };
-                smtp.Credentials = credential;
-                smtp.Host = "smtp-mail.outlook.com";
-                smtp.Port = 587;
-                smtp.EnableSsl = true;
+
                 await smtp.SendMailAsync(message);
                 ViewBag.SuccessMessage = "Uw account is geregistreerd";
                 //return View("SignUpPage", new User());
