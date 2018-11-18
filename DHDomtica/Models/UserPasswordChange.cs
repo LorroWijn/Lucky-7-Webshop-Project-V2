@@ -22,7 +22,7 @@ namespace DHDomtica.Models
         [DataType(DataType.Password)]
         [DisplayName("Bevestig wachtwoord")]
         [Required(ErrorMessage = "Bevestig Uw nieuwe wachtwoord")]
-        [Compare("Password")]
+        [Compare("ChangePassword")]
         public string ChangeConfirmPassword { get; set; }
     }
 }

@@ -94,6 +94,7 @@ namespace DHDomtica.Controllers
 
         }
 
+        [HttpGet]
         //Alles van wachtwoord veranderen hierna
         public ActionResult ChangePassword()
         {
@@ -104,7 +105,7 @@ namespace DHDomtica.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult SignInPage(UserPasswordChange userModel)
+        public ActionResult ChangePassword(UserPasswordChange userModel)
         {
             int idCook = Convert.ToInt32(Request.Cookies["UserID"].Value);
             using (DHDomoticaDBEntities DHDomoticadbModel = new DHDomoticaDBEntities())
@@ -115,11 +116,11 @@ namespace DHDomtica.Controllers
                 var chPwVer = userModel.ChangeConfirmPassword;
                 if (x.Password == oldPw && chPw == chPwVer)
                 {
+                    chPw = Crypto.Hash(chPw);
                     x.Password = chPw;
                 }
             }
             return RedirectToAction("PersonalInformation", "UserProfile");
-
             //using (DHDomoticaDBEntities DHDomoticadbModel = new DHDomoticaDBEntities())
             //{
             //    if (userModel.ChangePassword == null)
@@ -155,6 +156,9 @@ namespace DHDomtica.Controllers
             //            // The error stems from line entity.Entry(account). 
             //            //Either: 1) UpdateAccount is not a type in your DbContext models OR 
             //            //2) It is a type but you still have to retrieve the instance first OR attach this instance to the DbContext. 
+            //        }
+            //    }
+            //}
         }
     }
 }
