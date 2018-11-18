@@ -68,6 +68,11 @@ namespace DHDomtica.Controllers
             return View();
         }
 
+        public ActionResult Contact()
+        {
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Contact(EmailFormModel model)
@@ -76,8 +81,8 @@ namespace DHDomtica.Controllers
             {
                 var body = "<p>Email From: {0} ({1})</p><p>Message:</p><p>{2}</p>";
                 var message = new MailMessage();
-                message.To.Add(new MailAddress("Timvan_leeuwen@Live.nl"));  // replace with valid value 
-                message.From = new MailAddress("Timvan_leeuwen@Live.nl");  // replace with valid value
+                message.To.Add(new MailAddress("DHDomotica@outlook.com"));  // replace with valid value 
+                message.From = new MailAddress("DHDomotica@outlook.com");  // replace with valid value
                 message.Subject = "Your email subject";
                 message.Body = string.Format(body, model.FromName, model.FromEmail, model.Message);
                 message.IsBodyHtml = true;
@@ -86,8 +91,8 @@ namespace DHDomtica.Controllers
                 {
                     var credential = new NetworkCredential
                     {
-                        UserName = "Timvan_leeuwen@Live.nl",  // replace with valid value
-                        Password = "fr12-1993"  // replace with valid value
+                        UserName = "DHDomotica@outlook.com",  // replace with valid value
+                        Password = "DHDadmin"  // replace with valid value
                     };
                     smtp.Credentials = credential;
                     smtp.Host = "smtp-mail.outlook.com";
