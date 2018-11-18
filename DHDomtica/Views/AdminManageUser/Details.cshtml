@@ -1,9 +1,5 @@
 ﻿@model DHDomtica.Models.User
 
-@{
-    Layout = null;
-}
-
 <!DOCTYPE html>
 
 <html>
@@ -19,83 +15,83 @@
             <dt>
                 @Html.DisplayNameFor(model => model.FirstName)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.FirstName)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.LastName)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.LastName)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.Gender)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.Gender)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.EMail)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.EMail)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.Password)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.Password)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.Country)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.Country)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.Province)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.Province)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.City)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.City)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.ZipCode)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.ZipCode)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.BillingAddress)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.BillingAddress)
             </dd>
-    
+
         </dl>
     </div>
     <p>
@@ -104,3 +100,7 @@
     </p>
 </body>
 </html>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

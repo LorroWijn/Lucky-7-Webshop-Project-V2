@@ -1,9 +1,5 @@
 ﻿@model DHDomtica.Models.Product
 
-@{
-    Layout = null;
-}
-
 <!DOCTYPE html>
 
 <html>
@@ -20,56 +16,57 @@
             <dt>
                 @Html.DisplayNameFor(model => model.Name)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.Name)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.Description)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.Description)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.Price)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.Price)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.Image)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.Image)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.URL)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.URL)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.MainCategory.Name)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.MainCategory.Name)
             </dd>
-    
+
         </dl>
-    
-        @using (Html.BeginForm()) {
+
+        @using (Html.BeginForm())
+        {
             @Html.AntiForgeryToken()
-    
+
             <div class="form-actions no-color">
                 <input type="submit" value="Verwijder product" class="btn btn-default" /> |
                 @Html.ActionLink("Terug naar productenlijst", "Index")
@@ -78,3 +75,7 @@
     </div>
 </body>
 </html>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

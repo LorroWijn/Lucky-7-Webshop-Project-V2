@@ -7,10 +7,12 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DHDomtica.Models;
+using DHDomtica.Supportclasses;
+using System.Data.Entity.Infrastructure;
 
 namespace DHDomtica.Controllers
 {
-    public class ProductsController : Controller
+    public class AdminManageProductsController : Controller
     {
         private DHDomoticaDBEntities db = new DHDomoticaDBEntities();
 
@@ -18,7 +20,15 @@ namespace DHDomtica.Controllers
         public ActionResult Index()
         {
             var product = db.Product.Include(p => p.MainCategory);
+            ShowAdminSidebar();
             return View(product.ToList());
+        }
+
+        //Code for the AdminsideBar
+        private void ShowAdminSidebar()
+        {
+            System.Diagnostics.Debug.WriteLine($"AdminSidebar {Request.RawUrl}");
+            ViewBag.ShowAdminSideBar = true;
         }
 
         // GET: Products/Details/5
@@ -33,6 +43,7 @@ namespace DHDomtica.Controllers
             {
                 return HttpNotFound();
             }
+            ShowAdminSidebar();
             return View(product);
         }
 
@@ -40,6 +51,7 @@ namespace DHDomtica.Controllers
         public ActionResult Create()
         {
             ViewBag.MainCategoryID = new SelectList(db.MainCategory, "ID", "Name");
+            ShowAdminSidebar();
             return View();
         }
 
@@ -50,19 +62,26 @@ namespace DHDomtica.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,Name,Description,Price,Image,MainCategoryID,URL")] Product product)
         {
-            if (ModelState.IsValid)
+            if (db.Product.Any(p => p.Name == product.Name))
+            {
+                ShowAdminSidebar();
+                ViewBag.MainCategoryID = new SelectList(db.MainCategory, "ID", "Name", product.MainCategoryID);
+                return View("Create", product);
+            }
+            else
             {
                 db.Product.Add(product);
                 db.SaveChanges();
+                ShowAdminSidebar();
                 return RedirectToAction("Index");
             }
-
+            // Volgende code is de foreign key van maincategory in de productenlijst
             ViewBag.MainCategoryID = new SelectList(db.MainCategory, "ID", "Name", product.MainCategoryID);
             return View(product);
         }
 
-        // GET: Products/Edit/5
-        public ActionResult Edit(int? id)
+            // GET: Products/Edit/5
+            public ActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -74,6 +93,7 @@ namespace DHDomtica.Controllers
                 return HttpNotFound();
             }
             ViewBag.MainCategoryID = new SelectList(db.MainCategory, "ID", "Name", product.MainCategoryID);
+            ShowAdminSidebar();
             return View(product);
         }
 
@@ -84,14 +104,19 @@ namespace DHDomtica.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,Name,Description,Price,Image,MainCategoryID,URL")] Product product)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
+            {
+                ShowAdminSidebar();
+                ViewBag.MainCategoryID = new SelectList(db.MainCategory, "ID", "Name", product.MainCategoryID);
+                return View("Edit", product);
+            }
+            else
             {
                 db.Entry(product).State = EntityState.Modified;
                 db.SaveChanges();
+                ShowAdminSidebar();
                 return RedirectToAction("Index");
             }
-            ViewBag.MainCategoryID = new SelectList(db.MainCategory, "ID", "Name", product.MainCategoryID);
-            return View(product);
         }
 
         // GET: Products/Delete/5
@@ -106,6 +131,7 @@ namespace DHDomtica.Controllers
             {
                 return HttpNotFound();
             }
+            ShowAdminSidebar();
             return View(product);
         }
 
@@ -117,6 +143,7 @@ namespace DHDomtica.Controllers
             Product product = db.Product.Find(id);
             db.Product.Remove(product);
             db.SaveChanges();
+            ShowAdminSidebar();
             return RedirectToAction("Index");
         }
 

@@ -28,29 +28,26 @@ namespace DHDomtica.Models
         [Required(ErrorMessage = "Vul een productbeschrijving in in")]
         public string Description { get; set; }
 
-        [DataType(DataType.Text)]
+        [DataType(DataType.Currency)]
         [DisplayName("Productprijs")]
         [Required(ErrorMessage = "Vul een productprijs in")]
         public float Price { get; set; }
 
-        [DataType(DataType.Text)]
+        [DataType(DataType.ImageUrl)]
         [DisplayName("Productafbeelding")]
         [Required(ErrorMessage = "Vul een URL voor het plaatje van Uw product in")]
         public string Image { get; set; }
 
-        [DataType(DataType.Text)]
         [DisplayName("Productcategorie")]
         [Required(ErrorMessage = "Vul een categorienummer van Uw product in")]
         public int MainCategoryID { get; set; }
 
-        [DataType(DataType.Text)]
+        [DataType(DataType.Url)]
         [DisplayName("Pagina URL")]
         [Required(ErrorMessage = "Vul de URL van de productpagina in")]
         public string URL { get; set; }
 
-        [DataType(DataType.Text)]
         [DisplayName("Productcategorie")]
-        [Required(ErrorMessage = "Vul de categorie van het product in")]
         public virtual MainCategory MainCategory { get; set; }
     }
 }

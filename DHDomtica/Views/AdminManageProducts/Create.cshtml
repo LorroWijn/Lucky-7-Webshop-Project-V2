@@ -1,9 +1,5 @@
 ﻿@model DHDomtica.Models.Product
 
-@{
-    Layout = null;
-}
-
 <!DOCTYPE html>
 
 <html>
@@ -12,10 +8,10 @@
     <title>Product aanmaken</title>
 </head>
 <body>
-    @using (Html.BeginForm()) 
+    @using (Html.BeginForm("Create", "AdminManageProducts", FormMethod.Post))
     {
         @Html.AntiForgeryToken()
-        
+
         <div class="form-horizontal">
             <h4>Product</h4>
             <hr />
@@ -27,7 +23,7 @@
                     @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                 </div>
             </div>
-    
+
             <div class="form-group">
                 @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -35,7 +31,7 @@
                     @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                 </div>
             </div>
-    
+
             <div class="form-group">
                 @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -43,7 +39,7 @@
                     @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
                 </div>
             </div>
-    
+
             <div class="form-group">
                 @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -51,7 +47,7 @@
                     @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
                 </div>
             </div>
-    
+
             <div class="form-group">
                 @Html.LabelFor(model => model.MainCategoryID, "MainCategoryID", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -59,7 +55,7 @@
                     @Html.ValidationMessageFor(model => model.MainCategoryID, "", new { @class = "text-danger" })
                 </div>
             </div>
-    
+
             <div class="form-group">
                 @Html.LabelFor(model => model.URL, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -67,7 +63,7 @@
                     @Html.ValidationMessageFor(model => model.URL, "", new { @class = "text-danger" })
                 </div>
             </div>
-    
+
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" value="Product aanmaken" class="btn btn-default" />
@@ -75,9 +71,13 @@
             </div>
         </div>
     }
-    
+
     <div>
         @Html.ActionLink("Terug naar productenlijst", "Index")
     </div>
 </body>
 </html>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

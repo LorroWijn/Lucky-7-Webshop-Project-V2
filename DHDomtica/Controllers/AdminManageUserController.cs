@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DHDomtica.Models;
+using DHDomtica.Supportclasses;
 
 namespace DHDomtica.Controllers
 {
@@ -17,7 +18,15 @@ namespace DHDomtica.Controllers
         // GET: AdminManageUser
         public ActionResult Index()
         {
+            ShowAdminSidebar();
             return View(db.User.ToList());
+        }
+
+        //Code for the AdminsideBar
+        private void ShowAdminSidebar()
+        {
+            System.Diagnostics.Debug.WriteLine($"AdminSidebar {Request.RawUrl}");
+            ViewBag.ShowAdminSideBar = true;
         }
 
         // GET: AdminManageUser/Details/5
@@ -32,6 +41,7 @@ namespace DHDomtica.Controllers
             {
                 return HttpNotFound();
             }
+            ShowAdminSidebar();
             return View(user);
         }
 
@@ -48,14 +58,20 @@ namespace DHDomtica.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,FirstName,LastName,Gender,EMail,Password,ConfirmPassword,Country,Province,City,ZipCode,BillingAddress")] User user)
         {
-            if (ModelState.IsValid)
+            user.Password = Crypto.Hash(user.Password);
+            user.ConfirmPassword = Crypto.Hash(user.ConfirmPassword);
+            if (db.User.Any(x => x.EMail == user.EMail))
+            {
+                ViewBag.DuplicateMessage = "E-mail is al in gebruik. Probeer een ander E-mailadres";
+                ShowAdminSidebar();
+                return View("Create", user);
+            }
+            else
             {
                 db.User.Add(user);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            return View(user);
         }
 
         // GET: AdminManageUser/Edit/5
@@ -70,6 +86,7 @@ namespace DHDomtica.Controllers
             {
                 return HttpNotFound();
             }
+            ShowAdminSidebar();
             return View(user);
         }
 
@@ -78,14 +95,18 @@ namespace DHDomtica.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,FirstName,LastName,Gender,EMail,Password,Country,Province,City,ZipCode,BillingAddress")] User user)
+        public ActionResult Edit([Bind(Include = "ID,FirstName,LastName,Gender,EMail,Password,ConfirmPassword,Country,Province,City,ZipCode,BillingAddress")] User user)
         {
+            user.Password = Crypto.Hash(user.Password);
+            user.ConfirmPassword = Crypto.Hash(user.ConfirmPassword);
             if (ModelState.IsValid)
             {
                 db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
+                ShowAdminSidebar();
                 return RedirectToAction("Index");
             }
+            ShowAdminSidebar();
             return View(user);
         }
 
@@ -101,6 +122,7 @@ namespace DHDomtica.Controllers
             {
                 return HttpNotFound();
             }
+            ShowAdminSidebar();
             return View(user);
         }
 
@@ -112,6 +134,7 @@ namespace DHDomtica.Controllers
             User user = db.User.Find(id);
             db.User.Remove(user);
             db.SaveChanges();
+            ShowAdminSidebar();
             return RedirectToAction("Index");
         }
 
