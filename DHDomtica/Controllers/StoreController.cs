@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Data.Entity.Core.Common.CommandTrees;
 using System.Drawing.Printing;
 using System.Linq;
@@ -18,7 +20,7 @@ namespace DHDomtica.Controllers
         // GET: Store
         public ActionResult Index()
         {
-            
+
             return View();
         }
 
@@ -37,6 +39,37 @@ namespace DHDomtica.Controllers
             }
             ShowSidebar();
             return View(product);
+
+        }
+        public ActionResult AddToCart(int product)
+        {
+
+            if (Session["cart"] == null)
+            {
+                List<int> products = new List<int>();
+
+                products.Add(product);
+                Session["cart"] = products;
+                ViewBag.cart = products.Count();
+                
+
+                Session["count"] = 1;
+
+
+            }
+            else
+            {
+                List<int> products = (List<int>)Session["cart"];
+                products.Add(product);
+                Session["cart"] = products;
+                ViewBag.cart = products.Count();
+                Session["count"] = Convert.ToInt32(Session["count"]) + 1;
+
+            }
+
+            return RedirectToAction("ShoppingCart", "Store");
+
+
         }
 
         //Todo: Make this work
@@ -99,13 +132,13 @@ namespace DHDomtica.Controllers
             {
                 skipPages = items * pageId;
             }
-            
+
 
             var ProductList = new MainCategoryViewModel()
             {
                 Category = categorie,
                 Products = db.Product.Where(c => c.MainCategoryID.Equals(categoryId)).ToList().AsEnumerable().Skip(skipPages).Take(items)
-                
+
             };
 
             return View(ProductList);
@@ -113,9 +146,27 @@ namespace DHDomtica.Controllers
 
         public ActionResult ShoppingCart()
         {
-            ViewBag.Message = "Welcome in the shoppingcart";
 
-            return View();
+            //products = (List<Product>)Session["cart"];
+            //    products = db.Product.Where(p => p.Equals(product));
+            //    ViewBag.Message = "Count = " + Session["count"].ToString();
+            var products = db.Product.Where(p => p.Name.Equals("feyenoord"));
+            IEnumerable<Product> ProductList = products.AsEnumerable();
+          
+            List<int> IDS = (List<int>)Session["cart"];
+            if (IDS != null)
+            {
+                foreach (int i in IDS)
+                {
+
+                    products = db.Product.Where(p => p.ID.Equals(i));
+                    ProductList = ProductList.Concat(products.AsEnumerable());
+
+                }
+            }
+                return View(ProductList.ToList());
+
+
         }
     }
 }

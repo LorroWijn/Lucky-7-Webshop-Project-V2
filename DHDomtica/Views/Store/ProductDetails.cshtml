@@ -4,6 +4,7 @@
     ViewBag.Title = "ProductDetails";
 }
 
+<h3>@ViewBag.Message</h3>
 <div class="col-lg-10">
 
     <div class="card mt-4">
@@ -14,13 +15,24 @@
             <h4> @Html.DisplayFor(model => model.Price)</h4>
             <p class="card-text">@Html.DisplayFor(model => model.Description)</p>
             @*<span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
-            4.0 stars*@
+        4.0 stars*@
             <hr>
-            <a href="#" class="btn btn-success">In winkelwagen</a>
+            @using (Html.BeginForm("AddToCart", "Store"))
+            {
+                @*<div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" name="product" value="product" class="btn btn-default" />
+                </div>
+            </div>*@
+
+                <a id="btn_add" href="@Url.Action("AddToCart", "Store", new {product = Model.ID })" class="btn btn-info btn-lg" style="margin-left:60px">
+                    <span class="glyphicon glyphicon-shopping-cart"></span> Add To Cart
+                </a>
+            }
         </div>
     </div>
 </div>
-<hr/>
+<hr />
 <p>
     @*@Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |*@
     @*@Html.ActionLink("Back to List", "Categories", new { id = Model.MainCategory.ID }, new { @class = "btn btn-success" })*@
