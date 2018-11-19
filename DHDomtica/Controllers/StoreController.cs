@@ -60,11 +60,16 @@ namespace DHDomtica.Controllers
             else
             {
                 List<int> products = (List<int>)Session["cart"];
-                products.Add(product);
-                Session["cart"] = products;
-                ViewBag.cart = products.Count();
-                Session["count"] = Convert.ToInt32(Session["count"]) + 1;
-
+                var contains = products.Where(c => c.Equals(product));
+                
+                    if(!products.Contains(product))
+                {
+                    products.Add(product);
+                    Session["cart"] = products;
+                    ViewBag.cart = products.Count();
+                    Session["count"] = Convert.ToInt32(Session["count"]) + 1;
+                    contains = null;
+                }
             }
 
             return RedirectToAction("ShoppingCart", "Store");
@@ -146,10 +151,7 @@ namespace DHDomtica.Controllers
 
         public ActionResult ShoppingCart()
         {
-
-            //products = (List<Product>)Session["cart"];
-            //    products = db.Product.Where(p => p.Equals(product));
-            //    ViewBag.Message = "Count = " + Session["count"].ToString();
+            
             var products = db.Product.Where(p => p.Name.Equals("feyenoord"));
             IEnumerable<Product> ProductList = products.AsEnumerable();
           
@@ -157,13 +159,13 @@ namespace DHDomtica.Controllers
             if (IDS != null)
             {
                 foreach (int i in IDS)
-                {
-
+                {   
+                    
                     products = db.Product.Where(p => p.ID.Equals(i));
                     ProductList = ProductList.Concat(products.AsEnumerable());
-
+                    
                 }
-            }
+            }         
                 return View(ProductList.ToList());
 
 
