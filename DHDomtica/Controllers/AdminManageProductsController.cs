@@ -17,13 +17,17 @@ namespace DHDomtica.Controllers
         private DHDomoticaDBEntities db = new DHDomoticaDBEntities();
 
         // GET: Products
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
             var product = db.Product.Include(p => p.MainCategory);
-            ShowAdminSidebar();
-            return View(product.ToList());
+            if(!string.IsNullOrEmpty(searchString))
+            {
+                product = db.Product.Where(p => p.Name.Contains(searchString));
+            }
+                ShowAdminSidebar();
+                return View(product.ToList());
+            
         }
-
         //Code for the AdminsideBar
         private void ShowAdminSidebar()
         {
