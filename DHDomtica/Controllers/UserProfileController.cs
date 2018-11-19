@@ -58,40 +58,38 @@ namespace DHDomtica.Controllers
         public ActionResult ChangePersonalInformation(User userModel)
         {
 
-            return RedirectToAction("PersonalInformation", "UserProfile");
-            //using (DHDomoticaDBEntities DHDomoticadbModel = new DHDomoticaDBEntities())
-            //{
-            //    if (userModel.Password == null)
-            //    {
-            //        //geen wachtwoord ingevuld
-            //        ViewBag.BadPasswordMessage = "Uw ingevulde wachtwoord komt niet overeen met Uw huidige wachtwoord";
-            //        return View("ChangePersonalInformation", userModel);
-            //    }
-            //    else
-            //    {
-            //        var ePwd = Crypto.Hash(userModel.Password);
-            //        var p = DHDomoticadbModel.User.Where(u => u.Password == ePwd).FirstOrDefault();
+           
+            using (DHDomoticaDBEntities DHDomoticadbModel = new DHDomoticaDBEntities())
+            {
+                if (userModel.Password == null)
+                {
+                    //geen wachtwoord ingevuld
+                    ViewBag.BadPasswordMessage = "Uw ingevulde wachtwoord komt niet overeen met Uw huidige wachtwoord";
+                    return View("ChangePersonalInformation", userModel);
+                }
+                else
+                {
+                    var ePwd = Crypto.Hash(userModel.Password);
+                    var p = DHDomoticadbModel.User.Where(u => u.Password == ePwd).FirstOrDefault();
 
-            //        if (p == null)
-            //        {
-            //            //geen goede huidige wachtwoord ingevuld
-            //            ViewBag.BadPasswordMessage = "Uw ingevulde wachtwoord komt niet overeen met Uw huidige wachtwoord";
-            //            return View("ChangePersonalInformation", userModel);
-            //        }
-            //        else
-            //        {
-            //            DHDomoticadbModel.Entry(userModel).State = System.Data.Entity.EntityState.Modified;
-            //            DHDomoticadbModel.SaveChanges();
-            //            // Misschien ook hier de entries aanpassen, zodat de goede worden gepakt.
-            //            ModelState.Clear();
-            //            return RedirectToAction("PersonalInformation", "UserProfile");
-            //        }
+                    if (p == null)
+                    {
+                        //geen goede huidige wachtwoord ingevuld
+                        ViewBag.BadPasswordMessage = "Uw ingevulde wachtwoord komt niet overeen met Uw huidige wachtwoord";
+                        return View("ChangePersonalInformation", userModel);
+                    }
+                    else
+                    {
+                        DHDomoticadbModel.Entry(userModel).State = System.Data.Entity.EntityState.Modified;
+                        DHDomoticadbModel.SaveChanges();
+                        // Misschien ook hier de entries aanpassen, zodat de goede worden gepakt.
+                        ModelState.Clear();
+                        return RedirectToAction("PersonalInformation", "UserProfile");
+                    }
 
-            //    }
-            //}
-
-
-
+                }
+            }
+            //return RedirectToAction("PersonalInformation", "UserProfile");
         }
 
         [HttpGet]
@@ -118,6 +116,7 @@ namespace DHDomtica.Controllers
                 {
                     chPw = Crypto.Hash(chPw);
                     x.Password = chPw;
+                    DHDomoticadbModel.SaveChanges();
                 }
             }
             return RedirectToAction("PersonalInformation", "UserProfile");
