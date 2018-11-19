@@ -46,8 +46,8 @@ namespace DHDomtica.Models
 
         [DataType(DataType.Password)]
         [DisplayName("Bevestig wachtwoord")]
-        [Required(ErrorMessage = "Bevestig Uw wachtwoord")]
-        [Compare("Password")]
+        //[Required(ErrorMessage = "Bevestig Uw wachtwoord")]
+        //[Compare("Password")]
         public string ConfirmPassword { get; set; }
 
         [DataType(DataType.Text)]

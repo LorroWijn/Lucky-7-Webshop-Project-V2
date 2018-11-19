@@ -52,9 +52,20 @@ namespace DHDomtica.Controllers
                     ViewBag.DuplicateMessage = "E-mail is al in gebruik. Probeer een ander E-mailadres";
                     return View("SignUpPage", userModel);
                 }
-
-                DHDomoticadbModel.User.Add(userModel);
-                DHDomoticadbModel.SaveChanges();
+                else
+                {
+                    //TODO: User model moet confirm password kwijtraken anders wordt het te chaotisch
+                    if (userModel.Password == userModel.ConfirmPassword)
+                    {
+                        DHDomoticadbModel.User.Add(userModel);
+                        DHDomoticadbModel.SaveChanges();
+                    }
+                    else
+                    {
+                        ViewBag.NonDuplicateMessage = "Wachtwoorden komen niet overeen";
+                        return View("SignUpPage", userModel);
+                    }
+                }
             }
             ModelState.Clear();
             var body = "Uw account voor de website DHDomotica is succesvol aangemaakt.";
