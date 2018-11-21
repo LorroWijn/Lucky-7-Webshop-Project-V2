@@ -40,7 +40,7 @@
         {
             <tr>
 
-                <td>@Html.ActionLink(@item.Product.Name, "ProductDetails/"+item.Product.ID)</td>
+                <td>@Html.ActionLink(@item.Product.Name, "ProductDetails/" + item.Product.ID)</td>
                 @{ string ShorterString = item.Product.Description;
                     if (ShorterString.Length > 100)
                     {
@@ -49,19 +49,24 @@
                 }
                 <td>@ShorterString</td>
                 <td>€@item.Product.Price</td>
-                <td><img class="card-img-top img-fluid" src="@item.Product.Image" alt="Image"></td>
-                <td>@Html.ActionLink(@item.Product.MainCategory.Name, "Pagination/"+@item.Product.MainCategory.ID+"/1")</td>
-                <td>@item.Quantity
-                <button id="+" class="label label-primary" onclick="location.href='@Url.Action("AddToCart", "Store", new { product = item.Product.ID })'">+</button>
-                <button id="-" class="label label-primary" onclick="location.href='@Url.Action("RemoveOne", "Store", new { product = item.Product.ID })'">-</button>
+                <td style="cursor:pointer;" onclick="location.href='@item.Product.Image'">
+                    <img class="card-img-top img-fluid" src="@item.Product.Image" alt="Image">
+                </td>
+
+                @*<td><img class="card-img-top img-fluid" src="@item.Product.Image" alt="Image"></td>*@
+                <td>@Html.ActionLink(@item.Product.MainCategory.Name, "Pagination/" + @item.Product.MainCategory.ID + "/1")</td>
+                <td>
+                    @item.Quantity
+                    <button id="+" class="label label-primary" onclick="location.href='@Url.Action("AddToCart", "Store", new { product = item.Product.ID })'">+</button>
+                    <button id="-" class="label label-primary" onclick="location.href='@Url.Action("RemoveOne", "Store", new { product = item.Product.ID })'">-</button>
                 </td>
                 <td>€@(item.Product.Price * item.Quantity)</td>
                 <td>
-                    <button id="btn_remove" class="label label-primary" onclick="location.href='@Url.Action("Remove", "Store", new { product = item.Product.ID })'"><img src="~/Icons/delete.png" height="30" width="30" /></button>
+                    <button id="btn_remove" class="label label-primary" onclick="location.href='@Url.Action("Remove", "Store", new { product = item.Product.ID })'"><img src="~/Icons/RemoveIcon.png" height="30" width="30" /></button>
                 </td>
             </tr>
-            
-        }
+
+                    }
 
         <tr>
             <td align="right" colspan="6">Totaal</td>
@@ -73,9 +78,15 @@
                 €@total
             </td>
         </tr>
-    }
-</table>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+                    }
+    </table>
+
+@if((List<ItemModel>)Session["cart"] == null)
+{
+<h5>U heeft momenteel geen producten in uw winkelmandje.</h5>
 }
+
+                    @section Scripts {
+                        @Scripts.Render("~/bundles/jqueryval")
+                    }
