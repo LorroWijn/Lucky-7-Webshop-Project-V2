@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<DHDomtica.Models.Product>
 
+
 @{
     ViewBag.Title = "ShoppingCart";
 }
@@ -28,24 +29,31 @@
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Image)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MainCategory.Name)
-            </td>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        @{ string ShorterString = item.Description;
+            if (item.Description.Length > 100)
+            {
+                ShorterString = item.Description.Substring(0, 100);
+            }
 
-        </tr>
+        }
+        <td>
+            @Html.DisplayFor(modelItem => ShorterString)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Image)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MainCategory.Name)
+        </td>
+
+    </tr>
     }
 
 </table>
