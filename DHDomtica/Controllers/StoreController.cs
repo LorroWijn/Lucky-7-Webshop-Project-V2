@@ -56,57 +56,7 @@ namespace DHDomtica.Controllers
             return View(product);
 
         }
-        public ActionResult AddToCart(int product)
-        {
-
-            if (Session["cart"] == null)
-            {
-                List<ItemModel> products = new List<ItemModel>();
-
-                products.Add(new ItemModel { Product = db.Products.FirstOrDefault(p => p.ID.Equals(product)), Quantity = 1 });
-                Session["cart"] = products;
-                ViewBag.cart = products.Count();
-                Session["count"] = 1;
-
-
-            }
-            else
-            {
-                List<ItemModel> products = (List<ItemModel>)Session["cart"];
-                int index = isExist(product);
-
-                if (index != -1)
-                {
-                    products[index].Quantity++;
-                    ViewBag.cart = products.Count();
-                    Session["count"] = Convert.ToInt32(Session["count"]) + 1;
-                }
-
-
-                else
-
-                {
-                    products.Add(new ItemModel { Product = db.Products.FirstOrDefault(p => p.ID.Equals(product)), Quantity = 1 });
-                    Session["cart"] = products;
-                    ViewBag.cart = products.Count();
-                    Session["count"] = Convert.ToInt32(Session["count"]) + 1;
-
-                }
-                Session["cart"] = products;
-            }
-
-            return RedirectToAction("ShoppingCart", "Store");
-
-
-        }
-        private int isExist(int product)
-        {
-            List<ItemModel> products = (List<ItemModel>)Session["cart"];
-            for (int i = 0; i < products.Count; i++)
-                if (products[i].Product.ID.Equals(product))
-                    return i;
-            return -1;
-        }
+       
         //Todo: Make this work
         public ActionResult Wishlist()
         {
@@ -186,9 +136,90 @@ namespace DHDomtica.Controllers
 
             return View(ProductList);
         }
-
-        public ActionResult ShoppingCart()
+        public ActionResult AddToCart(int product)
         {
+            if (Session["cart"] == null)
+            {
+                CreateCart(product);
+            }
+            else
+            {
+                List<ItemModel> products = (List<ItemModel>)Session["cart"];
+                int index = Find(product);
+                if (index != -1)
+                {
+                    AddOne(product, products, index);
+                }
+                else
+
+                {
+                    AddNew(product, products, index);
+                }
+                Session["cart"] = products;
+            }
+
+            return RedirectToAction("ShoppingCart", "Store");
+        }
+        public void CreateCart(int product)
+        {
+            List<ItemModel> products = new List<ItemModel>();
+
+            products.Add(new ItemModel { Product = db.Products.FirstOrDefault(p => p.ID.Equals(product)), Quantity = 1 });
+            Session["cart"] = products;
+            ViewBag.cart = products.Count();
+            Session["count"] = 1;
+        }
+        public void AddNew(int product, List<ItemModel> products, int index)
+        {
+            products.Add(new ItemModel { Product = db.Products.FirstOrDefault(p => p.ID.Equals(product)), Quantity = 1 });
+            Session["cart"] = products;
+            ViewBag.cart = products.Count();
+            Session["count"] = Convert.ToInt32(Session["count"]) + 1;
+
+        }
+        public void AddOne(int product, List<ItemModel> products, int index)
+        {
+            products[index].Quantity++;
+            ViewBag.cart = products.Count();
+            Session["count"] = Convert.ToInt32(Session["count"]) + 1;
+        }
+        public ActionResult RemoveOne(int product)
+        {
+            int index = Find(product);
+            List<ItemModel> products = (List<ItemModel>)Session["cart"];
+            if (products[index].Quantity > 1)
+            {
+                products[index].Quantity--;
+                ViewBag.cart = products.Count();
+                Session["count"] = Convert.ToInt32(Session["count"]) - 1;
+            }
+            else
+            {
+                Remove(product);
+            }
+            return RedirectToAction("ShoppingCart", "Store");
+        }
+        private int Find(int product)
+        {
+            List<ItemModel> products = (List<ItemModel>)Session["cart"];
+            for (int i = 0; i < products.Count; i++)
+                if (products[i].Product.ID.Equals(product))
+                    return i;
+            return -1;
+        }
+        public ActionResult Remove(int product)
+        {
+            
+                int index = Find(product);
+                List<ItemModel> products = (List<ItemModel>)Session["cart"];
+                Session["count"] = Convert.ToInt32(Session["count"]) - products[index].Quantity;
+                products.RemoveAll(p => p.Product.ID.Equals(product));
+                Session["cart"] = products;
+                
+                return RedirectToAction("ShoppingCart", "Store");
+        }
+        public ActionResult ShoppingCart()
+        { 
             return View();
 
         }
