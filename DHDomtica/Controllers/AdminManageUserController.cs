@@ -19,7 +19,7 @@ namespace DHDomtica.Controllers
         public ActionResult Index()
         {
             ShowAdminSidebar();
-            return View(db.User.ToList());
+            return View(db.Users.ToList());
         }
 
         //Code for the AdminsideBar
@@ -36,7 +36,7 @@ namespace DHDomtica.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.User.Find(id);
+            User user = db.Users.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -59,8 +59,8 @@ namespace DHDomtica.Controllers
         public ActionResult Create([Bind(Include = "ID,FirstName,LastName,Gender,EMail,Password,ConfirmPassword,Country,Province,City,ZipCode,BillingAddress")] User user)
         {
             user.Password = Crypto.Hash(user.Password);
-            user.ConfirmPassword = Crypto.Hash(user.ConfirmPassword);
-            if (db.User.Any(x => x.EMail == user.EMail))
+            //user.ConfirmPassword = Crypto.Hash(user.ConfirmPassword);
+            if (db.Users.Any(x => x.EMail == user.EMail))
             {
                 ViewBag.DuplicateMessage = "E-mail is al in gebruik. Probeer een ander E-mailadres";
                 ShowAdminSidebar();
@@ -68,7 +68,7 @@ namespace DHDomtica.Controllers
             }
             else
             {
-                db.User.Add(user);
+                db.Users.Add(user);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -81,7 +81,7 @@ namespace DHDomtica.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.User.Find(id);
+            User user = db.Users.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -98,7 +98,7 @@ namespace DHDomtica.Controllers
         public ActionResult Edit([Bind(Include = "ID,FirstName,LastName,Gender,EMail,Password,ConfirmPassword,Country,Province,City,ZipCode,BillingAddress")] User user)
         {
             user.Password = Crypto.Hash(user.Password);
-            user.ConfirmPassword = Crypto.Hash(user.ConfirmPassword);
+            //user.ConfirmPassword = Crypto.Hash(user.ConfirmPassword);
             if (ModelState.IsValid)
             {
                 db.Entry(user).State = EntityState.Modified;
@@ -117,7 +117,7 @@ namespace DHDomtica.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.User.Find(id);
+            User user = db.Users.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -131,8 +131,8 @@ namespace DHDomtica.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            User user = db.User.Find(id);
-            db.User.Remove(user);
+            User user = db.Users.Find(id);
+            db.Users.Remove(user);
             db.SaveChanges();
             ShowAdminSidebar();
             return RedirectToAction("Index");

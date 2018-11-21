@@ -18,6 +18,8 @@ namespace DHDomtica.Models
     {
         public int ID { get; set; }
 
+        public int AdminID { get; set; }
+
         [DataType(DataType.Text)]
         [DisplayName("Voornaam")]
         [Required(ErrorMessage = "Vul Uw voornaam in")]
@@ -43,12 +45,6 @@ namespace DHDomtica.Models
         [DisplayName("Wachtwoord")]
         [Required(ErrorMessage = "Vul Uw wachtwoord in")]
         public string Password { get; set; }
-
-        [DataType(DataType.Password)]
-        [DisplayName("Bevestig wachtwoord")]
-        //[Required(ErrorMessage = "Bevestig Uw wachtwoord")]
-        //[Compare("Password")]
-        public string ConfirmPassword { get; set; }
 
         [DataType(DataType.Text)]
         [DisplayName("Land")]
@@ -76,5 +72,7 @@ namespace DHDomtica.Models
         [Required(ErrorMessage = "Vul Uw woonadres in")]
         [RegularExpression(@"^([1-9][e][\s])*([a-zA-Z]+(([\.][\s])|([\s]))?)+[1-9][0-9]*(([-][1-9][0-9]*)|([\s]?[a-zA-Z]+))?$", ErrorMessage = "Vul een correct Nederlands adres in zonder komma, zoals Wijnhaven 107")]
         public string BillingAddress { get; set; }
+
+        public virtual AdminRight AdminRight { get; set; }
     }
 }
