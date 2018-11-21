@@ -19,7 +19,8 @@ namespace DHDomtica.Controllers
         public ActionResult Index()
         {
             ShowAdminSidebar();
-            return View(db.Users.ToList());
+            var users = db.Users.Include(u => u.AdminRight);
+            return View(users.ToList());
         }
 
         //Code for the AdminsideBar
@@ -48,7 +49,11 @@ namespace DHDomtica.Controllers
         // GET: AdminManageUser/Create
         public ActionResult Create()
         {
-            return View();
+            {
+                ShowAdminSidebar();
+                ViewBag.AdminID = new SelectList(db.AdminRights, "AdminID", "Rights");
+                return View();
+            }
         }
 
         // POST: AdminManageUser/Create
@@ -56,21 +61,21 @@ namespace DHDomtica.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,FirstName,LastName,Gender,EMail,Password,ConfirmPassword,Country,Province,City,ZipCode,BillingAddress")] User user)
+        public ActionResult Create([Bind(Include = "ID,AdminID,FirstName,LastName,Gender,EMail,Password,Country,Province,City,ZipCode,BillingAddress")] User user)
         {
-            user.Password = Crypto.Hash(user.Password);
             //user.ConfirmPassword = Crypto.Hash(user.ConfirmPassword);
-            if (db.Users.Any(x => x.EMail == user.EMail))
+            if (ModelState.IsValid)
             {
-                ViewBag.DuplicateMessage = "E-mail is al in gebruik. Probeer een ander E-mailadres";
-                ShowAdminSidebar();
-                return View("Create", user);
+                user.Password = Crypto.Hash(user.Password);
+                db.Users.Add(user);
+                db.SaveChanges();
+                return RedirectToAction("Index");            
             }
             else
             {
-                db.Users.Add(user);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                ShowAdminSidebar();
+                ViewBag.AdminID = new SelectList(db.AdminRights, "AdminID", "Rights", user.AdminID);
+                return View("Create", user);
             }
         }
 
@@ -87,6 +92,7 @@ namespace DHDomtica.Controllers
                 return HttpNotFound();
             }
             ShowAdminSidebar();
+            ViewBag.AdminID = new SelectList(db.AdminRights, "AdminID", "Rights", user.AdminID);
             return View(user);
         }
 
@@ -95,19 +101,26 @@ namespace DHDomtica.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,FirstName,LastName,Gender,EMail,Password,ConfirmPassword,Country,Province,City,ZipCode,BillingAddress")] User user)
+        public ActionResult Edit([Bind(Include = "ID,AdminID,FirstName,LastName,Gender,Country,Province,City,ZipCode,BillingAddress")] User user)
         {
-            user.Password = Crypto.Hash(user.Password);
-            //user.ConfirmPassword = Crypto.Hash(user.ConfirmPassword);
-            if (ModelState.IsValid)
+
+            using (DHDomoticaDBEntities DHDomoticadbModel = new DHDomoticaDBEntities())
             {
-                db.Entry(user).State = EntityState.Modified;
-                db.SaveChanges();
-                ShowAdminSidebar();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    user.Password = Crypto.Hash(user.Password);
+                    db.Entry(user).State = EntityState.Modified;
+                    db.SaveChanges();
+                    ShowAdminSidebar();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ShowAdminSidebar();
+                    ViewBag.AdminID = new SelectList(db.AdminRights, "AdminID", "Rights", user.AdminID);
+                    return View(user);
+                }
             }
-            ShowAdminSidebar();
-            return View(user);
         }
 
         // GET: AdminManageUser/Delete/5

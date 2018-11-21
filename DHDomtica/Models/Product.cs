@@ -31,11 +31,13 @@ namespace DHDomtica.Models
         [DataType(DataType.Text)]
         [DisplayName("Productprijs")]
         [Required(ErrorMessage = "Vul een productprijs in")]
+        [RegularExpression(@"^(\d+(?:[\.\,]\d{1,2})?)$", ErrorMessage = "Vul een correcte prijs in met punt en 2 cijfers achter de punt, zoals 123.45")]
         public float Price { get; set; }
 
         [DataType(DataType.ImageUrl)]
         [DisplayName("Productafbeelding")]
         [Required(ErrorMessage = "Vul een URL voor het plaatje van Uw product in")]
+        [RegularExpression(@"^https?:\/\/(?:[a-z\-]+\.)+[a-z]{2,6}(?:\/[^\/#?]+)+\.(?:jpe?g|gif|png)$", ErrorMessage = "Vul een correcte URL van de afbeelding in, zoals 'https://www.hashop.nl/Files/5/18000/18005/ProductPhotos/360x200/222127103.png'")]
         public string Image { get; set; }
 
         [DisplayName("Productcategorie")]

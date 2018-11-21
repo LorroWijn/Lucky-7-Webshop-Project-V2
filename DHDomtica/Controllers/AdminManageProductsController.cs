@@ -66,18 +66,18 @@ namespace DHDomtica.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,Name,Description,Price,Image,MainCategoryID")] Product product)
         {
-            if (db.Products.Any(p => p.Name == product.Name))
-            {
-                ShowAdminSidebar();
-                ViewBag.MainCategoryID = new SelectList(db.MainCategories, "ID", "Name", product.MainCategoryID);
-                return View("Create", product);
-            }
-            else
+            if (ModelState.IsValid)
             {
                 db.Products.Add(product);
                 db.SaveChanges();
                 ShowAdminSidebar();
                 return RedirectToAction("Index");
+            }
+            else
+            {
+                ShowAdminSidebar();
+                ViewBag.MainCategoryID = new SelectList(db.MainCategories, "ID", "Name", product.MainCategoryID);
+                return View("Create", product);
             }
             // Volgende code is de foreign key van maincategory in de productenlijst
             // ViewBag.MainCategoryID = new SelectList(db.MainCategory, "ID", "Name", product.MainCategoryID);
