@@ -46,12 +46,6 @@ namespace DHDomtica.Models
         [Required(ErrorMessage = "Vul Uw wachtwoord in")]
         public string Password { get; set; }
 
-        [DataType(DataType.Password)]
-        [DisplayName("Bevestig wachtwoord")]
-        [Required(ErrorMessage = "Bevestig Uw wachtwoord")]
-        [Compare("Password")]
-        public string ConfirmPassword { get; set; }
-
         [DataType(DataType.Text)]
         [DisplayName("Land")]
         [Required(ErrorMessage = "Kies Uw land")]
