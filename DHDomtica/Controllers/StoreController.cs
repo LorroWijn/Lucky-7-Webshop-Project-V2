@@ -61,37 +61,52 @@ namespace DHDomtica.Controllers
 
             if (Session["cart"] == null)
             {
-                List<int> products = new List<int>();
+                List<ItemModel> products = new List<ItemModel>();
 
-                products.Add(product);
+                products.Add(new ItemModel { Product = db.Products.FirstOrDefault(p => p.ID.Equals(product)), Quantity = 1 });
                 Session["cart"] = products;
                 ViewBag.cart = products.Count();
-                
-
                 Session["count"] = 1;
 
 
             }
             else
             {
-                List<int> products = (List<int>)Session["cart"];
-                var contains = products.Where(c => c.Equals(product));
-                
-                    if(!products.Contains(product))
+                List<ItemModel> products = (List<ItemModel>)Session["cart"];
+                int index = isExist(product);
+
+                if (index != -1)
                 {
-                    products.Add(product);
+                    products[index].Quantity++;
+                    ViewBag.cart = products.Count();
+                    Session["count"] = Convert.ToInt32(Session["count"]) + 1;
+                }
+
+
+                else
+
+                {
+                    products.Add(new ItemModel { Product = db.Products.FirstOrDefault(p => p.ID.Equals(product)), Quantity = 1 });
                     Session["cart"] = products;
                     ViewBag.cart = products.Count();
                     Session["count"] = Convert.ToInt32(Session["count"]) + 1;
-                    contains = null;
+
                 }
+                Session["cart"] = products;
             }
 
             return RedirectToAction("ShoppingCart", "Store");
 
 
         }
-
+        private int isExist(int product)
+        {
+            List<ItemModel> products = (List<ItemModel>)Session["cart"];
+            for (int i = 0; i < products.Count; i++)
+                if (products[i].Product.ID.Equals(product))
+                    return i;
+            return -1;
+        }
         //Todo: Make this work
         public ActionResult Wishlist()
         {
@@ -174,23 +189,7 @@ namespace DHDomtica.Controllers
 
         public ActionResult ShoppingCart()
         {
-            
-            var products = db.Products.Where(p => p.Name.Equals("feyenoord"));
-            IEnumerable<Product> ProductList = products.AsEnumerable();
-          
-            List<int> IDS = (List<int>)Session["cart"];
-            if (IDS != null)
-            {
-                foreach (int i in IDS)
-                {   
-                    
-                    products = db.Products.Where(p => p.ID.Equals(i));
-                    ProductList = ProductList.Concat(products.AsEnumerable());
-                    
-                }
-            }         
-                return View(ProductList.ToList());
-
+            return View();
 
         }
     }

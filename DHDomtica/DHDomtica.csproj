@@ -201,6 +201,7 @@
       <DependentUpon>DHDomoticaDBModels.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\EmailFormModel.cs" />
+    <Compile Include="Models\ItemModel.cs" />
     <Compile Include="Models\MainCategory.cs">
       <DependentUpon>DHDomoticaDBModels.tt</DependentUpon>
     </Compile>

@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<DHDomtica.Models.Product>
+@using DHDomtica.Models
 
 
 @{
@@ -28,56 +29,45 @@
             @Html.Label("Aantal")
         </th>
         <th>
-            @Html.Label("Totale prijs")
+            @Html.Label("Prijs")
         </th>
         <th></th>
     </tr>
-    @{ float Totaal = 0;}
-    @foreach (var item in Model)
+
+    @if ((List<ItemModel>)Session["cart"] != null)
     {
+        foreach (ItemModel item in (List<ItemModel>)Session["cart"])
+        {
+            <tr onclick="location.href = '@(Url.Action("ProductDetails", "Store", new { id = item.Product.ID }))'" style="cursor:pointer;">
 
-        int Aantal = 1;
-        float TotPrijs = Aantal * item.Price;
-        
-
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            @{ string ShorterString = item.Description;
-                if (item.Description.Length > 100)
-                {
-                    ShorterString = item.Description.Substring(0, 100);
+                <td>@item.Product.Name</td>
+                @{ string ShorterString = item.Product.Description;
+                    if (ShorterString.Length > 100)
+                    {
+                        ShorterString = ShorterString.Substring(0, 100);
+                    }
                 }
+                <td>@ShorterString</td>
+                <td>€@item.Product.Price</td>
+                <td><img class="card-img-top img-fluid" src="@item.Product.Image" alt="Image"></td>
+                <td>@item.Product.MainCategory.Name</td>
+                <td>@item.Quantity</td>
+                <td>€@(item.Product.Price * item.Quantity)</td>
 
+            </tr>
+                    }
+
+    <tr>
+        <td align="right" colspan="6">Totaal</td>
+        <td>
+            @{
+                List<ItemModel> products = (List<ItemModel>)Session["cart"];
+                var total = products.Sum(item => item.Product.Price * item.Quantity);
             }
-            <td>
-                @Html.DisplayFor(modelItem => ShorterString)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Image)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MainCategory.Name)
-            </td>
-            <td>
-                @Html.Label(Aantal.ToString())
-                
-            </td>
-            <td>
-                @Html.Label("€" + TotPrijs.ToString())
-
-            </td>
-        </tr>
-        Totaal += TotPrijs;
-                
-        
-    }
-
-        <tr><td>@Html.Label("€" + Totaal.ToString())</td></tr>
+            €@total
+        </td>
+    </tr>
+                }
 </table>
 
 @section Scripts {
