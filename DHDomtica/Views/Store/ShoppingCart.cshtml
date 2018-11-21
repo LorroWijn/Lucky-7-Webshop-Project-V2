@@ -24,38 +24,60 @@
         <th>
             @Html.DisplayNameFor(model => model.MainCategory.Name)
         </th>
+        <th>
+            @Html.Label("Aantal")
+        </th>
+        <th>
+            @Html.Label("Totale prijs")
+        </th>
         <th></th>
     </tr>
-
+    @{ float Totaal = 0;}
     @foreach (var item in Model)
     {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        @{ string ShorterString = item.Description;
-            if (item.Description.Length > 100)
-            {
-                ShorterString = item.Description.Substring(0, 100);
+
+        int Aantal = 1;
+        float TotPrijs = Aantal * item.Price;
+        
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            @{ string ShorterString = item.Description;
+                if (item.Description.Length > 100)
+                {
+                    ShorterString = item.Description.Substring(0, 100);
+                }
+
             }
+            <td>
+                @Html.DisplayFor(modelItem => ShorterString)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Image)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MainCategory.Name)
+            </td>
+            <td>
+                @Html.Label(Aantal.ToString())
+                
+            </td>
+            <td>
+                @Html.Label("€" + TotPrijs.ToString())
 
-        }
-        <td>
-            @Html.DisplayFor(modelItem => ShorterString)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Price)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Image)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MainCategory.Name)
-        </td>
-
-    </tr>
+            </td>
+        </tr>
+        Totaal += TotPrijs;
+                
+        
     }
 
+        <tr><td>@Html.Label("€" + Totaal.ToString())</td></tr>
 </table>
 
 @section Scripts {
