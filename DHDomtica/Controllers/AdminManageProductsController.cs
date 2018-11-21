@@ -19,10 +19,10 @@ namespace DHDomtica.Controllers
         // GET: Products
         public ActionResult Index(string searchString)
         {
-            var product = db.Product.Include(p => p.MainCategory);
+            var product = db.Products.Include(p => p.MainCategory);
             if(!string.IsNullOrEmpty(searchString))
             {
-                product = db.Product.Where(p => p.Name.Contains(searchString));
+                product = db.Products.Where(p => p.Name.Contains(searchString));
             }
                 ShowAdminSidebar();
                 return View(product.ToList());
@@ -42,7 +42,7 @@ namespace DHDomtica.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = db.Product.Find(id);
+            Product product = db.Products.Find(id);
             if (product == null)
             {
                 return HttpNotFound();
@@ -54,7 +54,7 @@ namespace DHDomtica.Controllers
         // GET: Products/Create
         public ActionResult Create()
         {
-            ViewBag.MainCategoryID = new SelectList(db.MainCategory, "ID", "Name");
+            ViewBag.MainCategoryID = new SelectList(db.MainCategories, "ID", "Name");
             ShowAdminSidebar();
             return View();
         }
@@ -66,15 +66,15 @@ namespace DHDomtica.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,Name,Description,Price,Image,MainCategoryID,URL")] Product product)
         {
-            if (db.Product.Any(p => p.Name == product.Name))
+            if (db.Products.Any(p => p.Name == product.Name))
             {
                 ShowAdminSidebar();
-                ViewBag.MainCategoryID = new SelectList(db.MainCategory, "ID", "Name", product.MainCategoryID);
+                ViewBag.MainCategoryID = new SelectList(db.MainCategories, "ID", "Name", product.MainCategoryID);
                 return View("Create", product);
             }
             else
             {
-                db.Product.Add(product);
+                db.Products.Add(product);
                 db.SaveChanges();
                 ShowAdminSidebar();
                 return RedirectToAction("Index");
@@ -91,12 +91,12 @@ namespace DHDomtica.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = db.Product.Find(id);
+            Product product = db.Products.Find(id);
             if (product == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.MainCategoryID = new SelectList(db.MainCategory, "ID", "Name", product.MainCategoryID);
+            ViewBag.MainCategoryID = new SelectList(db.MainCategories, "ID", "Name", product.MainCategoryID);
             ShowAdminSidebar();
             return View(product);
         }
@@ -111,7 +111,7 @@ namespace DHDomtica.Controllers
             if (!ModelState.IsValid)
             {
                 ShowAdminSidebar();
-                ViewBag.MainCategoryID = new SelectList(db.MainCategory, "ID", "Name", product.MainCategoryID);
+                ViewBag.MainCategoryID = new SelectList(db.MainCategories, "ID", "Name", product.MainCategoryID);
                 return View("Edit", product);
             }
             else
@@ -130,7 +130,7 @@ namespace DHDomtica.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = db.Product.Find(id);
+            Product product = db.Products.Find(id);
             if (product == null)
             {
                 return HttpNotFound();
@@ -144,8 +144,8 @@ namespace DHDomtica.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Product product = db.Product.Find(id);
-            db.Product.Remove(product);
+            Product product = db.Products.Find(id);
+            db.Products.Remove(product);
             db.SaveChanges();
             ShowAdminSidebar();
             return RedirectToAction("Index");

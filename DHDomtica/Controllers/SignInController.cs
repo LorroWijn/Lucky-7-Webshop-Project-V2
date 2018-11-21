@@ -34,7 +34,7 @@ namespace DHDomtica.Controllers
                 else
                 {
                     var ePwd = Crypto.Hash(userModel.Password);
-                    var x = DHDomoticadbModel.User.FirstOrDefault(u => u.EMail == userModel.EMail && u.Password == ePwd);
+                    var x = DHDomoticadbModel.Users.FirstOrDefault(u => u.EMail == userModel.EMail && u.Password == ePwd);
                     if (x == null)
                     {
                         //geen geldige credentials ingevoerd (geen combinatie van email + ww)

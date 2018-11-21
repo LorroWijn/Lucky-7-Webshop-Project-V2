@@ -34,7 +34,7 @@ namespace DHDomtica.Controllers
             User userModel = new User();
             using (DHDomoticaDBEntities DHDomoticadbModel = new DHDomoticaDBEntities())
             {
-                userModel = DHDomoticadbModel.User.Where(z => z.ID == id).FirstOrDefault();
+                userModel = DHDomoticadbModel.Users.Where(z => z.ID == id).FirstOrDefault();
                 ShowUserSidebar();
                 return View(userModel);
                 // Moet nog aangepast worden zodat informatie uit de cookies gehaald wordt.
@@ -70,7 +70,7 @@ namespace DHDomtica.Controllers
                 else
                 {
                     var ePwd = Crypto.Hash(userModel.Password);
-                    var p = DHDomoticadbModel.User.Where(u => u.Password == ePwd).FirstOrDefault();
+                    var p = DHDomoticadbModel.Users.Where(u => u.Password == ePwd).FirstOrDefault();
 
                     if (p == null)
                     {
@@ -108,7 +108,7 @@ namespace DHDomtica.Controllers
             int idCook = Convert.ToInt32(Request.Cookies["UserID"].Value);
             using (DHDomoticaDBEntities DHDomoticadbModel = new DHDomoticaDBEntities())
             {
-                var x = DHDomoticadbModel.User.FirstOrDefault(u => u.ID == idCook);
+                var x = DHDomoticadbModel.Users.FirstOrDefault(u => u.ID == idCook);
                 var oldPw = Crypto.Hash(userModel.OldPassword);
                 var chPw = userModel.ChangePassword;
                 var chPwVer = userModel.ChangeConfirmPassword;

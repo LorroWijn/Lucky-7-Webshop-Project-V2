@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'D:\GitHub\Lucky-7-Webshop-Project-V2\DHDomtica\Models\DHDomoticaModels.edmx'. 
+﻿// T4 code generation is enabled for model 'D:\GitHub\Lucky-7-Webshop-Project-V2\DHDomtica\Models\DHDomoticaDBModels.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

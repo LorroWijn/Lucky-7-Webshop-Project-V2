@@ -183,32 +183,32 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AdminRight.cs">
-      <DependentUpon>DHDomoticaModels.tt</DependentUpon>
+      <DependentUpon>DHDomoticaDBModels.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DHDomoticaModels.Context.cs">
+    <Compile Include="Models\DHDomoticaDBModels.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DHDomoticaModels.Context.tt</DependentUpon>
+      <DependentUpon>DHDomoticaDBModels.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DHDomoticaModels.cs">
+    <Compile Include="Models\DHDomoticaDBModels.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DHDomoticaModels.tt</DependentUpon>
+      <DependentUpon>DHDomoticaDBModels.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DHDomoticaModels.Designer.cs">
+    <Compile Include="Models\DHDomoticaDBModels.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DHDomoticaModels.edmx</DependentUpon>
+      <DependentUpon>DHDomoticaDBModels.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\EmailFormModel.cs" />
     <Compile Include="Models\MainCategory.cs">
-      <DependentUpon>DHDomoticaModels.tt</DependentUpon>
+      <DependentUpon>DHDomoticaDBModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Product.cs">
-      <DependentUpon>DHDomoticaModels.tt</DependentUpon>
+      <DependentUpon>DHDomoticaDBModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs">
-      <DependentUpon>DHDomoticaModels.tt</DependentUpon>
+      <DependentUpon>DHDomoticaDBModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UserPasswordChange.cs" />
     <Compile Include="Supportclasses\Crypto.cs" />
@@ -261,26 +261,26 @@
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
     <Content Include="Grid.mvc.readme" />
-    <EntityDeploy Include="Models\DHDomoticaModels.edmx">
+    <EntityDeploy Include="Models\DHDomoticaDBModels.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DHDomoticaModels.Designer.cs</LastGenOutput>
+      <LastGenOutput>DHDomoticaDBModels.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\DHDomoticaModels.edmx.diagram">
-      <DependentUpon>DHDomoticaModels.edmx</DependentUpon>
+    <Content Include="Models\DHDomoticaDBModels.edmx.diagram">
+      <DependentUpon>DHDomoticaDBModels.edmx</DependentUpon>
     </Content>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Content Include="Models\DHDomoticaModels.Context.tt">
+    <Content Include="Models\DHDomoticaDBModels.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DHDomoticaModels.edmx</DependentUpon>
-      <LastGenOutput>DHDomoticaModels.Context.cs</LastGenOutput>
+      <DependentUpon>DHDomoticaDBModels.edmx</DependentUpon>
+      <LastGenOutput>DHDomoticaDBModels.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\DHDomoticaModels.tt">
+    <Content Include="Models\DHDomoticaDBModels.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DHDomoticaModels.edmx</DependentUpon>
-      <LastGenOutput>DHDomoticaModels.cs</LastGenOutput>
+      <DependentUpon>DHDomoticaDBModels.edmx</DependentUpon>
+      <LastGenOutput>DHDomoticaDBModels.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />

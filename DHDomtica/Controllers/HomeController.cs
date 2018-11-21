@@ -105,8 +105,8 @@ namespace DHDomtica.Controllers
         {
             System.Diagnostics.Debug.WriteLine($"Sidebar {Request.RawUrl}");
             ViewBag.ShowSideBar = true;
-            ViewBag.AllCategories = _context.MainCategory.ToList();
-            ViewBag.AllProducts = _context.Product.ToList();
+            ViewBag.AllCategories = _context.MainCategories.ToList();
+            ViewBag.AllProducts = _context.Products.ToList();
         }
 
         public ActionResult Search(int selectedValue, string searchString)
@@ -115,7 +115,7 @@ namespace DHDomtica.Controllers
             {
                 ViewBag.Message = "Er is geen zoekopdracht ingevoerd. Hier zijn al onze producten.";
             }
-            var category = _context.MainCategory.FirstOrDefault();
+            var category = _context.MainCategories.FirstOrDefault();
             int cid = selectedValue;
 
 
@@ -125,7 +125,7 @@ namespace DHDomtica.Controllers
                 ProductList = new MainCategoryViewModel()
                 {
                     Category = category,
-                    Products = _context.Product
+                    Products = _context.Products
                             .Where(c => c.Name.Contains(searchString) || c.Description.Contains(searchString))
                             .ToList().AsEnumerable()
 
@@ -136,7 +136,7 @@ namespace DHDomtica.Controllers
                 ProductList = new MainCategoryViewModel()
                 {
                     Category = category,
-                    Products = _context.Product
+                    Products = _context.Products
                             .Where(c => (c.Name.Contains(searchString) || c.Description.Contains(searchString)) && c.MainCategoryID.Equals(cid))
                             .ToList().AsEnumerable()
 

@@ -32,7 +32,7 @@ namespace DHDomtica.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = db.Product.Find(id);
+            Product product = db.Products.Find(id);
             if (product == null)
             {
                 return HttpNotFound();
@@ -89,15 +89,15 @@ namespace DHDomtica.Controllers
         {
             System.Diagnostics.Debug.WriteLine($"Sidebar {Request.RawUrl}");
             ViewBag.ShowSideBar = true;
-            ViewBag.AllCategories = db.MainCategory.ToList();
-            ViewBag.AllProducts = db.Product.ToList();
+            ViewBag.AllCategories = db.MainCategories.ToList();
+            ViewBag.AllProducts = db.Products.ToList();
         }
 
         //Generating ProductList by category ID
         public ActionResult Categories(int id)
         {
             ShowSidebar();
-            var categorie = db.MainCategory.SingleOrDefault(c => c.ID == id);
+            var categorie = db.MainCategories.SingleOrDefault(c => c.ID == id);
 
             if (categorie == null)
                 return HttpNotFound();
@@ -105,7 +105,7 @@ namespace DHDomtica.Controllers
             var ProductList = new MainCategoryViewModel()
             {
                 Category = categorie,
-                Products = db.Product.Where(c => c.MainCategoryID.Equals(id)).ToList().AsEnumerable()
+                Products = db.Products.Where(c => c.MainCategoryID.Equals(id)).ToList().AsEnumerable()
 
             };
             return View(ProductList);
@@ -124,7 +124,7 @@ namespace DHDomtica.Controllers
             ShowSidebar();
 
             ViewBag.PageId = pageId;
-            var categorie = db.MainCategory.SingleOrDefault(c => c.ID == categoryId);
+            var categorie = db.MainCategories.SingleOrDefault(c => c.ID == categoryId);
 
             if (categorie == null)
                 return HttpNotFound();
@@ -142,7 +142,7 @@ namespace DHDomtica.Controllers
             var ProductList = new MainCategoryViewModel()
             {
                 Category = categorie,
-                Products = db.Product.Where(c => c.MainCategoryID.Equals(categoryId)).ToList().AsEnumerable().Skip(skipPages).Take(items)
+                Products = db.Products.Where(c => c.MainCategoryID.Equals(categoryId)).ToList().AsEnumerable().Skip(skipPages).Take(items)
 
             };
 
@@ -152,7 +152,7 @@ namespace DHDomtica.Controllers
         public ActionResult ShoppingCart()
         {
             
-            var products = db.Product.Where(p => p.Name.Equals("feyenoord"));
+            var products = db.Products.Where(p => p.Name.Equals("feyenoord"));
             IEnumerable<Product> ProductList = products.AsEnumerable();
           
             List<int> IDS = (List<int>)Session["cart"];
@@ -161,7 +161,7 @@ namespace DHDomtica.Controllers
                 foreach (int i in IDS)
                 {   
                     
-                    products = db.Product.Where(p => p.ID.Equals(i));
+                    products = db.Products.Where(p => p.ID.Equals(i));
                     ProductList = ProductList.Concat(products.AsEnumerable());
                     
                 }

@@ -162,7 +162,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="DHDomoticaDBEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="DHDomoticaDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AdminRights" EntityType="Self.AdminRight" />
           <EntitySet Name="MainCategories" EntityType="Self.MainCategory" />
           <EntitySet Name="Products" EntityType="Self.Product" />
@@ -181,7 +181,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="DHDomoticaDBModelStoreContainer" CdmEntityContainer="DHDomoticaDBEntities1">
+        <EntityContainerMapping StorageEntityContainer="DHDomoticaDBModelStoreContainer" CdmEntityContainer="DHDomoticaDBEntities">
           <EntitySetMapping Name="AdminRights">
             <EntityTypeMapping TypeName="DHDomoticaDBModel.AdminRight">
               <MappingFragment StoreEntitySet="AdminRights">

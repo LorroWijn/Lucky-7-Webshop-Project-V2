@@ -44,10 +44,10 @@ namespace DHDomtica.Controllers
         public async Task<ActionResult> SignUpPage(User userModel)
         {
             userModel.Password = Crypto.Hash(userModel.Password);
-            userModel.ConfirmPassword = Crypto.Hash(userModel.ConfirmPassword);
+            //userModel.ConfirmPassword = Crypto.Hash(userModel.ConfirmPassword);
             using (DHDomoticaDBEntities DHDomoticadbModel = new DHDomoticaDBEntities())
             {
-                if (DHDomoticadbModel.User.Any(x => x.EMail == userModel.EMail))
+                if (DHDomoticadbModel.Users.Any(x => x.EMail == userModel.EMail))
                 {
                     ViewBag.DuplicateMessage = "E-mail is al in gebruik. Probeer een ander E-mailadres";
                     return View("SignUpPage", userModel);
@@ -55,9 +55,9 @@ namespace DHDomtica.Controllers
                 else
                 {
                     //TODO: User model moet confirm password kwijtraken anders wordt het te chaotisch
-                    if (userModel.Password == userModel.ConfirmPassword)
+                    if (1 == 1)
                     {
-                        DHDomoticadbModel.User.Add(userModel);
+                        DHDomoticadbModel.Users.Add(userModel);
                         DHDomoticadbModel.SaveChanges();
                     }
                     else

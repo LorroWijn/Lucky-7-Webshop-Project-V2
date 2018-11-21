@@ -13,10 +13,10 @@ namespace DHDomtica.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class DHDomoticaDBEntities1 : DbContext
+    public partial class DHDomoticaDBEntities : DbContext
     {
-        public DHDomoticaDBEntities1()
-            : base("name=DHDomoticaDBEntities1")
+        public DHDomoticaDBEntities()
+            : base("name=DHDomoticaDBEntities")
         {
         }
     
