@@ -9,6 +9,8 @@
         <EntityTypeShape EntityType="DHDomoticaDBModel.Product" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="DHDomoticaDBModel.User" Width="1.5" PointX="5.25" PointY="0.875" IsExpanded="true" />
         <AssociationConnector Association="DHDomoticaDBModel.MainCategory1" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DHDomoticaDBModel.AdminRights" Width="1.5" PointX="3" PointY="5.875" />
+        <AssociationConnector Association="DHDomoticaDBModel.AdminRights1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

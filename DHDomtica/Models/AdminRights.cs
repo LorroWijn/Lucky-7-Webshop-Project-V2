@@ -12,18 +12,18 @@ namespace DHDomtica.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class MainCategory
+    public partial class AdminRights
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public MainCategory()
+        public AdminRights()
         {
-            this.Product = new HashSet<Product>();
+            this.User = new HashSet<User>();
         }
     
-        public int ID { get; set; }
-        public string Name { get; set; }
+        public int AdminID { get; set; }
+        public string Rights { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Product> Product { get; set; }
+        public virtual ICollection<User> User { get; set; }
     }
 }

@@ -11,43 +11,17 @@ namespace DHDomtica.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Product
     {
         public int ID { get; set; }
-
-        [DataType(DataType.Text)]
-        [DisplayName("Productnaam")]
-        [Required(ErrorMessage = "Vul een productnaam in")]
         public string Name { get; set; }
-
-        [DataType(DataType.Text)]
-        [DisplayName("Productbeschrijving")]
-        [Required(ErrorMessage = "Vul een productbeschrijving in in")]
         public string Description { get; set; }
-
-        [DataType(DataType.Currency)]
-        [DisplayName("Productprijs")]
-        [Required(ErrorMessage = "Vul een productprijs in")]
         public float Price { get; set; }
-
-        [DataType(DataType.ImageUrl)]
-        [DisplayName("Productafbeelding")]
-        [Required(ErrorMessage = "Vul een URL voor het plaatje van Uw product in")]
         public string Image { get; set; }
-
-        [DisplayName("Productcategorie")]
-        [Required(ErrorMessage = "Vul een categorienummer van Uw product in")]
         public int MainCategoryID { get; set; }
-
-        [DataType(DataType.Url)]
-        [DisplayName("Pagina URL")]
-        [Required(ErrorMessage = "Vul de URL van de productpagina in")]
         public string URL { get; set; }
-
-        [DisplayName("Productcategorie")]
+    
         public virtual MainCategory MainCategory { get; set; }
     }
 }
