@@ -15,6 +15,7 @@ namespace DHDomtica.Controllers
 {
     public class StoreController : Controller
     {
+
         private DHDomoticaDBEntities db = new DHDomoticaDBEntities();
 
         // GET: Store
@@ -23,11 +24,21 @@ namespace DHDomtica.Controllers
 
             return View();
         }
-
+ 
         //Code for the Store/ProductDetails
         // GET: ProductDetails
         public ActionResult ProductDetails(int? id)
         {
+            HttpCookie pageCookie = Request.Cookies["pageCookie"];
+            if (pageCookie == null)
+            {
+            }
+
+            if (!string.IsNullOrEmpty(pageCookie.Values["pageId"]))
+            {
+                ViewBag.pageId = pageCookie.Values["pageId"].ToString();
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -122,6 +133,13 @@ namespace DHDomtica.Controllers
         public ActionResult Pagination(int categoryId, int pageId)
         {
             ShowSidebar();
+            //create a cookie
+            HttpCookie pageCookie = new HttpCookie("pageCookie");
+            //add key-values in the cookie
+            pageCookie.Values.Add("pageId", pageId.ToString());
+            pageCookie.Expires = DateTime.Now.AddMinutes(30);
+            //write the cookie to the client
+            Response.Cookies.Add(pageCookie);
 
             ViewBag.PageId = pageId;
             var categorie = db.MainCategories.SingleOrDefault(c => c.ID == categoryId);
@@ -131,7 +149,7 @@ namespace DHDomtica.Controllers
 
             int items = 12;
             int skipPages = 0;
-            int maxProducts = db.Product.Where(c => c.MainCategoryID.Equals(categoryId)).Count();
+            int maxProducts = db.Products.Where(c => c.MainCategoryID.Equals(categoryId)).Count();
             ViewBag.maxPages = maxProducts / items;
             if (pageId > 1)
             {
