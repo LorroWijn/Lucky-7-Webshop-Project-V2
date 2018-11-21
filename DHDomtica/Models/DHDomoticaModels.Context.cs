@@ -13,10 +13,10 @@ namespace DHDomtica.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class DHDomoticaDBEntities : DbContext
+    public partial class DHDomoticaDBEntities1 : DbContext
     {
-        public DHDomoticaDBEntities()
-            : base("name=DHDomoticaDBEntities")
+        public DHDomoticaDBEntities1()
+            : base("name=DHDomoticaDBEntities1")
         {
         }
     
@@ -25,9 +25,9 @@ namespace DHDomtica.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<MainCategory> MainCategory { get; set; }
-        public virtual DbSet<Product> Product { get; set; }
-        public virtual DbSet<User> User { get; set; }
-        public virtual DbSet<AdminRights> AdminRights { get; set; }
+        public virtual DbSet<AdminRight> AdminRights { get; set; }
+        public virtual DbSet<MainCategory> MainCategories { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<User> Users { get; set; }
     }
 }

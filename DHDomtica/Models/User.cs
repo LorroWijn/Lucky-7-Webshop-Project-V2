@@ -15,6 +15,7 @@ namespace DHDomtica.Models
     public partial class User
     {
         public int ID { get; set; }
+        public int AdminID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Gender { get; set; }
@@ -23,10 +24,9 @@ namespace DHDomtica.Models
         public string Country { get; set; }
         public string Province { get; set; }
         public string City { get; set; }
-        public string ZipCode { get; set; }
         public string BillingAddress { get; set; }
-        public Nullable<int> AdminID { get; set; }
+        public string ZipCode { get; set; }
     
-        public virtual AdminRights AdminRights { get; set; }
+        public virtual AdminRight AdminRight { get; set; }
     }
 }

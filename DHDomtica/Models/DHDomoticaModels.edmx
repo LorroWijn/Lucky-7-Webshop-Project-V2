@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="DHDomoticaDBModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="DHDomoticaDBModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AdminRights">
           <Key>
             <PropertyRef Name="AdminID" />
@@ -86,17 +86,26 @@
             <End Role="Product" EntitySet="Product" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DHDomoticaDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AdminRight">
+          <Key>
+            <PropertyRef Name="AdminID" />
+          </Key>
+          <Property Name="AdminID" Type="Int32" Nullable="false" />
+          <Property Name="Rights" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.AdminRights1" FromRole="AdminRights" ToRole="User" />
+        </EntityType>
         <EntityType Name="MainCategory">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Product" Relationship="Self.MainCategory1" FromRole="MainCategory" ToRole="Product" />
+          <NavigationProperty Name="Products" Relationship="Self.MainCat" FromRole="MainCategory" ToRole="Product" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -109,13 +118,14 @@
           <Property Name="Image" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="MainCategoryID" Type="Int32" Nullable="false" />
           <Property Name="URL" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="MainCategory" Relationship="Self.MainCategory1" FromRole="Product" ToRole="MainCategory" />
+          <NavigationProperty Name="MainCategory" Relationship="Self.MainCat" FromRole="Product" ToRole="MainCategory" />
         </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AdminID" Type="Int32" Nullable="false" />
           <Property Name="FirstName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="LastName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Gender" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
@@ -124,12 +134,23 @@
           <Property Name="Country" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Province" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="City" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BillingAddress" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ZipCode" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="BillingAddress" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
-          <Property Name="AdminID" Type="Int32" />
-          <NavigationProperty Name="AdminRights" Relationship="DHDomoticaDBModel.AdminRights1" FromRole="User" ToRole="AdminRights" />
+          <NavigationProperty Name="AdminRight" Relationship="Self.AdminRights1" FromRole="User" ToRole="AdminRights" />
         </EntityType>
-        <Association Name="MainCategory1">
+        <Association Name="AdminRights1">
+          <End Role="AdminRights" Type="Self.AdminRight" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AdminRights">
+              <PropertyRef Name="AdminID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="AdminID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MainCat">
           <End Role="MainCategory" Type="Self.MainCategory" Multiplicity="1" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
           <ReferentialConstraint>
@@ -141,47 +162,35 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="DHDomoticaDBEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="MainCategory" EntityType="Self.MainCategory" />
-          <EntitySet Name="Product" EntityType="Self.Product" />
-          <EntitySet Name="User" EntityType="Self.User" />
-          <AssociationSet Name="MainCategory1" Association="Self.MainCategory1">
-            <End Role="MainCategory" EntitySet="MainCategory" />
-            <End Role="Product" EntitySet="Product" />
-          </AssociationSet>
-          <EntitySet Name="AdminRights" EntityType="DHDomoticaDBModel.AdminRights" />
-          <AssociationSet Name="AdminRights1" Association="DHDomoticaDBModel.AdminRights1">
+        <EntityContainer Name="DHDomoticaDBEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AdminRights" EntityType="Self.AdminRight" />
+          <EntitySet Name="MainCategories" EntityType="Self.MainCategory" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="AdminRights1" Association="Self.AdminRights1">
             <End Role="AdminRights" EntitySet="AdminRights" />
-            <End Role="User" EntitySet="User" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="MainCat" Association="Self.MainCat">
+            <End Role="MainCategory" EntitySet="MainCategories" />
+            <End Role="Product" EntitySet="Products" />
           </AssociationSet>
         </EntityContainer>
-        <EntityType Name="AdminRights">
-          <Key>
-            <PropertyRef Name="AdminID" />
-          </Key>
-          <Property Name="AdminID" Type="Int32" Nullable="false" />
-          <Property Name="Rights" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="User" Relationship="DHDomoticaDBModel.AdminRights1" FromRole="AdminRights" ToRole="User" />
-        </EntityType>
-        <Association Name="AdminRights1">
-          <End Type="DHDomoticaDBModel.AdminRights" Role="AdminRights" Multiplicity="0..1" />
-          <End Type="DHDomoticaDBModel.User" Role="User" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AdminRights">
-              <PropertyRef Name="AdminID" />
-            </Principal>
-            <Dependent Role="User">
-              <PropertyRef Name="AdminID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="DHDomoticaDBModelStoreContainer" CdmEntityContainer="DHDomoticaDBEntities">
-          <EntitySetMapping Name="MainCategory">
+        <EntityContainerMapping StorageEntityContainer="DHDomoticaDBModelStoreContainer" CdmEntityContainer="DHDomoticaDBEntities1">
+          <EntitySetMapping Name="AdminRights">
+            <EntityTypeMapping TypeName="DHDomoticaDBModel.AdminRight">
+              <MappingFragment StoreEntitySet="AdminRights">
+                <ScalarProperty Name="AdminID" ColumnName="AdminID" />
+                <ScalarProperty Name="Rights" ColumnName="Rights" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MainCategories">
             <EntityTypeMapping TypeName="DHDomoticaDBModel.MainCategory">
               <MappingFragment StoreEntitySet="MainCategory">
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -189,7 +198,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Product">
+          <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="DHDomoticaDBModel.Product">
               <MappingFragment StoreEntitySet="Product">
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -202,12 +211,11 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="User">
+          <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="DHDomoticaDBModel.User">
               <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="AdminID" ColumnName="AdminID" />
-                <ScalarProperty Name="BillingAddress" ColumnName="BillingAddress" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="AdminID" ColumnName="AdminID" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="Gender" ColumnName="Gender" />
@@ -216,15 +224,8 @@
                 <ScalarProperty Name="Country" ColumnName="Country" />
                 <ScalarProperty Name="Province" ColumnName="Province" />
                 <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="BillingAddress" ColumnName="BillingAddress" />
                 <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AdminRights">
-            <EntityTypeMapping TypeName="DHDomoticaDBModel.AdminRights">
-              <MappingFragment StoreEntitySet="AdminRights">
-                <ScalarProperty Name="Rights" ColumnName="Rights" />
-                <ScalarProperty Name="AdminID" ColumnName="AdminID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -242,7 +243,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
