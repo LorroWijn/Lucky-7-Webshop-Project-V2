@@ -131,8 +131,8 @@ namespace DHDomtica.Controllers
 
             int items = 12;
             int skipPages = 0;
-            //int maxProducts = db.Product.Where(c => c.MainCategoryID.Equals(categoryId)).Count();
-            //int maxPages = maxProducts / items;
+            int maxProducts = db.Product.Where(c => c.MainCategoryID.Equals(categoryId)).Count();
+            ViewBag.maxPages = maxProducts / items;
             if (pageId > 1)
             {
                 skipPages = items * pageId;
