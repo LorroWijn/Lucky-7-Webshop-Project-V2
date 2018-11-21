@@ -39,8 +39,9 @@
           <Property Name="City" Type="varchar" MaxLength="45" Nullable="false" />
           <Property Name="BillingAddress" Type="varchar" MaxLength="256" Nullable="false" />
           <Property Name="ZipCode" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="AdminID" Type="int" />
         </EntityType>
-        <Association Name="MainCategory1">
+        <Association Name="MainCat">
           <End Role="MainCategory" Type="Self.MainCategory" Multiplicity="1" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
           <ReferentialConstraint>
@@ -56,7 +57,7 @@
           <EntitySet Name="MainCategory" EntityType="Self.MainCategory" Schema="DHDomoticaDB" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="DHDomoticaDB" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="DHDomoticaDB" store:Type="Tables" />
-          <AssociationSet Name="MainCategory1" Association="Self.MainCategory1">
+          <AssociationSet Name="MainCat" Association="Self.MainCat">
             <End Role="MainCategory" EntitySet="MainCategory" />
             <End Role="Product" EntitySet="Product" />
           </AssociationSet>
@@ -101,6 +102,7 @@
           <Property Name="City" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ZipCode" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="BillingAddress" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="AdminID" Type="Int32" />
         </EntityType>
         <Association Name="MainCategory1">
           <End Role="MainCategory" Type="Self.MainCategory" Multiplicity="1" />
@@ -153,6 +155,7 @@
           <EntitySetMapping Name="User">
             <EntityTypeMapping TypeName="DHDomoticaDBModel.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="AdminID" ColumnName="AdminID" />
                 <ScalarProperty Name="BillingAddress" ColumnName="BillingAddress" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />

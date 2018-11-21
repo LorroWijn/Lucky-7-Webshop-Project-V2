@@ -11,9 +11,7 @@ namespace DHDomtica.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class MainCategory
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,12 +19,8 @@ namespace DHDomtica.Models
         {
             this.Product = new HashSet<Product>();
         }
-        
+    
         public int ID { get; set; }
-
-        [DataType(DataType.Text)]
-        [DisplayName("Productcategorie")]
-        [Required(ErrorMessage = "Vul de categorie van het product in")]
         public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

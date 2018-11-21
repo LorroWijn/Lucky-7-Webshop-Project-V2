@@ -80,8 +80,8 @@ namespace DHDomtica.Controllers
                 return RedirectToAction("Index");
             }
             // Volgende code is de foreign key van maincategory in de productenlijst
-            ViewBag.MainCategoryID = new SelectList(db.MainCategory, "ID", "Name", product.MainCategoryID);
-            return View(product);
+            // ViewBag.MainCategoryID = new SelectList(db.MainCategory, "ID", "Name", product.MainCategoryID);
+            // return View(product);
         }
 
             // GET: Products/Edit/5
