@@ -1,8 +1,8 @@
 ﻿@model MainCategoryViewModel
 @using System.Web.DynamicData
 @using DHDomtica.Models
-@using System.Web.Mvc.Html
-@using GridMvc.Html;
+@using System.Web.Mvc.Html;
+@using Antlr.Runtime
 
 @{
     ViewBag.Title = "CategoryPage";
@@ -36,17 +36,17 @@
 }
 
 @*Everything in between*@
-@*@for (int i = 1; i <= maxPages; i++)
+@for (int i = 1; i <= (ViewBag.maxPages); i++)
 {
     if (i != ViewBag.PageId)
-     {
-         @Html.ActionLink(i, "Pagination", "store", new {categoryId = Model.Category.ID, pageId = (ViewBag.PageId)}, null)
+    {
+        @Html.ActionLink(i.ToString(), "Pagination", "store", new {categoryId = Model.Category.ID, pageId = i}, null)
     }
-     else
-     {
-         @Html.ActionLink(i, "Pagination", "store", new {categoryId = Model.Category.ID, pageId = (ViewBag.PageId)}, new { @class = "active" })
-     }
-}*@
+    else
+    {
+        <span>@i</span>
+    }
+}
 
 @*Next page button*@
 @Html.ActionLink("Volgende", "Pagination", "Store", new { categoryId = Model.Category.ID, pageId = (ViewBag.PageId + 1) }, null)

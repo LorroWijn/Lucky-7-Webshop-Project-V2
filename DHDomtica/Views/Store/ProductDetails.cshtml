@@ -36,5 +36,5 @@
 <p>
     @*@Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |*@
     @*@Html.ActionLink("Back to List", "Categories", new { id = Model.MainCategory.ID }, new { @class = "btn btn-success" })*@
-    @Html.ActionLink("Terug", "Pagination", new { categoryId = Model.MainCategory.ID, pageId = (ViewBag.PageId) }, new { @class = "btn btn-success" })
+    @Html.ActionLink("Terug", "Store", "Pagination", new { categoryId = ViewBag.CategoryId , pageId = ViewBag.PageId }, new { @class = "btn btn-success" })
 </p>
