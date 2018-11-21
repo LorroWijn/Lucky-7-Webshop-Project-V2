@@ -28,7 +28,7 @@ namespace DHDomtica.Models
         [Required(ErrorMessage = "Vul een productbeschrijving in in")]
         public string Description { get; set; }
 
-        [DataType(DataType.Currency)]
+        [DataType(DataType.Text)]
         [DisplayName("Productprijs")]
         [Required(ErrorMessage = "Vul een productprijs in")]
         public float Price { get; set; }
@@ -41,11 +41,6 @@ namespace DHDomtica.Models
         [DisplayName("Productcategorie")]
         [Required(ErrorMessage = "Vul een categorienummer van Uw product in")]
         public int MainCategoryID { get; set; }
-
-        [DataType(DataType.Url)]
-        [DisplayName("Pagina URL")]
-        [Required(ErrorMessage = "Vul de URL van de productpagina in")]
-        public string URL { get; set; }
 
         [DisplayName("Productcategorie")]
         public virtual MainCategory MainCategory { get; set; }

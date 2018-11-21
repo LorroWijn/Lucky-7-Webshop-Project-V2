@@ -26,25 +26,13 @@ namespace DHDomtica.Controllers
             return View(usermodel);
         }
 
-        // GET: SignUp/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: SignUp/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
         // POST: SignUp/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> SignUpPage(User userModel)
         {
             userModel.Password = Crypto.Hash(userModel.Password);
-            //userModel.ConfirmPassword = Crypto.Hash(userModel.ConfirmPassword);
+            // userModel.ConfirmPassword = Crypto.Hash(userModel.ConfirmPassword);
             using (DHDomoticaDBEntities DHDomoticadbModel = new DHDomoticaDBEntities())
             {
                 if (DHDomoticadbModel.Users.Any(x => x.EMail == userModel.EMail))
@@ -83,49 +71,6 @@ namespace DHDomtica.Controllers
                 ViewBag.SuccessMessage = "Uw account is geregistreerd";
                 //return View("SignUpPage", new User());
                 return RedirectToAction("SignInPage", "SignIn");
-            }
-        }
-        // GET: SignUp/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: SignUp/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("SignUpPage");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: SignUp/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: SignUp/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("SignUpPage");
-            }
-            catch
-            {
-                return View();
             }
         }
     }

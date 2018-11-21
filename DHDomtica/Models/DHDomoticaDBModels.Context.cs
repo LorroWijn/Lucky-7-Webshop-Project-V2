@@ -27,7 +27,7 @@ namespace DHDomtica.Models
     
         public virtual DbSet<AdminRight> AdminRights { get; set; }
         public virtual DbSet<MainCategory> MainCategories { get; set; }
-        public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
     }
 }
