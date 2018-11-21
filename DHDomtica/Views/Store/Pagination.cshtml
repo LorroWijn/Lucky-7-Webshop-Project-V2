@@ -32,7 +32,7 @@
 @*Previous page button*@
 @if (ViewBag.PageId > 1)
 {
-    @Html.ActionLink("Vorige", "Pagination", "Store", new { categoryId = Model.Category.ID, pageId = (ViewBag.PageId - 1) }, null)
+    @Html.ActionLink("Vorige", "Pagination", "Store", new { categoryId = Model.Category.ID, pageId = (ViewBag.PageId - 1) }, new { @class = "btn btn-success" })
 }
 
 @*Everything in between*@
@@ -40,7 +40,7 @@
 {
     if (i != ViewBag.PageId)
     {
-        @Html.ActionLink(i.ToString(), "Pagination", "store", new {categoryId = Model.Category.ID, pageId = i}, null)
+        @Html.ActionLink(" "+i.ToString(), "Pagination", "store", new {categoryId = Model.Category.ID, pageId = i}, null)
     }
     else
     {
@@ -49,4 +49,7 @@
 }
 
 @*Next page button*@
-@Html.ActionLink("Volgende", "Pagination", "Store", new { categoryId = Model.Category.ID, pageId = (ViewBag.PageId + 1) }, null)
+@if (ViewBag.PageId < ViewBag.maxPages)
+{
+    @Html.ActionLink("Volgende", "Pagination", "Store", new {categoryId = Model.Category.ID, pageId = (ViewBag.PageId + 1)}, new {@class = "btn btn-success"})
+}

@@ -29,13 +29,17 @@ namespace DHDomtica.Controllers
         // GET: ProductDetails
         public ActionResult ProductDetails(int? id)
         {
+            //read cookie from request
             HttpCookie pageCookie = Request.Cookies["pageCookie"];
             if (pageCookie == null)
             {
+                //no cookie found or it is expired (30 min)
             }
 
+            //cookie is found, check if the cookie has the value as expected
             if (!string.IsNullOrEmpty(pageCookie.Values["pageId"]))
             {
+                //put the cookie in a viewbag
                 ViewBag.pageId = pageCookie.Values["pageId"].ToString();
             }
 
@@ -129,6 +133,7 @@ namespace DHDomtica.Controllers
 
             return View(db.Set<Product>());
         }
+
         //pagination
         public ActionResult Pagination(int categoryId, int pageId)
         {
