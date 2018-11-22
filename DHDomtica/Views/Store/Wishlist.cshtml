@@ -10,6 +10,8 @@
 <body>
     <h2>Wishlist</h2>
     <h3>@ViewBag.Message</h3>
+    @if (System.Web.HttpContext.Current.Request.Cookies["UserEMail"] != null)
+    {
     <table class="table">
         <tr>
             <th>
@@ -27,12 +29,11 @@
             <th>
                 @Html.DisplayNameFor(model => model.MainCategory.Name)
             </th>
-            <th></th>
         </tr>
         @if (Model != null)
         {
-        foreach (var item in Model)
-        {
+            foreach (var item in Model)
+            {
             <tr>
                 <td>@Html.ActionLink(@item.Name, "ProductDetails/" + item.ID)</td>
                 @{ string ShorterString = item.Description;
@@ -49,11 +50,15 @@
                     <img class="card-img-top img-fluid" src="@item.Image" alt="Image">
                 </td>
                 <td>@Html.ActionLink(@item.MainCategory.Name, "Pagination/" + @item.MainCategory.ID + "/1")</td>
+                <td>
+                    <button id="btn_remove" class="label label-primary" onclick="location.href='@Url.Action("RemoveFromWish", "Store", new { product = item.ID })'"><img src="~/Icons/RemoveIcon.png" height="30" width="30" /></button>
+                </td>
 
             </tr>
-                    }
+                        }
                     }
     </table>
+                    }
 </body>
 </html>
 

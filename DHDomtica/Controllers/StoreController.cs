@@ -64,11 +64,34 @@ namespace DHDomtica.Controllers
                 Wishlist wishlist = new Wishlist();
                 wishlist.ProductID = product;
                 wishlist.UserID = Convert.ToInt32(Request.Cookies["UserID"].Value);
-                db.Wishlists.Add(wishlist);
-                db.SaveChanges();
+                List<Wishlist> wl = db.Wishlists.Where(w => w.UserID.Equals(wishlist.UserID)).ToList();
+                bool New = true;
+                foreach(Wishlist l in wl)
+                {
+                    if(l.ProductID == wishlist.ProductID)
+                    {
+                        New = false;
+                    }
+                }
+                if (New)
+                {
+                    db.Wishlists.Add(wishlist);
+                    db.SaveChanges();
+                }
             }
 
 
+            return RedirectToAction("Wishlist", "Store");
+        }
+        public ActionResult RemoveFromWish(int product)
+        {
+            Wishlist wishlist = new Wishlist();
+            int UserID = Convert.ToInt32(Request.Cookies["UserID"].Value);
+            wishlist = db.Wishlists.First(w =>
+                w.ProductID.Equals(product) &&
+                w.UserID.Equals(UserID));
+            db.Wishlists.Remove(wishlist);
+            db.SaveChanges();
             return RedirectToAction("Wishlist", "Store");
         }
         //Todo: Make this work
