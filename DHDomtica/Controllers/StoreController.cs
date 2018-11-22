@@ -24,7 +24,7 @@ namespace DHDomtica.Controllers
 
             return View();
         }
- 
+
         //Code for the Store/ProductDetails
         // GET: ProductDetails
         public ActionResult ProductDetails(int? id)
@@ -56,11 +56,45 @@ namespace DHDomtica.Controllers
             return View(product);
 
         }
-       
+
+        public ActionResult AddToWishlist(int product)
+        {
+            if (System.Web.HttpContext.Current.Request.Cookies["UserEMail"] != null)
+            {
+                Wishlist wishlist = new Wishlist();
+                wishlist.ProductID = product;
+                wishlist.UserID = Convert.ToInt32(Request.Cookies["UserID"].Value);
+                db.Wishlists.Add(wishlist);
+                db.SaveChanges();
+            }
+
+
+            return RedirectToAction("Wishlist", "Store");
+        }
         //Todo: Make this work
         public ActionResult Wishlist()
         {
-            ViewBag.Message = "Yes, We are all wishing for a wishlist...";
+            if (System.Web.HttpContext.Current.Request.Cookies["UserEMail"] != null)
+            {
+                List<Wishlist> wishlist = db.Wishlists.ToList();
+                List<Product> WP = new List<Product>();
+                int userid = Convert.ToInt32(Request.Cookies["UserID"].Value);
+                List<int> products = new List<int>();
+                foreach (Wishlist w in wishlist)
+                {
+                    if (w.UserID == userid)
+                    {
+                        products.Add(w.ProductID);
+                    }
+                }
+                foreach (int p in products)
+                {
+                    WP.Add(db.Products.First(x => x.ID.Equals(p)));
+                }
+
+                return View(WP.ToList());
+            }
+            ViewBag.Message = "U moet ingelogd zijn om producten in uw wishlist te kunnen zetten";
             return View();
         }
 
@@ -193,10 +227,7 @@ namespace DHDomtica.Controllers
                 ViewBag.cart = products.Count();
                 Session["count"] = Convert.ToInt32(Session["count"]) - 1;
             }
-            else
-            {
-                Remove(product);
-            }
+
             return RedirectToAction("ShoppingCart", "Store");
         }
         private int Find(int product)
@@ -209,17 +240,17 @@ namespace DHDomtica.Controllers
         }
         public ActionResult Remove(int product)
         {
-            
-                int index = Find(product);
-                List<ItemModel> products = (List<ItemModel>)Session["cart"];
-                Session["count"] = Convert.ToInt32(Session["count"]) - products[index].Quantity;
-                products.RemoveAll(p => p.Product.ID.Equals(product));
-                Session["cart"] = products;
-                
-                return RedirectToAction("ShoppingCart", "Store");
+
+            int index = Find(product);
+            List<ItemModel> products = (List<ItemModel>)Session["cart"];
+            Session["count"] = Convert.ToInt32(Session["count"]) - products[index].Quantity;
+            products.RemoveAll(p => p.Product.ID.Equals(product));
+            Session["cart"] = products;
+
+            return RedirectToAction("ShoppingCart", "Store");
         }
         public ActionResult ShoppingCart()
-        { 
+        {
             return View();
 
         }

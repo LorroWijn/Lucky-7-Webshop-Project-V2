@@ -15,18 +15,21 @@
             <h4> @Html.DisplayFor(model => model.Price)</h4>
             <p class="card-text">@Html.DisplayFor(model => model.Description)</p>
             @*<span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
-        4.0 stars*@
+                4.0 stars*@
             <hr>
             @using (Html.BeginForm("AddToCart", "Store"))
             {
                 @*<div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" name="product" value="product" class="btn btn-default" />
-                </div>
-            </div>*@
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" name="product" value="product" class="btn btn-default" />
+                        </div>
+                    </div>*@
 
                 <a id="btn_add" href="@Url.Action("AddToCart", "Store", new {product = Model.ID })" class="btn btn-info btn-lg" style="margin-left:60px">
                     <span class="glyphicon glyphicon-shopping-cart"></span> Toevoegen aan winkelmandje
+                </a>
+                <a id="btn_wish" href="@Url.Action("AddToWishlist", "Store", new {product = Model.ID})" class="btn btn-info btn-lg" style="margin-left:60px">
+                    <span class="glyphicon glyphicon-shopping-cart"></span> Toevoegen aan wishlist
                 </a>
             }
         </div>

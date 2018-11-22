@@ -11,6 +11,9 @@
         <AssociationConnector Association="DHDomoticaDBModel.AdminRights1" ManuallyRouted="false" />
         <EntityTypeShape EntityType="DHDomoticaDBModel.Product" Width="1.5" PointX="8" PointY="1" />
         <AssociationConnector Association="DHDomoticaDBModel.MainCat" />
+        <EntityTypeShape EntityType="DHDomoticaDBModel.Wishlist" Width="1.5" PointX="10.25" PointY="1.875" />
+        <AssociationConnector Association="DHDomoticaDBModel.Wishlist_ibfk_2" />
+        <AssociationConnector Association="DHDomoticaDBModel.Wishlist_ibfk_1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -16,8 +16,13 @@ namespace DHDomtica.Models
 
     public partial class Product
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Product()
+        {
+            this.Wishlists = new HashSet<Wishlist>();
+        }
+    
         public int ID { get; set; }
-
         [DataType(DataType.Text)]
         [DisplayName("Productnaam")]
         [Required(ErrorMessage = "Vul een productnaam in")]
@@ -46,5 +51,7 @@ namespace DHDomtica.Models
 
         [DisplayName("Productcategorie")]
         public virtual MainCategory MainCategory { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Wishlist> Wishlists { get; set; }
     }
 }

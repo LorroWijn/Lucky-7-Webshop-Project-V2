@@ -212,6 +212,9 @@
       <DependentUpon>DHDomoticaDBModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UserPasswordChange.cs" />
+    <Compile Include="Models\Wishlist.cs">
+      <DependentUpon>DHDomoticaDBModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Supportclasses\Crypto.cs" />
     <Compile Include="Models\MyDBContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -268,6 +271,7 @@
     </EntityDeploy>
     <Content Include="Models\DHDomoticaDBModels.edmx.diagram">
       <DependentUpon>DHDomoticaDBModels.edmx</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

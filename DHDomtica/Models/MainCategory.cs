@@ -33,4 +33,3 @@ namespace DHDomtica.Models
         public virtual ICollection<Product> Products { get; set; }
     }
 }
-
