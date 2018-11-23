@@ -35,14 +35,15 @@ namespace DHDomtica.Controllers
             {
                 //no cookie found or it is expired (30 min)
             }
-
-            //cookie is found, check if the cookie has the value as expected
-            if (!string.IsNullOrEmpty(pageCookie.Values["pageId"]))
+            else
             {
-                //put the cookie in a viewbag
-                ViewBag.pageId = pageCookie.Values["pageId"].ToString();
+                //cookie is found, check if the cookie has the value as expected
+                if (!string.IsNullOrEmpty(pageCookie.Values["pageId"]))
+                {
+                    //put the cookie in a viewbag
+                    ViewBag.pageId = pageCookie.Values["pageId"].ToString();
+                }
             }
-
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
