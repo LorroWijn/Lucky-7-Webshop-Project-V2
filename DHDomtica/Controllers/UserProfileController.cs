@@ -56,9 +56,9 @@ namespace DHDomtica.Controllers
                 using (DHDomoticaDBEntities DHDomoticadbModel = new DHDomoticaDBEntities())
                 {
                     var p = DHDomoticadbModel.Users.Where(u => u.ID == idCheck).FirstOrDefault();
-                    SignUpViewModel usermodel = new SignUpViewModel(p);
+                    SignUpViewModel userModel = new SignUpViewModel(p);
                     ShowUserSidebar();
-                    return View(usermodel);
+                    return View(userModel);
 
                 }
             }
@@ -72,6 +72,15 @@ namespace DHDomtica.Controllers
         public ActionResult ChangePersonalInformation(SignUpViewModel userModel)
         {
             userModel.ChangeExistingUser();
+
+            HttpCookie NameCookie = new HttpCookie("UserName", userModel.FirstName);
+            HttpContext.Response.SetCookie(NameCookie);
+            NameCookie.Expires = DateTime.UtcNow.AddDays(2);
+
+            HttpCookie EmailCookie = new HttpCookie("UserEMail", userModel.FirstName);
+            HttpContext.Response.SetCookie(EmailCookie);
+            NameCookie.Expires = DateTime.UtcNow.AddDays(2);
+
             return RedirectToAction("Index", "Home");
         }
         //return RedirectToAction("PersonalInformation", "UserProfile");
@@ -101,6 +110,11 @@ namespace DHDomtica.Controllers
                 {
                     chPw = Crypto.Hash(chPw);
                     x.Password = chPw;
+
+                    HttpCookie PwCookie = new HttpCookie("UserPw", x.Password);
+                    PwCookie.Expires = DateTime.UtcNow.AddDays(2);
+                    HttpContext.Response.SetCookie(PwCookie);
+
                     DHDomoticadbModel.SaveChanges();
                     return RedirectToAction("PersonalInformation", "UserProfile");
                 }
@@ -111,44 +125,6 @@ namespace DHDomtica.Controllers
                     return View("ChangePassword", userModel);
                 }
             }
-            //using (DHDomoticaDBEntities DHDomoticadbModel = new DHDomoticaDBEntities())
-            //{
-            //    if (userModel.ChangePassword == null)
-            //    {
-            //        //Geen wachtwoord ingevuld
-            //        ViewBag.BadPasswordMessage = "Uw ingevulde wachtwoord komt niet overeen met Uw huidige wachtwoord";
-            //        return View("ChangePassword", userModel);
-            //    }
-            //    else
-            //    {
-            //        var cPwd = Crypto.Hash(userModel.OldPassword);
-            //        userModel.ChangePassword = Crypto.Hash(userModel.ChangePassword);
-            //        userModel.ChangeConfirmPassword = Crypto.Hash(userModel.ChangeConfirmPassword);
-            //        var p = DHDomoticadbModel.User.Where(u => u.Password == cPwd).FirstOrDefault();
-            //        // var p = DHDomoticadbModel.User.SingleOrDefault(u => u.Password == cPwd);
-            //        // Als de vorige niet werkt dan deze proberen.
-
-            //        if (p == null)
-            //        {
-            //            //Niet goede huidige wachtwoord ingevuld
-            //            ViewBag.BadPasswordMessage = "Uw ingevulde wachtwoord komt niet overeen met Uw huidige wachtwoord";
-            //            return View("ChangePassword", userModel);
-            //        }
-            //        else
-            //        {
-            //            p.Password = Crypto.Hash(userModel.ChangePassword);
-            //            p.ConfirmPassword = Crypto.Hash(userModel.ChangePassword);
-            //            DHDomoticadbModel.Entry(DHDomoticadbModel.User).State = System.Data.Entity.EntityState.Modified;
-            //            // Vorige regel moet aangepast worden aan dat het in de goede model gegooid wordt. DHDomoticadbModel.User of p. Ik weet niet welke goed is.
-            //            DHDomoticadbModel.SaveChanges();
-            //            ModelState.Clear();
-            //            return RedirectToAction("PersonalInformation", "UserProfile");
-            //            // The error stems from line entity.Entry(account). 
-            //            //Either: 1) UpdateAccount is not a type in your DbContext models OR 
-            //            //2) It is a type but you still have to retrieve the instance first OR attach this instance to the DbContext. 
-            //        }
-            //    }
-            //}
         }
     }
 }

@@ -15,8 +15,8 @@ namespace DHDomtica.Controllers
         // GET: SignUp
         public ActionResult SignInPage(int id = 0)
         {
-            User usermodel = new User();
-            return View(usermodel);
+            User userModel = new User();
+            return View(userModel);
         }
 
         [HttpPost]
