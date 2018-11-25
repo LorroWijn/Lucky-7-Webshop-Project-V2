@@ -211,6 +211,7 @@
     <Compile Include="Models\User.cs">
       <DependentUpon>DHDomoticaDBModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Supportclasses\Cookies.cs" />
     <Compile Include="ViewModels\SignUpViewModel.cs" />
     <Compile Include="ViewModels\UserPasswordChangeViewModel.cs" />
     <Compile Include="Models\Wishlist.cs">
@@ -390,6 +391,7 @@
     <Content Include="Views\Store\Products.cshtml" />
     <Content Include="Views\Store\Pagination.cshtml" />
     <Content Include="Views\Home\Sent.cshtml" />
+    <Content Include="Views\UserProfile\LogOut.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

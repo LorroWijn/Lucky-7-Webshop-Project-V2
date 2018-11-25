@@ -65,8 +65,6 @@ namespace DHDomtica.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult ChangePersonalInformation(SignUpViewModel userModel)
@@ -93,7 +91,6 @@ namespace DHDomtica.Controllers
             ShowUserSidebar();
             return View();
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -124,6 +121,48 @@ namespace DHDomtica.Controllers
                     ShowUserSidebar();
                     return View("ChangePassword", userModel);
                 }
+            }
+        }
+
+        [HttpGet]
+        public ActionResult LogOut()
+        {
+            ShowUserSidebar();
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult LogOut(string uitloggen)
+        {
+            var cookieExpDate = DateTime.UtcNow.AddDays(-500);
+            if (uitloggen == "Ja, ik wil uitloggen")
+            {
+                //Create Cookie
+                HttpCookie UserCookie = Request.Cookies["UserEMail"];
+                HttpCookie PwCookie = Request.Cookies["UserPw"];
+                HttpCookie NameCookie = Request.Cookies["UserName"];
+                HttpCookie IDCookie = Request.Cookies["UserID"];
+                //HttpCookie UserNameCookie = new HttpCookie("UserName", userModel.FirstName.ToString());                            
+                //Expire Date of made cookie
+                UserCookie.Expires = cookieExpDate;
+                PwCookie.Expires = cookieExpDate;
+                NameCookie.Expires = cookieExpDate;
+                IDCookie.Expires = cookieExpDate;
+
+                //Save data at Cookies
+                HttpContext.Response.SetCookie(UserCookie);
+                HttpContext.Response.SetCookie(PwCookie);
+                HttpContext.Response.SetCookie(NameCookie);
+                HttpContext.Response.SetCookie(IDCookie);
+
+                //Returns to index page
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                ShowUserSidebar();
+                return View();
             }
         }
     }
