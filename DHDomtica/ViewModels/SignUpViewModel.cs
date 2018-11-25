@@ -98,6 +98,49 @@ namespace DHDomtica.ViewModels
             }
         }
 
+        internal void ChangeExistingUser()
+        {
+            var con = System.Web.HttpContext.Current.Request.Cookies;
+            var idCheck = Convert.ToInt32(con["UserID"].Value);
+            using (DHDomoticaDBEntities DHDomoticadbModel = new DHDomoticaDBEntities())
+            {
+                User user = DHDomoticadbModel.Users.FirstOrDefault(x => x.ID == idCheck);
+                {
+                    user.FirstName = FirstName;
+                    user.LastName = LastName;
+                    user.Gender = Gender;
+                    user.EMail = EMail;
+                    user.Country = Country;
+                    user.Province = Province;
+                    user.City = City;
+                    user.ZipCode = ZipCode;
+                    user.BillingAddress = BillingAddress;
+                };
+                {
+                    DHDomoticadbModel.SaveChanges();
+                }
+            }
+        }
+
+        public SignUpViewModel(User user)
+        {
+            FirstName = user.FirstName;
+            LastName = user.LastName;
+            Gender = user.Gender;
+            EMail = user.EMail;
+            Password = user.Password;
+            Country = user.Country;
+            Province = user.Province;
+            City = user.City;
+            ZipCode = user.ZipCode;
+            BillingAddress = user.BillingAddress;
+        }
+
+        public SignUpViewModel()
+        {
+
+        }
+
         public bool EmailInUse()
         {
             using (DHDomoticaDBEntities DHDomoticadbModel = new DHDomoticaDBEntities())

@@ -50,7 +50,7 @@ namespace DHDomtica.Controllers
                             HttpCookie PwCookie = new HttpCookie("UserPw", x.Password);
                             HttpCookie NameCookie = new HttpCookie("UserName", x.FirstName);
                             HttpCookie IDCookie = new HttpCookie("UserID", x.ID.ToString());
-                            //HttpCookie UserNameCookie = new HttpCookie("UsersName", userModel.FirstName.ToString());                            
+                            //HttpCookie UserNameCookie = new HttpCookie("UserName", userModel.FirstName.ToString());                            
                             //Expire Date of made cookie
                             UserCookie.Expires = cookieExpDate;
                             PwCookie.Expires = cookieExpDate;

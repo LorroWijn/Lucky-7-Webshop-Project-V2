@@ -4,14 +4,15 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DHDomtica.Models;
+using DHDomtica.ViewModels;
 using DHDomtica.Supportclasses;
 using System.Data.Entity.Infrastructure;
 
 namespace DHDomtica.Controllers
 {
+
     public class UserProfileController : Controller
     {
-
         // GET: UserProfile
         // Orderstatus is index. Alle code van orderstatus hierna
         public ActionResult Index()
@@ -29,12 +30,14 @@ namespace DHDomtica.Controllers
 
         // Alles van persoonlijke informatie hierna
         [HttpGet]
-        public ActionResult PersonalInformation(int? id)
+        public ActionResult PersonalInformation()
         {
+            var con = System.Web.HttpContext.Current.Request.Cookies;
+            var idCheck = Convert.ToInt32(con["UserID"].Value);
             User userModel = new User();
             using (DHDomoticaDBEntities DHDomoticadbModel = new DHDomoticaDBEntities())
             {
-                userModel = DHDomoticadbModel.Users.Where(z => z.ID == id).FirstOrDefault();
+                userModel = DHDomoticadbModel.Users.Where(z => z.ID == idCheck).FirstOrDefault();
                 ShowUserSidebar();
                 return View(userModel);
                 // Moet nog aangepast worden zodat informatie uit de cookies gehaald wordt.
@@ -42,55 +45,37 @@ namespace DHDomtica.Controllers
         }
 
         // Alles van change personal information hierna
-        public ActionResult ChangePersonalInformation(int id = 0)
+        public ActionResult ChangePersonalInformation()
         // Moet waarschijnlijk verwijzing naar user bij
         {
-            User usermodel = new User();
-            ShowUserSidebar();
-            return View();
-            // User usermodel regel veranderen in dat deze ingevuld wordt door de database.
+            var con = System.Web.HttpContext.Current.Request.Cookies;
+            var idCheck = Convert.ToInt32(con["UserID"].Value);
+            var pwdCheck = con["UserPw"].Value;
+            if (con["UserID"] != null)
+            {
+                using (DHDomoticaDBEntities DHDomoticadbModel = new DHDomoticaDBEntities())
+                {
+                    var p = DHDomoticadbModel.Users.Where(u => u.ID == idCheck).FirstOrDefault();
+                    SignUpViewModel usermodel = new SignUpViewModel(p);
+                    ShowUserSidebar();
+                    return View(usermodel);
+
+                }
+            }
+            return RedirectToAction("Index", "Home");
         }
 
 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ChangePersonalInformation(User userModel)
+        public ActionResult ChangePersonalInformation(SignUpViewModel userModel)
         {
-
-           
-            using (DHDomoticaDBEntities DHDomoticadbModel = new DHDomoticaDBEntities())
-            {
-                if (userModel.Password == null)
-                {
-                    //geen wachtwoord ingevuld
-                    ViewBag.BadPasswordMessage = "Uw ingevulde wachtwoord komt niet overeen met Uw huidige wachtwoord";
-                    return View("ChangePersonalInformation", userModel);
-                }
-                else
-                {
-                    var ePwd = Crypto.Hash(userModel.Password);
-                    var p = DHDomoticadbModel.Users.Where(u => u.Password == ePwd).FirstOrDefault();
-
-                    if (p == null)
-                    {
-                        //geen goede huidige wachtwoord ingevuld
-                        ViewBag.BadPasswordMessage = "Uw ingevulde wachtwoord komt niet overeen met Uw huidige wachtwoord";
-                        return View("ChangePersonalInformation", userModel);
-                    }
-                    else
-                    {
-                        DHDomoticadbModel.Entry(userModel).State = System.Data.Entity.EntityState.Modified;
-                        DHDomoticadbModel.SaveChanges();
-                        // Misschien ook hier de entries aanpassen, zodat de goede worden gepakt.
-                        ModelState.Clear();
-                        return RedirectToAction("PersonalInformation", "UserProfile");
-                    }
-
-                }
-            }
-            //return RedirectToAction("PersonalInformation", "UserProfile");
+            userModel.ChangeExistingUser();
+            return RedirectToAction("Index", "Home");
         }
+        //return RedirectToAction("PersonalInformation", "UserProfile");
+
 
         [HttpGet]
         //Alles van wachtwoord veranderen hierna
@@ -117,9 +102,15 @@ namespace DHDomtica.Controllers
                     chPw = Crypto.Hash(chPw);
                     x.Password = chPw;
                     DHDomoticadbModel.SaveChanges();
+                    return RedirectToAction("PersonalInformation", "UserProfile");
+                }
+                else
+                {
+                    ViewBag.WrongPasswordMessage = "Uw oude wachtwoord is niet goed ingevuld";
+                    ShowUserSidebar();
+                    return View("ChangePassword", userModel);
                 }
             }
-            return RedirectToAction("PersonalInformation", "UserProfile");
             //using (DHDomoticaDBEntities DHDomoticadbModel = new DHDomoticaDBEntities())
             //{
             //    if (userModel.ChangePassword == null)
