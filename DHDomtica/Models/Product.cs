@@ -46,7 +46,7 @@ namespace DHDomtica.Models
         public string Image { get; set; }
 
         [DisplayName("Productcategorie")]
-        [Required(ErrorMessage = "Vul een categorienummer van Uw product in")]
+        [Required(ErrorMessage = "Vul een categorienummer van uw product in")]
         public int MainCategoryID { get; set; }
 
         [DisplayName("Productcategorie")]
