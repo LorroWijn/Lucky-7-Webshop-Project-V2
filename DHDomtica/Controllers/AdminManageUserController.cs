@@ -146,6 +146,8 @@ namespace DHDomtica.Controllers
         {
             User user = db.Users.Find(id);
             db.Users.Remove(user);
+            var wl = db.Wishlists.Where(l => l.UserID.Equals(id));
+            db.Wishlists.RemoveRange(wl);
             db.SaveChanges();
             ShowAdminSidebar();
             return RedirectToAction("Index");
