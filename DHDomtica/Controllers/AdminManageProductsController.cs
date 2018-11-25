@@ -145,6 +145,8 @@ namespace DHDomtica.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Product product = db.Products.Find(id);
+            var wl = db.Wishlists.Where(l => l.ProductID.Equals(id));
+            db.Wishlists.RemoveRange(wl);
             db.Products.Remove(product);
             db.SaveChanges();
             ShowAdminSidebar();
