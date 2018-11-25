@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DHDomtica.Models;
-using DHDomtica.Supportclasses;
+using DHDomtica.ViewModels;
 using System.Data.Entity.Core.Common.CommandTrees;
 using System.Data.Linq.Mapping;
 using System.Net;
@@ -22,55 +22,42 @@ namespace DHDomtica.Controllers
         // GET: SignUp
         public ActionResult SignUpPage(int id = 0)
         {
-            User usermodel = new User();
+            var usermodel = new SignUpViewModel();
             return View(usermodel);
         }
 
         // POST: SignUp/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> SignUpPage(User userModel)
+        public async Task<ActionResult> SignUpPage(SignUpViewModel signupUserModel)
         {
-            userModel.Password = Crypto.Hash(userModel.Password);
-            // userModel.ConfirmPassword = Crypto.Hash(userModel.ConfirmPassword);
-            using (DHDomoticaDBEntities DHDomoticadbModel = new DHDomoticaDBEntities())
+            if (signupUserModel.EmailInUse() == true)
             {
-                if (DHDomoticadbModel.Users.Any(x => x.EMail == userModel.EMail))
-                {
-                    ViewBag.DuplicateMessage = "E-mail is al in gebruik. Probeer een ander E-mailadres";
-                    return View("SignUpPage", userModel);
-                }
-                else
-                {
-                    //TODO: User model moet confirm password kwijtraken anders wordt het te chaotisch
-                    if (1 == 1)
-                    {
-                        DHDomoticadbModel.Users.Add(userModel);
-                        DHDomoticadbModel.SaveChanges();
-                    }
-                    else
-                    {
-                        ViewBag.NonDuplicateMessage = "Wachtwoorden komen niet overeen";
-                        return View("SignUpPage", userModel);
-                    }
-                }
+                ViewBag.DuplicateMessage = "E-mail is al in gebruik. Probeer een ander E-mailadres";
+                return View("SignUpPage", signupUserModel);
             }
-            ModelState.Clear();
-            var body = "Uw account voor de website DHDomotica is succesvol aangemaakt.";
-            var message = new MailMessage();
-            message.To.Add(new MailAddress(userModel.EMail));  // replace with valid value 
-            message.From = new MailAddress("DHDomotica@outlook.com");  // replace with valid value
-            message.Subject = "Account registratie";
-            message.Body = body;
-            message.IsBodyHtml = true;
-
-            using (var smtp = new SmtpClient())
+            else
             {
+                signupUserModel.CreateNewUser();
 
-                await smtp.SendMailAsync(message);
-                ViewBag.SuccessMessage = "Uw account is geregistreerd";
-                //return View("SignUpPage", new User());
-                return RedirectToAction("SignInPage", "SignIn");
+
+                ModelState.Clear();
+                var body = "Uw account voor de website DHDomotica is succesvol aangemaakt.";
+                var message = new MailMessage();
+                message.To.Add(new MailAddress(signupUserModel.EMail));  // replace with valid value 
+                message.From = new MailAddress("DHDomotica@outlook.com");  // replace with valid value
+                message.Subject = "Account registratie";
+                message.Body = body;
+                message.IsBodyHtml = true;
+
+                using (var smtp = new SmtpClient())
+                {
+
+                    await smtp.SendMailAsync(message);
+                    ViewBag.SuccessMessage = "Uw account is geregistreerd";
+                    //return View("SignUpPage", new User());
+                    return RedirectToAction("SignInPage", "SignIn");
+                }
             }
         }
     }

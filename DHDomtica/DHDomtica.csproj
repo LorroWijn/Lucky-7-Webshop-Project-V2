@@ -211,7 +211,8 @@
     <Compile Include="Models\User.cs">
       <DependentUpon>DHDomoticaDBModels.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\UserPasswordChange.cs" />
+    <Compile Include="ViewModels\SignUpViewModel.cs" />
+    <Compile Include="ViewModels\UserPasswordChangeViewModel.cs" />
     <Compile Include="Models\Wishlist.cs">
       <DependentUpon>DHDomoticaDBModels.tt</DependentUpon>
     </Compile>
