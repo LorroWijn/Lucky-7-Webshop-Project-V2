@@ -34,10 +34,10 @@ namespace DHDomtica.Controllers
         {
             var con = System.Web.HttpContext.Current.Request.Cookies;
             var idCheck = Convert.ToInt32(con["UserID"].Value);
-            User userModel = new User();
             using (DHDomoticaDBEntities DHDomoticadbModel = new DHDomoticaDBEntities())
             {
-                userModel = DHDomoticadbModel.Users.Where(z => z.ID == idCheck).FirstOrDefault();
+                User user = DHDomoticadbModel.Users.Where(z => z.ID == idCheck).FirstOrDefault();
+                SignUpViewModel userModel = new SignUpViewModel(user);
                 ShowUserSidebar();
                 return View(userModel);
                 // Moet nog aangepast worden zodat informatie uit de cookies gehaald wordt.
@@ -55,8 +55,8 @@ namespace DHDomtica.Controllers
             {
                 using (DHDomoticaDBEntities DHDomoticadbModel = new DHDomoticaDBEntities())
                 {
-                    var p = DHDomoticadbModel.Users.Where(u => u.ID == idCheck).FirstOrDefault();
-                    SignUpViewModel userModel = new SignUpViewModel(p);
+                    User ss = DHDomoticadbModel.Users.Where(u => u.ID == idCheck).FirstOrDefault();
+                    SignUpViewModel userModel = new SignUpViewModel(ss);
                     ShowUserSidebar();
                     return View(userModel);
 

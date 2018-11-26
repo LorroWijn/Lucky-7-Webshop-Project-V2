@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using System.Web;
 using DHDomtica.Models;
+using DHDomtica.ViewModels;
 using DHDomtica.Supportclasses;
 
 namespace DHDomtica.Controllers
@@ -15,13 +16,13 @@ namespace DHDomtica.Controllers
         // GET: SignUp
         public ActionResult SignInPage(int id = 0)
         {
-            User userModel = new User();
+            SignUpViewModel userModel = new SignUpViewModel();
             return View(userModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult SignInPage(User userModel)
+        public ActionResult SignInPage(SignUpViewModel userModel)
         {
             var cookieExpDate = DateTime.UtcNow.AddDays(2);
             using (DHDomoticaDBEntities DHDomoticadbModel = new DHDomoticaDBEntities())
@@ -29,7 +30,7 @@ namespace DHDomtica.Controllers
                 if (userModel.Password == null || userModel.EMail == null)
                 {
                     //geen geldige credentials ingevoerd (missend wachtwoord OF missend EmailAddress)
-                    return View("SignInPage", new User());
+                    return View("SignInPage", new SignUpViewModel());
                 }
                 else
                 {
@@ -38,7 +39,7 @@ namespace DHDomtica.Controllers
                     if (x == null)
                     {
                         //geen geldige credentials ingevoerd (geen combinatie van email + ww)
-                        return View("SignInPage", new User());
+                        return View("SignInPage", new SignUpViewModel());
                     }
                     else
                     {

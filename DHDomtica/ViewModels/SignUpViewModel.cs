@@ -73,6 +73,7 @@ namespace DHDomtica.ViewModels
         [RegularExpression(@"^([1-9][e][\s])*([a-zA-Z]+(([\.][\s])|([\s]))?)+[1-9][0-9]*(([-][1-9][0-9]*)|([\s]?[a-zA-Z]+))?$", ErrorMessage = "Vul een correct Nederlands adres in zonder komma, zoals Wijnhaven 107")]
         public string BillingAddress { get; set; }
 
+
         internal void CreateNewUser()
         {
             Password = Crypto.Hash(Password);

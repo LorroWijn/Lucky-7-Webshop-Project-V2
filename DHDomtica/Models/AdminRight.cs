@@ -11,9 +11,7 @@ namespace DHDomtica.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class AdminRight
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,10 +21,6 @@ namespace DHDomtica.Models
         }
     
         public int AdminID { get; set; }
-
-        [DataType(DataType.Text)]
-        [DisplayName("Gebruikersrechten")]
-        [Required(ErrorMessage = "Vul de gebruikersrechten van de gebruiker in")]
         public string Rights { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
