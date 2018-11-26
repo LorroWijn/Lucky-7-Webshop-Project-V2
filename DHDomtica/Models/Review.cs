@@ -12,18 +12,16 @@ namespace DHDomtica.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class MainCategory
+    public partial class Review
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public MainCategory()
-        {
-            this.Products = new HashSet<Product>();
-        }
-    
         public int ID { get; set; }
-        public string Name { get; set; }
+        public int UserID { get; set; }
+        public int ProductID { get; set; }
+        public string ReviewText { get; set; }
+        public int Stars { get; set; }
+        public System.DateTime Date { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Product> Products { get; set; }
+        public virtual Product Product { get; set; }
+        public virtual User User { get; set; }
     }
 }

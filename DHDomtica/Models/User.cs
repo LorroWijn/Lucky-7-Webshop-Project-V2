@@ -11,76 +11,33 @@ namespace DHDomtica.Models
 {
     using System;
     using System.Collections.Generic;
-
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
+    
     public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User()
         {
             this.Wishlists = new HashSet<Wishlist>();
+            this.Reviews = new HashSet<Review>();
         }
-
+    
         public int ID { get; set; }
-
         public int AdminID { get; set; }
-
-        [DataType(DataType.Text)]
-        [DisplayName("Voornaam")]
-        [Required(ErrorMessage = "Vul uw voornaam in")]
         public string FirstName { get; set; }
-
-        [DataType(DataType.Text)]
-        [DisplayName("Achternaam")]
-        [Required(ErrorMessage = "Vul uw achternaam in")]
         public string LastName { get; set; }
-
-        [DataType(DataType.Text)]
-        [DisplayName("Geslacht")]
-        [Required(ErrorMessage = "Kies uw geslacht")]
         public string Gender { get; set; }
-
-        [DataType(DataType.EmailAddress)]
-        [DisplayName("E-mail")]
-        [Required(ErrorMessage = "Vul uw E-mailadres in")]
-        [RegularExpression(@"^[\w-]+(?:\.[\w-]+)*@(?:[\w-]+\.)+[a-zA-Z]{2,7}$", ErrorMessage = "Vul een correct E-mailadres in, zoals 0956570@hr.nl")]
         public string EMail { get; set; }
-
-        [DataType(DataType.Password)]
-        [DisplayName("Wachtwoord")]
-        [Required(ErrorMessage = "Vul uw wachtwoord in")]
         public string Password { get; set; }
-
-        [DataType(DataType.Text)]
-        [DisplayName("Land")]
-        [Required(ErrorMessage = "Kies uw land")]
         public string Country { get; set; }
-
-        [DataType(DataType.Text)]
-        [DisplayName("Provincie")]
-        [Required(ErrorMessage = "Kies uw provincie")]
         public string Province { get; set; }
-
-        [DataType(DataType.Text)]
-        [DisplayName("Stad")]
-        [Required(ErrorMessage = "Vul uw stad in")]
         public string City { get; set; }
-
-        [DataType(DataType.PostalCode)]
-        [DisplayName("Postcode")]
-        [Required(ErrorMessage = "Vul uw postcode in")]
-        [RegularExpression(@"^[1-9][0-9]{3}\s*(?:[a-zA-Z]{2})?$", ErrorMessage = "Vul een correcte Nederlandse postcode in, zoals 3011 WN")]
-        public string ZipCode { get; set; }
-
-        [DataType(DataType.Text)]
-        [DisplayName("Woonadres")]
-        [Required(ErrorMessage = "Vul uw woonadres in")]
-        [RegularExpression(@"^([1-9][e][\s])*([a-zA-Z]+(([\.][\s])|([\s]))?)+[1-9][0-9]*(([-][1-9][0-9]*)|([\s]?[a-zA-Z]+))?$", ErrorMessage = "Vul een correct Nederlands adres in zonder komma, zoals Wijnhaven 107")]
         public string BillingAddress { get; set; }
-
+        public string ZipCode { get; set; }
+    
         public virtual AdminRight AdminRight { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Wishlist> Wishlists { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Review> Reviews { get; set; }
     }
 }
