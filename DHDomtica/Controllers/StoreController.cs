@@ -10,6 +10,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DHDomtica.Models;
+using PayPal.Api;
 
 namespace DHDomtica.Controllers
 {
@@ -277,6 +278,119 @@ namespace DHDomtica.Controllers
         {
             return View();
 
+        }
+
+        private Payment payment;
+
+        private Payment CreatePayment(APIContext apiContext, string redirectUrl)
+        {
+            var listItems = new ItemList(){items = new List<Item>()};
+            List<ItemModel> Order = (List<ItemModel>)Session["cart"];
+            foreach(var item in Order)
+            {
+                listItems.items.Add(new Item()
+                {
+                    name = item.Product.Name,
+                    currency = "EUR",
+                    price = item.Product.Price.ToString(),
+                    quantity = item.Quantity.ToString(),
+                    sku = "sku"
+                });
+            }
+            var payer = new Payer(){ payment_method = "paypal" };
+            var redirUrls = new RedirectUrls()
+            {
+                cancel_url = redirectUrl,
+                return_url = redirectUrl
+            };
+            var details = new Details()
+            {
+                tax = "1",
+                shipping = "2",
+                subtotal = Order.Sum(item => item.Product.Price * item.Quantity).ToString()
+            };
+            var amount = new Amount()
+            {
+                currency = "EUR",
+                total = (Convert.ToDouble(details.tax) + Convert.ToDouble(details.shipping) + Convert.ToDouble(details.subtotal)).ToString(),
+                details = details
+            };
+            var transactionList = new List<Transaction>();
+            transactionList.Add(new Transaction()
+            {
+                description = "Testing Transaction",
+                invoice_number = Convert.ToString((new Random()).Next(100000)),
+                amount = amount,
+                item_list = listItems
+            });
+
+            payment = new Payment()
+            {
+                intent = "sale",
+                payer = payer,
+                transactions = transactionList,
+                redirect_urls = redirUrls
+            };
+
+            return payment.Create(apiContext);
+
+        }
+
+        private Payment ExecutePayment(APIContext apiContext, string payerId, string paymentId)
+        {
+            var paymentExecution = new PaymentExecution()
+            {
+                payer_id = payerId,
+
+            };
+            payment = new Payment() { id = paymentId };
+            return payment.Execute(apiContext, paymentExecution);
+        }
+
+        public ActionResult PaymentWithPayPal()
+        {
+            APIContext apiContext = PayPalConfiguration.GetAPIContext();
+            try
+            {
+                //string payerId = Request.Cookies["UserID"].Value;
+                string payerId = Request.Params["PayerID"];
+            if (string.IsNullOrEmpty(payerId))
+                {
+                    string baseURI = Request.Url.Scheme + "://" + Request.Url.Authority + "/Store/PaymentWithPayPal?";
+                    //string baseURI = "http://localhost:5696/Store/ShoppingCart/PaymentWithPayPal?";
+                var guid = Convert.ToString((new Random()).Next(100000));
+                var createdPayment = CreatePayment(apiContext, baseURI + "guid=" + guid);
+
+                var links = createdPayment.links.GetEnumerator();
+                string paypalRedirectUrl = string.Empty;
+
+                while (links.MoveNext())
+                {
+                    Links link = links.Current;
+                    if (link.rel.ToLower().Trim().Equals("approval_url"))
+                    {
+                        paypalRedirectUrl = link.href;
+                    }
+                }
+                Session.Add(guid, createdPayment.id);
+                return Redirect(paypalRedirectUrl);
+            }
+            else
+                {
+                    var guid = Request.Params["guid"];
+                    var executedPayment = ExecutePayment(apiContext, payerId, Session[guid] as string);
+                    if(executedPayment.state.ToLower() != "approved")
+                    {
+                        return View("Failure");
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                return View("Failure");
+            }
+
+            return View("Succes");
         }
     }
 }
