@@ -19,21 +19,35 @@
             <hr>
             @using (Html.BeginForm("AddToCart", "Store"))
             {
-                @*<div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" name="product" value="product" class="btn btn-default" />
-                        </div>
-                    </div>*@
-
-                <a id="btn_add" href="@Url.Action("AddToCart", "Store", new {product = Model.ID })" class="btn btn-success">
+                <a id="btn_add" href="@Url.Action("AddToCart", "Store", new { product = Model.ID })" class="btn btn-success">
                     <i class="fas fa-plus"> </i> In winkelwagen
                 </a>
-                <a id="btn_wish" href="@Url.Action("AddToWishlist", "Store", new {product = Model.ID})" class="btn btn-success">
+                <a id="btn_wish" href="@Url.Action("AddToWishlist", "Store", new { product = Model.ID })" class="btn btn-success">
                     <i class="far fa-heart"></i> Op verlanglijst
                 </a>
             }
+
         </div>
+
     </div>
+
+    <!--review section-->
+    @*@<div class="card card-outline-secondary my-4">
+        <div class="card-header">
+            Product Reviews
+        </div>
+        @{ 
+            foreach (Review r in Model.reviews)
+            {
+                <div class="card-body">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
+                    <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+                    <hr>
+                    <a href="#" class="btn btn-success">Leave a Review</a>
+                </div>
+            }
+        }
+    </div>*@
 </div>
 <hr />
 <p>
