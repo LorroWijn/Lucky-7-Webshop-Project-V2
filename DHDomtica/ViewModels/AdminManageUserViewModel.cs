@@ -9,7 +9,7 @@ using DHDomtica.Supportclasses;
 
 namespace DHDomtica.ViewModels
 {
-    public class SignUpViewModel
+    public class AdminManageUserViewModel
     {
         public int ID { get; set; }
 
@@ -41,11 +41,6 @@ namespace DHDomtica.ViewModels
         [Required(ErrorMessage = "Vul uw wachtwoord in")]
         public string Password { get; set; }
 
-        [DataType(DataType.Password)]
-        [DisplayName("Conformatie Wachtwoord")]
-        [Required(ErrorMessage = "Vul uw wachtwoordbevestiging in")]
-        public string ConfirmPassword { get; set; }
-
         [DataType(DataType.Text)]
         [DisplayName("Land")]
         [Required(ErrorMessage = "Kies uw land")]
@@ -73,13 +68,16 @@ namespace DHDomtica.ViewModels
         [RegularExpression(@"^([1-9][e][\s])*([a-zA-Z]+(([\.][\s])|([\s]))?)+[1-9][0-9]*(([-][1-9][0-9]*)|([\s]?[a-zA-Z]+))?$", ErrorMessage = "Vul een correct Nederlands adres in zonder komma, zoals Wijnhaven 107")]
         public string BillingAddress { get; set; }
 
+        public virtual AdminRight AdminRight { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Wishlist> Wishlists { get; set; }
 
         internal void CreateNewUser()
         {
             Password = Crypto.Hash(Password);
             User gebruiker = new User()
             {
-                AdminID = 1,
+                AdminID = AdminID,
                 FirstName = FirstName,
                 LastName = LastName,
                 Gender = Gender,
@@ -99,6 +97,7 @@ namespace DHDomtica.ViewModels
             }
         }
 
+        //Aanpassen aan CRUD. Cookies eruit.
         internal void ChangeExistingUser()
         {
             var con = System.Web.HttpContext.Current.Request.Cookies;
@@ -110,12 +109,12 @@ namespace DHDomtica.ViewModels
                     user.FirstName = FirstName;
                     user.LastName = LastName;
                     user.Gender = Gender;
-                    user.EMail = EMail;
                     user.Country = Country;
                     user.Province = Province;
                     user.City = City;
                     user.ZipCode = ZipCode;
                     user.BillingAddress = BillingAddress;
+                    // Hier moet een foreign key in van adminID, maar weet niet hoe dit werkt.
                 };
                 {
                     DHDomoticadbModel.SaveChanges();
@@ -123,7 +122,7 @@ namespace DHDomtica.ViewModels
             }
         }
 
-        public SignUpViewModel(User user)
+        public AdminManageUserViewModel(User user)
         {
             FirstName = user.FirstName;
             LastName = user.LastName;
@@ -135,9 +134,10 @@ namespace DHDomtica.ViewModels
             City = user.City;
             ZipCode = user.ZipCode;
             BillingAddress = user.BillingAddress;
+            // Ook hier foreign key van adminID in
         }
 
-        public SignUpViewModel()
+        public AdminManageUserViewModel()
         {
 
         }
