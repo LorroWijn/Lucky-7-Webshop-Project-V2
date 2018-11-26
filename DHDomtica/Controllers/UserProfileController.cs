@@ -162,7 +162,8 @@ namespace DHDomtica.Controllers
             else
             {
                 ShowUserSidebar();
-                return View();
+                return RedirectToAction("Index", "UserProfile");
+
             }
         }
     }
