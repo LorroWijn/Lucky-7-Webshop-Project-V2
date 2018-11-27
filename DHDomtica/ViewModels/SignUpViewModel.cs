@@ -42,7 +42,7 @@ namespace DHDomtica.ViewModels
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [DisplayName("Conformatie Wachtwoord")]
+        [DisplayName("Confirmatie Wachtwoord")]
         [Required(ErrorMessage = "Vul uw wachtwoordbevestiging in")]
         public string ConfirmPassword { get; set; }
 

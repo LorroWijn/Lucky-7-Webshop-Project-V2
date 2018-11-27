@@ -215,6 +215,8 @@
       <DependentUpon>DHDomoticaDBModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Supportclasses\Cookies.cs" />
+    <Compile Include="ViewModels\AdminManageProductViewModel.cs" />
+    <Compile Include="ViewModels\AdminManageUserViewModel.cs" />
     <Compile Include="ViewModels\SignUpViewModel.cs" />
     <Compile Include="ViewModels\UserPasswordChangeViewModel.cs" />
     <Compile Include="Models\Wishlist.cs">
