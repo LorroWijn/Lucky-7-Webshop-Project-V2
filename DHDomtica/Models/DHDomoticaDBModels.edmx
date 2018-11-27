@@ -19,6 +19,14 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="45" Nullable="false" />
         </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Product">
           <Key>
             <PropertyRef Name="ID" />
@@ -26,7 +34,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="256" Nullable="false" />
           <Property Name="Description" Type="varchar" MaxLength="5000" />
-          <Property Name="Price" Type="float" Nullable="false" />
+          <Property Name="Price" Type="double" Nullable="false" />
           <Property Name="Image" Type="varchar" MaxLength="256" Nullable="false" />
           <Property Name="MainCategoryID" Type="int" Nullable="false" />
         </EntityType>
@@ -90,6 +98,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="Orders_ibfk_1">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Orders_ibfk_2">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="Review_ibfk_1">
           <End Role="User" Type="Self.User" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -145,6 +177,7 @@
         <EntityContainer Name="DHDomoticaDBModelStoreContainer">
           <EntitySet Name="AdminRights" EntityType="Self.AdminRights" Schema="DHDomoticaDB" store:Type="Tables" />
           <EntitySet Name="MainCategory" EntityType="Self.MainCategory" Schema="DHDomoticaDB" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="DHDomoticaDB" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="DHDomoticaDB" store:Type="Tables" />
           <EntitySet Name="Review" EntityType="Self.Review" Schema="DHDomoticaDB" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="DHDomoticaDB" store:Type="Tables" />
@@ -156,6 +189,14 @@
           <AssociationSet Name="MainCat" Association="Self.MainCat">
             <End Role="MainCategory" EntitySet="MainCategory" />
             <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="Orders_ibfk_1" Association="Self.Orders_ibfk_1">
+            <End Role="User" EntitySet="User" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="Orders_ibfk_2" Association="Self.Orders_ibfk_2">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
           <AssociationSet Name="Review_ibfk_1" Association="Self.Review_ibfk_1">
             <End Role="User" EntitySet="User" />
@@ -213,6 +254,7 @@
           <NavigationProperty Name="AdminRight" Relationship="Self.AdminRights1" FromRole="User" ToRole="AdminRights" />
           <NavigationProperty Name="Wishlists" Relationship="DHDomoticaDBModel.Wishlist_ibfk_1" FromRole="User" ToRole="Wishlist" />
           <NavigationProperty Name="Reviews" Relationship="DHDomoticaDBModel.Review_ibfk_1" FromRole="User" ToRole="Review" />
+          <NavigationProperty Name="Orders" Relationship="DHDomoticaDBModel.Orders_ibfk_1" FromRole="User" ToRole="Order" />
         </EntityType>
         <Association Name="AdminRights1">
           <End Role="AdminRights" Type="Self.AdminRight" Multiplicity="1" />
@@ -257,6 +299,15 @@
             <End Role="User" EntitySet="Users" />
             <End Role="Review" EntitySet="Reviews" />
           </AssociationSet>
+          <EntitySet Name="Orders" EntityType="DHDomoticaDBModel.Order" />
+          <AssociationSet Name="Orders_ibfk_1" Association="DHDomoticaDBModel.Orders_ibfk_1">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="Orders_ibfk_2" Association="DHDomoticaDBModel.Orders_ibfk_2">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Product">
           <Key>
@@ -265,12 +316,13 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
           <Property Name="Description" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
-          <Property Name="Price" Type="Single" Nullable="false" />
+          <Property Name="Price" Type="Double" Nullable="false" />
           <Property Name="Image" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
           <Property Name="MainCategoryID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="MainCategory" Relationship="DHDomoticaDBModel.MainCat" FromRole="Product" ToRole="MainCategory" />
           <NavigationProperty Name="Wishlists" Relationship="DHDomoticaDBModel.Wishlist_ibfk_2" FromRole="Product" ToRole="Wishlist" />
           <NavigationProperty Name="Reviews" Relationship="DHDomoticaDBModel.Review_ibfk_2" FromRole="Product" ToRole="Review" />
+          <NavigationProperty Name="Orders" Relationship="DHDomoticaDBModel.Orders_ibfk_2" FromRole="Product" ToRole="Order" />
         </EntityType>
         <Association Name="MainCat">
           <End Type="DHDomoticaDBModel.MainCategory" Role="MainCategory" Multiplicity="1" />
@@ -359,6 +411,40 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="DHDomoticaDBModel.Orders_ibfk_1" FromRole="Order" ToRole="User" />
+          <NavigationProperty Name="Product" Relationship="DHDomoticaDBModel.Orders_ibfk_2" FromRole="Order" ToRole="Product" />
+        </EntityType>
+        <Association Name="Orders_ibfk_1">
+          <End Type="DHDomoticaDBModel.User" Role="User" Multiplicity="1" />
+          <End Type="DHDomoticaDBModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Orders_ibfk_2">
+          <End Type="DHDomoticaDBModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="DHDomoticaDBModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -426,6 +512,15 @@
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Stars" ColumnName="Stars" />
                 <ScalarProperty Name="ReviewText" ColumnName="ReviewText" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="DHDomoticaDBModel.Order">
+              <MappingFragment StoreEntitySet="Orders">
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />

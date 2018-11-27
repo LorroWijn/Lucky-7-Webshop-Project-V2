@@ -1,12 +1,9 @@
 ﻿@model System.Collections.Generic.List<DHDomtica.Models.Product>
-
+@using DHDomtica.Models;
 @{
     ViewBag.Title = "CategoryPage";
 }
 
-
-@*name of specified category*@
-<h2>@Model.Category.Name</h2>
 
 @*Table for the products*@
 @foreach (var p in (List<Product>)ViewBag.AllProducts)
