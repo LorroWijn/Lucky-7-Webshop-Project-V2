@@ -19,6 +19,7 @@ namespace DHDomtica.Models
         {
             this.Wishlists = new HashSet<Wishlist>();
             this.Reviews = new HashSet<Review>();
+            this.Orders = new HashSet<Order>();
         }
     
         public int ID { get; set; }
@@ -33,5 +34,7 @@ namespace DHDomtica.Models
         public virtual ICollection<Wishlist> Wishlists { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Review> Reviews { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }
