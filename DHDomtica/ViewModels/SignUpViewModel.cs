@@ -44,6 +44,7 @@ namespace DHDomtica.ViewModels
         [DataType(DataType.Password)]
         [DisplayName("Confirmatie Wachtwoord")]
         [Required(ErrorMessage = "Vul uw wachtwoordbevestiging in")]
+        [Compare("Password")]
         public string ConfirmPassword { get; set; }
 
         [DataType(DataType.Text)]

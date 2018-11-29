@@ -46,5 +46,18 @@ namespace DHDomtica.Models
         public virtual MainCategory MainCategory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Wishlist> Wishlists { get; set; }
+
+        internal void CreateNewProduct()
+        {
+            Product product = new Product()
+            {
+                Name = Name,
+                Description = Description,
+                Price = Price,
+                Image = Image,
+                // Foreign key van productcategorie invullen
+            };
+        }
+
     }
 }
