@@ -49,8 +49,8 @@ namespace DHDomtica.Controllers
 
                 ModelState.Clear();
                 var body = new StringBuilder();
-                body.AppendLine("Uw account voor de website DHDomotica is succesvol aangemaakt.");
-                body.AppendLine(@"Klik op onderstaande link om uw emailadres te bevestigen");
+                body.AppendLine("Uw account voor de website DHDomotica is succesvol aangemaakt.\n");
+                body.AppendLine(@"Klik op onderstaande link om uw emailadres te bevestigen:\n");
                 body.AppendLine(@"<a href=""http://localhost:5696"">Email bevestigen</a>");
                 var message = new MailMessage();
                 message.To.Add(new MailAddress(signupUserModel.EMail));  // replace with valid value 

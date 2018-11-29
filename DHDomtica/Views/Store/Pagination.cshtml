@@ -14,12 +14,13 @@
     @{
         foreach (Product p in Model.Products)
         {
+            int prijs = Convert.ToInt16(Math.Round(p.Price));
             <div class="col-lg-4 col-md-6 mb-4">
                 <div class="card h-100">
                     <img class="card-img-top" src="@p.Image" alt="Afbeelding">
                     <div class="card-body">
                         <h4>@Html.ActionLink(p.Name, "ProductDetails", "Store", new { id = p.ID }, new { @class = "card-title" })</h4>
-                        <p>&#8364 @p.Price </p>
+                        <p>&#8364 @prijs </p>
                     </div>
                     <div class="card-footer">
                         <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>

@@ -79,6 +79,9 @@ namespace DHDomtica.Controllers
             HttpContext.Response.SetCookie(EmailCookie);
             NameCookie.Expires = DateTime.UtcNow.AddDays(2);
 
+            HttpCookie LastNameCookie = new HttpCookie("UserLast", userModel.LastName);
+            HttpContext.Response.SetCookie(LastNameCookie);
+            LastNameCookie.Expires = DateTime.UtcNow.AddDays(2);
             return RedirectToAction("Index", "Home");
         }
         //return RedirectToAction("PersonalInformation", "UserProfile");
@@ -142,18 +145,21 @@ namespace DHDomtica.Controllers
                 HttpCookie UserCookie = Request.Cookies["UserEMail"];
                 HttpCookie PwCookie = Request.Cookies["UserPw"];
                 HttpCookie NameCookie = Request.Cookies["UserName"];
+                HttpCookie LastNameCookie = Request.Cookies["UserLast"];
                 HttpCookie IDCookie = Request.Cookies["UserID"];
                 //HttpCookie UserNameCookie = new HttpCookie("UserName", userModel.FirstName.ToString());                            
                 //Expire Date of made cookie
                 UserCookie.Expires = cookieExpDate;
                 PwCookie.Expires = cookieExpDate;
                 NameCookie.Expires = cookieExpDate;
+                LastNameCookie.Expires = cookieExpDate;
                 IDCookie.Expires = cookieExpDate;
 
                 //Save data at Cookies
                 HttpContext.Response.SetCookie(UserCookie);
                 HttpContext.Response.SetCookie(PwCookie);
                 HttpContext.Response.SetCookie(NameCookie);
+                HttpContext.Response.SetCookie(LastNameCookie);
                 HttpContext.Response.SetCookie(IDCookie);
 
                 //Returns to index page

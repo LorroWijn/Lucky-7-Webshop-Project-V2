@@ -12,6 +12,7 @@ using System.Web.Mvc;
 using DHDomtica.Models;
 using PayPal.Api;
 using System.Globalization;
+using System.Runtime;
 
 namespace DHDomtica.Controllers
 {
@@ -69,9 +70,9 @@ namespace DHDomtica.Controllers
                 wishlist.UserID = Convert.ToInt32(Request.Cookies["UserID"].Value);
                 List<Wishlist> wl = db.Wishlists.Where(w => w.UserID.Equals(wishlist.UserID)).ToList();
                 bool New = true;
-                foreach(Wishlist l in wl)
+                foreach (Wishlist l in wl)
                 {
-                    if(l.ProductID == wishlist.ProductID)
+                    if (l.ProductID == wishlist.ProductID)
                     {
                         New = false;
                     }
@@ -285,20 +286,24 @@ namespace DHDomtica.Controllers
 
         private Payment CreatePayment(APIContext apiContext, string redirectUrl)
         {
-            var listItems = new ItemList(){items = new List<Item>()};
+            var listItems = new ItemList() { items = new List<Item>() };
             List<ItemModel> Order = (List<ItemModel>)Session["cart"];
-            foreach(var item in Order)
+            int totaal = 0;
+            foreach (var item in Order)
             {
+                int prijs = Convert.ToInt16(Math.Round(item.Product.Price));
                 listItems.items.Add(new Item()
                 {
                     name = item.Product.Name,
                     currency = "EUR",
-                    price = item.Product.Price.ToString(),
+                    price = prijs.ToString(),
                     quantity = item.Quantity.ToString(),
                     sku = "sku"
                 });
+                totaal += prijs * item.Quantity;
+                Session["Totaal"] = totaal;
             }
-            var payer = new Payer(){ payment_method = "paypal" };
+            var payer = new Payer() { payment_method = "paypal" };
             var redirUrls = new RedirectUrls()
             {
                 cancel_url = redirectUrl,
@@ -306,9 +311,9 @@ namespace DHDomtica.Controllers
             };
             var details = new Details()
             {
-                tax = "1",
-                shipping = "2",
-                subtotal = Order.Sum(item => item.Product.Price * item.Quantity).ToString()
+                tax = "0",
+                shipping = "0",
+                subtotal = Order.Sum(item => Convert.ToInt16(Math.Round(item.Product.Price)) * item.Quantity).ToString()
             };
             var amount = new Amount()
             {
@@ -350,48 +355,60 @@ namespace DHDomtica.Controllers
 
         public ActionResult PaymentWithPayPal()
         {
-            APIContext apiContext = PayPalConfiguration.GetAPIContext();
-            try
+            if (System.Web.HttpContext.Current.Request.Cookies["UserEMail"] != null)
             {
-                //string payerId = Request.Cookies["UserID"].Value;
-                string payerId = Request.Params["PayerID"];
-            if (string.IsNullOrEmpty(payerId))
+                APIContext apiContext = PayPalConfiguration.GetAPIContext();
+                try
                 {
-                    string baseURI = Request.Url.Scheme + "://" + Request.Url.Authority + "/Store/PaymentWithPayPal?";
-                    //string baseURI = "http://localhost:5696/Store/ShoppingCart/PaymentWithPayPal?";
-                var guid = Convert.ToString((new Random()).Next(100000));
-                var createdPayment = CreatePayment(apiContext, baseURI + "guid=" + guid);
-
-                var links = createdPayment.links.GetEnumerator();
-                string paypalRedirectUrl = string.Empty;
-
-                while (links.MoveNext())
-                {
-                    Links link = links.Current;
-                    if (link.rel.ToLower().Trim().Equals("approval_url"))
+                    //string payerId = Request.Cookies["UserID"].Value;
+                    string payerId = Request.Params["PayerID"];
+                    if (string.IsNullOrEmpty(payerId))
                     {
-                        paypalRedirectUrl = link.href;
+                        string baseURI = Request.Url.Scheme + "://" + Request.Url.Authority + "/Store/PaymentWithPayPal?";
+                        //string baseURI = "http://localhost:5696/Store/ShoppingCart/PaymentWithPayPal?";
+                        var guid = Convert.ToString((new Random()).Next(100000));
+                        var createdPayment = CreatePayment(apiContext, baseURI + "guid=" + guid);
+
+                        var links = createdPayment.links.GetEnumerator();
+                        string paypalRedirectUrl = string.Empty;
+
+                        while (links.MoveNext())
+                        {
+                            Links link = links.Current;
+                            if (link.rel.ToLower().Trim().Equals("approval_url"))
+                            {
+                                paypalRedirectUrl = link.href;
+                            }
+                        }
+                        Session.Add(guid, createdPayment.id);
+                        return Redirect(paypalRedirectUrl);
+                    }
+                    else
+                    {
+                        var guid = Request.Params["guid"];
+                        var executedPayment = ExecutePayment(apiContext, payerId, Session[guid] as string);
+                        if (executedPayment.state.ToLower() != "approved")
+                        {
+                            return View("Failure");
+                        }
                     }
                 }
-                Session.Add(guid, createdPayment.id);
-                return Redirect(paypalRedirectUrl);
-            }
-            else
+                catch (Exception)
                 {
-                    var guid = Request.Params["guid"];
-                    var executedPayment = ExecutePayment(apiContext, payerId, Session[guid] as string);
-                    if(executedPayment.state.ToLower() != "approved")
-                    {
-                        return View("Failure");
-                    }
+                    return View("Failure");
                 }
-            }
-            catch (Exception)
-            {
-                return View("Failure");
-            }
 
-            return View("Succes");
+                return View("Succes");
+            }
+            ViewBag.Message = "U moet ingelogd zijn om de producten te kunnen afrekenen.";
+            return View("ShoppingCart");
+
+        }
+
+
+        public ActionResult Success()
+        {
+            return View();
         }
     }
-}
+    }
