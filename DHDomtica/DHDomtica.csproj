@@ -433,7 +433,7 @@
     <Content Include="Views\Store\Pagination.cshtml" />
     <Content Include="Views\Home\Sent.cshtml" />
     <Content Include="Views\UserProfile\LogOut.cshtml" />
-    <Content Include="Views\Store\Succes.cshtml" />
+    <Content Include="Views\Store\Success.cshtml" />
     <Content Include="Views\Store\Failure.cshtml" />
   </ItemGroup>
   <ItemGroup>

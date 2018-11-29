@@ -13,6 +13,9 @@ using DHDomtica.Models;
 using PayPal.Api;
 using System.Globalization;
 using System.Runtime;
+using System.Threading.Tasks;
+using System.Text;
+using System.Net.Mail;
 
 namespace DHDomtica.Controllers
 {
@@ -397,18 +400,52 @@ namespace DHDomtica.Controllers
                 {
                     return View("Failure");
                 }
-
-                return View("Succes");
+                Session["cart"] = null;
+                Session["count"] = null;
+                OrderMail();
+                
+                return View("Success");
             }
             ViewBag.Message = "U moet ingelogd zijn om de producten te kunnen afrekenen.";
             return View("ShoppingCart");
 
         }
-
-
         public ActionResult Success()
         {
+
             return View();
         }
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<ActionResult> OrderMail()
+        public void OrderMail()
+        {
+            ModelState.Clear();
+            string usermail = System.Web.HttpContext.Current.Request.Cookies["UserEMail"].Value;
+            int totaal = (int)Session["Totaal"];
+            var body = new StringBuilder();
+            body.AppendLine("Uw bestelling is voltooid!  <br />");
+            body.AppendLine("U zult een email ontvangen zodra uw bestelling onderweg is. <br />");
+            body.AppendLine("Bestelling:  <br />");
+            body.AppendLine("Totaal prijs: €" + totaal.ToString());
+            
+            var message = new MailMessage();
+            message.To.Add(new MailAddress(usermail));  // replace with valid value 
+            message.From = new MailAddress("DHDomotica@outlook.com");  // replace with valid value
+            message.Subject = "Bestelling";
+            message.Body = body.ToString();
+            message.IsBodyHtml = true;
+
+            using (var smtp = new SmtpClient())
+            {
+
+                smtp.Send(message);
+                ViewBag.SuccessMessage = "Uw account is geregistreerd";
+
+            }
+           
+        }
+
     }
     }
