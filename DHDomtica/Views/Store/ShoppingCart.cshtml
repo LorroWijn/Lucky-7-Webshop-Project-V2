@@ -50,7 +50,7 @@
                             }
                         }
                         <td>@ShorterString</td>
-                        <td>€@item.Product.Price</td>
+                        <td>€@Convert.ToInt16(Math.Round(item.Product.Price))</td>
                         <td style="cursor:pointer;" onclick="location.href='@item.Product.Image'">
                             <img class="card-img-top img-fluid" src="@item.Product.Image" alt="Image">
                         </td>
@@ -63,7 +63,7 @@
                             <button id="+" class="btn btn-success" onclick="location.href='@Url.Action("AddToCart", "Store", new { product = item.Product.ID })'">+</button>
                             <button id="-" class="btn btn-success" onclick="location.href='@Url.Action("RemoveOne", "Store", new { product = item.Product.ID })'">-</button>
                         </td>
-                        <td>€@(item.Product.Price * item.Quantity)</td>
+                        <td>€@(Convert.ToInt16(Math.Round(item.Product.Price)) * item.Quantity)</td>
                         <td>
                             <button id="btn_remove" class="btn btn-success" onclick="location.href='@Url.Action("Remove", "Store", new { product = item.Product.ID })'"><i class="far fa-trash-alt"></i></button>
                         </td>
@@ -76,7 +76,7 @@
                     <td>
                         @{
                             List<ItemModel> products = (List<ItemModel>)Session["cart"];
-                            var total = products.Sum(item => item.Product.Price * item.Quantity);
+                            var total = products.Sum(item => Convert.ToInt16(Math.Round(item.Product.Price)) * item.Quantity);
                         }
                         €@total
                     </td>
@@ -84,14 +84,15 @@
 
             }
         </table>
-    </div>  
+    </div>
 </div>
 
-    @if ((List<ItemModel>)Session["cart"] == null)
-    {
-        <h5>U heeft momenteel geen producten in uw winkelmandje.</h5>
-    }
+@if ((List<ItemModel>)Session["cart"] == null)
+{
+    <h5>U heeft momenteel geen producten in uw winkelmandje.</h5>
+}
+<button id="Afrekenen" class="btn btn-success" onclick="location.href='@Url.Action("PaymentWithPayPal", "Store")'"><i class="far fa-trash-alt"></i></button>
 
-    @section Scripts {
-        @Scripts.Render("~/bundles/jqueryval")
-    }
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

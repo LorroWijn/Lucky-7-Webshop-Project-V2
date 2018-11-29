@@ -11,6 +11,7 @@ using System.Net;
 using System.Runtime.Remoting.Messaging;
 using System.Net.Mail;
 using System.Threading.Tasks;
+using System.Text;
 
 // Deze en andere code voor sign-up zijn gebaseerd op de voorbeeldcode van CodAffection bereikbaar op https://www.youtube.com/watch?v=xBS9FMF2NFM
 
@@ -36,18 +37,26 @@ namespace DHDomtica.Controllers
                 ViewBag.DuplicateMessage = "E-mail is al in gebruik. Probeer een ander E-mailadres";
                 return View("SignUpPage", signupUserModel);
             }
+            //else if (signupUserModel.Password != signupUserModel.ConfirmPassword)
+            //{
+            //    ViewBag.PasswordDifferenceMessage = "Het wachtwoord en bevestiging van het wachtwoord komen niet overeen";
+            //    return View("SignUpPage", signupUserModel);
+            //}
             else
             {
                 signupUserModel.CreateNewUser();
 
 
                 ModelState.Clear();
-                var body = "Uw account voor de website DHDomotica is succesvol aangemaakt.";
+                var body = new StringBuilder();
+                body.AppendLine("Uw account voor de website DHDomotica is succesvol aangemaakt. <br />");
+                body.AppendLine("Klik op onderstaande link om uw emailadres te bevestigen:  <br />");
+                body.AppendLine(@"<a href=""http://localhost:5696"">Email bevestigen</a>");
                 var message = new MailMessage();
                 message.To.Add(new MailAddress(signupUserModel.EMail));  // replace with valid value 
                 message.From = new MailAddress("DHDomotica@outlook.com");  // replace with valid value
                 message.Subject = "Account registratie";
-                message.Body = body;
+                message.Body = body.ToString();
                 message.IsBodyHtml = true;
 
                 using (var smtp = new SmtpClient())

@@ -50,18 +50,21 @@ namespace DHDomtica.Controllers
                             HttpCookie UserCookie = new HttpCookie("UserEMail", x.EMail);
                             HttpCookie PwCookie = new HttpCookie("UserPw", x.Password);
                             HttpCookie NameCookie = new HttpCookie("UserName", x.FirstName);
+                            HttpCookie LastNameCookie = new HttpCookie("UserLast", x.LastName);
                             HttpCookie IDCookie = new HttpCookie("UserID", x.ID.ToString());
                             //HttpCookie UserNameCookie = new HttpCookie("UserName", userModel.FirstName.ToString());                            
                             //Expire Date of made cookie
                             UserCookie.Expires = cookieExpDate;
                             PwCookie.Expires = cookieExpDate;
                             NameCookie.Expires = cookieExpDate;
+                            LastNameCookie.Expires = cookieExpDate;
                             IDCookie.Expires = cookieExpDate;
 
                             //Save data at Cookies
                             HttpContext.Response.SetCookie(UserCookie);
                             HttpContext.Response.SetCookie(PwCookie);
                             HttpContext.Response.SetCookie(NameCookie);
+                            HttpContext.Response.SetCookie(LastNameCookie);
                             HttpContext.Response.SetCookie(IDCookie);
 
                             //Returns to index page
@@ -74,12 +77,14 @@ namespace DHDomtica.Controllers
                             HttpCookie UserCookie = new HttpCookie("UserEMail", x.EMail);
                             HttpCookie PwCookie = new HttpCookie("UserPw", x.Password);
                             HttpCookie NameCookie = new HttpCookie("UserName", x.FirstName);
+                            HttpCookie LastNameCookie = new HttpCookie("UserLast", x.LastName);
                             HttpCookie IDCookie = new HttpCookie("UserID", x.ID.ToString());
 
                             //Save data at Cookies
                             HttpContext.Response.SetCookie(UserCookie);
                             HttpContext.Response.SetCookie(PwCookie);
                             HttpContext.Response.SetCookie(NameCookie);
+                            HttpContext.Response.SetCookie(LastNameCookie);
                             HttpContext.Response.SetCookie(IDCookie);
                             //Returns to index page
                             return RedirectToAction("Index", "Home");

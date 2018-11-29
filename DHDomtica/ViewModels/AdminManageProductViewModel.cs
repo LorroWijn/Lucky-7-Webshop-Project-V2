@@ -1,12 +1,12 @@
-﻿namespace DHDomtica.Models
-{
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-    using DHDomtica.Models;
-    using DHDomtica.Supportclasses;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using DHDomtica.Models;
+using DHDomtica.Supportclasses;
 
+namespace DHDomtica.Models
+{
     public partial class AdminManageProductViewModel
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -46,5 +46,18 @@
         public virtual MainCategory MainCategory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Wishlist> Wishlists { get; set; }
+
+        internal void CreateNewProduct()
+        {
+            Product product = new Product()
+            {
+                Name = Name,
+                Description = Description,
+                Price = Price,
+                Image = Image,
+                // Foreign key van productcategorie invullen
+            };
+        }
+
     }
 }

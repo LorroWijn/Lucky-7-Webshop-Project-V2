@@ -17,6 +17,7 @@
          <table class="table">
              <tr>
                  <th>
+                     
                      @Html.DisplayNameFor(model => model.Name)
                  </th>
                  <th>
@@ -45,8 +46,9 @@
                              }
                          }
                          <td>@ShorterString</td>
+                         @{int prijs = Convert.ToInt16(Math.Round(item.Price));}
                          <td>
-                             €@Html.DisplayFor(modelItem => item.Price)
+                             €@Html.DisplayFor(modelItem => prijs)
                          </td>
                          <td style="cursor:pointer;" onclick="location.href='@item.Image'">
                              <img class="card-img-top img-fluid" src="@item.Image" alt="Image">
