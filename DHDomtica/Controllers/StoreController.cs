@@ -53,6 +53,7 @@ namespace DHDomtica.Controllers
             {
                 return HttpNotFound();
             }
+
             ShowSidebar();
             return View(product);
 
@@ -278,5 +279,6 @@ namespace DHDomtica.Controllers
             return View();
 
         }
+
     }
 }

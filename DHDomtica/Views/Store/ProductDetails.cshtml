@@ -1,6 +1,5 @@
 ﻿@model DHDomtica.Models.Product
 @using DHDomtica.Models
-@*@model DHDomtica.Models.Review*@
 
 @{
     ViewBag.Title = "ProductDetails";
@@ -33,23 +32,8 @@
 
     </div>
 
-    <!--review section-->
-    <div class="card card-outline-secondary my-4">
-        <div class="card-header">
-            Product Reviews
-        </div>
-        @*@{ 
-            foreach (Review r in Model.review)
-            {
-                <div class="card-body">
-                    <p>@Html.DisplayFor(model => model.ReviewText)</p>
-                    <small class="text-muted">Geplaatst door @Html.DisplayFor(model=> model.) on @Html.DisplayFor(model => model.Date)</small>
-                    <hr>
-                    <a href="#" class="btn btn-success">Leave a Review</a>
-                </div>
-            }
-        }*@
-    </div>
+    @*add review here*@
+    
 </div>
 <hr />
 <p>
