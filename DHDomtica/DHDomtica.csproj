@@ -204,10 +204,12 @@
       <DependentUpon>DHDomoticaDBModels.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\EmailFormModel.cs" />
+    <Compile Include="Models\Encryption.cs" />
     <Compile Include="Models\ItemModel.cs" />
     <Compile Include="Models\MainCategory.cs">
       <DependentUpon>DHDomoticaDBModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Order.cs" />
     <Compile Include="Models\PayPalConfiguration.cs" />
     <Compile Include="Models\Product.cs">
       <DependentUpon>DHDomoticaDBModels.tt</DependentUpon>
@@ -237,6 +239,34 @@
     <Compile Include="ViewModels\MainCategoryViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\Antlr3.Runtime.dll" />
+    <Content Include="bin\EntityFramework.dll" />
+    <Content Include="bin\EntityFramework.SqlServer.dll" />
+    <Content Include="bin\Google.Protobuf.dll" />
+    <Content Include="bin\GridMvc.dll" />
+    <Content Include="bin\Microsoft.AI.Agent.Intercept.dll" />
+    <Content Include="bin\Microsoft.AI.DependencyCollector.dll" />
+    <Content Include="bin\Microsoft.AI.PerfCounterCollector.dll" />
+    <Content Include="bin\Microsoft.AI.ServerTelemetryChannel.dll" />
+    <Content Include="bin\Microsoft.AI.Web.dll" />
+    <Content Include="bin\Microsoft.AI.WindowsServer.dll" />
+    <Content Include="bin\Microsoft.ApplicationInsights.dll" />
+    <Content Include="bin\Microsoft.AspNet.TelemetryCorrelation.dll" />
+    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll" />
+    <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
+    <Content Include="bin\MySql.Data.dll" />
+    <Content Include="bin\MySql.Data.EntityFramework.dll" />
+    <Content Include="bin\Newtonsoft.Json.dll" />
+    <Content Include="bin\PayPal.dll" />
+    <Content Include="bin\System.Diagnostics.DiagnosticSource.dll" />
+    <Content Include="bin\System.Web.Helpers.dll" />
+    <Content Include="bin\System.Web.Mvc.dll" />
+    <Content Include="bin\System.Web.Optimization.dll" />
+    <Content Include="bin\System.Web.Razor.dll" />
+    <Content Include="bin\System.Web.WebPages.Deployment.dll" />
+    <Content Include="bin\System.Web.WebPages.dll" />
+    <Content Include="bin\System.Web.WebPages.Razor.dll" />
+    <Content Include="bin\WebGrease.dll" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
@@ -284,6 +314,8 @@
       <DependentUpon>DHDomoticaDBModels.edmx</DependentUpon>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="DHDomtica\.vs\slnx.sqlite" />
+    <Content Include="DHDomtica\.vs\VSWorkspaceState.json" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -406,6 +438,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="bin\roslyn\" />
+    <Folder Include="DHDomtica\.vs\DHDomtica\v15\" />
+    <Folder Include="DHDomtica\App_Data\" />
+    <Folder Include="DHDomtica\obj\Debug\TempPE\" />
+    <Folder Include="DHDomtica\Views\Categories\" />
     <Folder Include="Views\Categories\" />
   </ItemGroup>
   <ItemGroup>
