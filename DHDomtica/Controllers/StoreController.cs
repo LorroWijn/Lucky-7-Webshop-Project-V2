@@ -399,9 +399,12 @@ namespace DHDomtica.Controllers
                 {
                     return View("Failure");
                 }
+                CreateOrder();
+                OrderMail();
+
                 Session["cart"] = null;
                 Session["count"] = null;
-                OrderMail();
+                
                 
                 return View("Success");
             }
@@ -415,6 +418,37 @@ namespace DHDomtica.Controllers
             return View();
         }
 
+
+        public void CreateOrder()
+        {
+            int UserID = Convert.ToInt16(System.Web.HttpContext.Current.Request.Cookies["UserID"].Value);
+            Guid g = Guid.NewGuid();
+            Models.Order order = new Models.Order();
+            order.UserID = UserID;
+            order.OrderNumber = g.ToString();
+
+            db.Orders.Add(order);
+            db.SaveChanges();
+
+            List<ItemModel> products = (List<ItemModel>)Session["cart"];
+            //var NewOrder = new Models.Order();
+            var NewOrder = db.Orders.FirstOrDefault(o => o.OrderNumber.Equals(g.ToString()));
+            int OrderID = NewOrder.ID;
+            foreach(ItemModel product in products)
+            {
+                OrderProducts(product, OrderID);
+            }
+            db.SaveChanges();
+        }
+        public void OrderProducts(ItemModel product, int OrderID)
+        {   
+            OrderProduct OP = new OrderProduct();
+            OP.OrderID = OrderID;
+            OP.ProductID = product.Product.ID;
+            OP.Quantity = product.Quantity;
+            db.OrderProducts.Add(OP);
+            
+        }
         //[HttpPost]
         //[ValidateAntiForgeryToken]
         //public async Task<ActionResult> OrderMail()

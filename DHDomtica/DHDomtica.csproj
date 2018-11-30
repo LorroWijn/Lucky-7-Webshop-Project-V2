@@ -209,7 +209,12 @@
     <Compile Include="Models\MainCategory.cs">
       <DependentUpon>DHDomoticaDBModels.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\Order.cs">
+      <DependentUpon>DHDomoticaDBModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OrderProduct.cs">
+      <DependentUpon>DHDomoticaDBModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\PayPalConfiguration.cs" />
     <Compile Include="Models\Product.cs">
       <DependentUpon>DHDomoticaDBModels.tt</DependentUpon>

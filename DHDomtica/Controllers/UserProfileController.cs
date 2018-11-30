@@ -186,7 +186,7 @@ namespace DHDomtica.Controllers
                     ShowUserSidebar();
 
                     
-                    Order order = DHDomoticadbModel.Orders.Where(o => o.UserID == idCheck).FirstOrDefault();
+                    //Order order = DHDomoticadbModel.Orders.Where(o => o.UserID == idCheck).FirstOrDefault();
                     //OrderProducts orderProducts = DHDomoticadbModel.
 
 
