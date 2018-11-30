@@ -188,26 +188,6 @@
     <Compile Include="Models\AdminRight.cs">
       <DependentUpon>DHDomoticaDBModels.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DHDomoticaDBModel.Context.cs" />
-    <Compile Include="Models\DHDomoticaDBModel.Context1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DHDomoticaDBModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DHDomoticaDBModel.cs" />
-    <Compile Include="Models\DHDomoticaDBModel.Designer.cs">
-      <DependentUpon>DHDomoticaDBModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DHDomoticaDBModel1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DHDomoticaDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DHDomoticaDBModel1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DHDomoticaDBModel.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Models\DHDomoticaDBModels.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -230,20 +210,16 @@
       <DependentUpon>DHDomoticaDBModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Order.cs" />
-    <Compile Include="Models\OrderProduct.cs" />
     <Compile Include="Models\PayPalConfiguration.cs" />
     <Compile Include="Models\Product.cs">
-      <DependentUpon>DHDomoticaDBModel.tt</DependentUpon>
+      <DependentUpon>DHDomoticaDBModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Review.cs">
       <DependentUpon>DHDomoticaDBModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs">
-      <DependentUpon>DHDomoticaDBModel.tt</DependentUpon>
+      <DependentUpon>DHDomoticaDBModels.tt</DependentUpon>
     </Compile>
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Supportclasses\Cookies.cs" />
     <Compile Include="ViewModels\AdminManageProductViewModel.cs" />
     <Compile Include="ViewModels\AdminManageUserViewModel.cs" />
@@ -335,34 +311,12 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>DHDomoticaDBModels.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\DHDomoticaDBModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>DHDomoticaDBModel.Context1.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\DHDomoticaDBModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>DHDomoticaDBModel1.cs</LastGenOutput>
-    </Content>
     <Content Include="Models\DHDomoticaDBModels.edmx.diagram">
       <DependentUpon>DHDomoticaDBModels.edmx</DependentUpon>
       <SubType>Designer</SubType>
     </Content>
     <Content Include="DHDomtica\.vs\slnx.sqlite" />
     <Content Include="DHDomtica\.vs\VSWorkspaceState.json" />
-    <EntityDeploy Include="Models\DHDomoticaDBModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DHDomoticaDBModel1.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\DHDomoticaDBModel.edmx.diagram">
-      <DependentUpon>DHDomoticaDBModel.edmx</DependentUpon>
-    </Content>
-    <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
-    <Content Include="obj\Debug\DHDomtica.csproj.CoreCompileInputs.cache" />
-    <Content Include="obj\Debug\DHDomtica.csprojAssemblyReference.cache" />
-    <Content Include="obj\Debug\edmxResourcesToEmbed\Models\DHDomoticaDBModels.csdl" />
-    <Content Include="obj\Debug\edmxResourcesToEmbed\Models\DHDomoticaDBModels.msl" />
-    <Content Include="obj\Debug\edmxResourcesToEmbed\Models\DHDomoticaDBModels.ssdl" />
-    <Content Include="obj\Debug\Tsc.out" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -377,10 +331,6 @@
       <DependentUpon>DHDomoticaDBModels.edmx</DependentUpon>
       <LastGenOutput>DHDomoticaDBModels.cs</LastGenOutput>
     </Content>
-    <Content Include="obj\Debug\DHDomtica.csproj.FileListAbsolute.txt" />
-    <Content Include="obj\Debug\TempPE\Models.DHDomoticaDBModel.Context1.cs.dll" />
-    <Content Include="obj\Debug\TempPE\Models.DHDomoticaDBModel1.cs.dll" />
-    <Content Include="obj\Debug\TempPE\Models.DHDomoticaDBModel1.Designer.cs.dll" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />

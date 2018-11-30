@@ -14,13 +14,27 @@ namespace DHDomtica.Models
     
     public partial class Product
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Product()
+        {
+            this.Wishlists = new HashSet<Wishlist>();
+            this.Reviews = new HashSet<Review>();
+            this.OrderProducts = new HashSet<OrderProduct>();
+        }
+    
         public int ID { get; set; }
-        public string ProductNaam { get; set; }
-        public string ProductDescription { get; set; }
-        public decimal ProductPrice { get; set; }
-        public string ProductImage { get; set; }
-        public string Maincategory { get; set; }
-        public string Subcategory { get; set; }
-        public string URL { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public double Price { get; set; }
+        public string Image { get; set; }
+        public int MainCategoryID { get; set; }
+    
+        public virtual MainCategory MainCategory { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Wishlist> Wishlists { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Review> Reviews { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OrderProduct> OrderProducts { get; set; }
     }
 }
