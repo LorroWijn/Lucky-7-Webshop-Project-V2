@@ -16,6 +16,7 @@ using System.Runtime;
 using System.Threading.Tasks;
 using System.Text;
 using System.Net.Mail;
+using DHDomtica.ViewModels;
 
 namespace DHDomtica.Controllers
 {
@@ -33,7 +34,7 @@ namespace DHDomtica.Controllers
 
         //Code for the Store/ProductDetails
         // GET: ProductDetails
-        public ActionResult ProductDetails(int? id)
+        public ActionResult ProductDetails(int id)
         {
             //read cookie from request
             HttpCookie pageCookie = Request.Cookies["pageCookie"];
@@ -50,18 +51,21 @@ namespace DHDomtica.Controllers
                     ViewBag.pageId = pageCookie.Values["pageId"].ToString();
                 }
             }
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Product product = db.Products.Find(id);
+
+            var product = db.Products.SingleOrDefault(p => p.ID == id);
             if (product == null)
             {
                 return HttpNotFound();
             }
+            var ProductReviewsList = new ProductReviewsViewModel()
+            {
+                Product = product,
+                Reviews = db.Reviews.Where(c => c.ProductID.Equals(id)).ToList().AsEnumerable()
+
+            };
 
             ShowSidebar();
-            return View(product);
+            return View(ProductReviewsList);
 
         }
 
@@ -156,13 +160,7 @@ namespace DHDomtica.Controllers
             return View(ProductList);
         }
 
-        //Generating ProductList by category ID
-        public ActionResult Products(int id)
-        {
-            ShowSidebar();
 
-            return View(db.Set<Product>());
-        }
 
         //pagination
         public ActionResult Pagination(int categoryId, int pageId)

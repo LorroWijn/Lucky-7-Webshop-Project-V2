@@ -172,5 +172,31 @@ namespace DHDomtica.Controllers
 
             }
         }
+        //Generating ProductList by category ID
+        public ActionResult OrderHistory()
+        {
+            var con = System.Web.HttpContext.Current.Request.Cookies;
+            var idCheck = Convert.ToInt32(con["UserID"].Value);
+            if (con["UserID"] != null)
+            {
+                using (DHDomoticaDBEntities DHDomoticadbModel = new DHDomoticaDBEntities())
+                {
+                    User ss = DHDomoticadbModel.Users.Where(u => u.ID == idCheck).FirstOrDefault();
+                    SignUpViewModel userModel = new SignUpViewModel(ss);
+                    ShowUserSidebar();
+
+                    
+                    Order order = DHDomoticadbModel.Orders.Where(o => o.UserID == idCheck).FirstOrDefault();
+                    //OrderProducts orderProducts = DHDomoticadbModel.
+
+
+                    return View();
+
+                }
+            }
+            ShowUserSidebar();
+
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

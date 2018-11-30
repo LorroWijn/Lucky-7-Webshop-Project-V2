@@ -223,6 +223,7 @@
     <Compile Include="Supportclasses\Cookies.cs" />
     <Compile Include="ViewModels\AdminManageProductViewModel.cs" />
     <Compile Include="ViewModels\AdminManageUserViewModel.cs" />
+    <Compile Include="ViewModels\ProductReviewsViewModel.cs" />
     <Compile Include="ViewModels\SignUpViewModel.cs" />
     <Compile Include="ViewModels\UserPasswordChangeViewModel.cs" />
     <Compile Include="Models\Wishlist.cs">
@@ -429,11 +430,10 @@
     <Content Include="Views\AdminManageUser\Index.cshtml" />
     <Content Include="Views\Shared\_GridPager.cshtml" />
     <Content Include="Views\Shared\_Grid.cshtml" />
-    <Content Include="Views\Store\Products.cshtml" />
+    <Content Include="Views\UserProfile\OrderHistory.cshtml" />
     <Content Include="Views\Store\Pagination.cshtml" />
     <Content Include="Views\Home\Sent.cshtml" />
     <Content Include="Views\UserProfile\LogOut.cshtml" />
-    <Content Include="Views\Shared\_Review.cshtml" />
     <Content Include="Views\Store\Success.cshtml" />
     <Content Include="Views\Store\Failure.cshtml" />
   </ItemGroup>

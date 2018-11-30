@@ -1,4 +1,4 @@
-﻿@model DHDomtica.Models.Product
+﻿@model DHDomtica.ViewModels.ProductReviewsViewModel
 @using DHDomtica.Models
 
 @{
@@ -9,22 +9,22 @@
 <div class="col-lg-10">
 
     <div class="card mt-4">
-        <img class="card-img-top img-fluid" src="@Html.DisplayFor(model => model.Image)" alt="Image">
+        <img class="card-img-top img-fluid" src="@Html.DisplayFor(model => model.Product.Image)" alt="Image">
         <div class="card-body">
-            <h3 class="card-title">@Html.DisplayFor(model => model.Name)</h3>
-            <h3 class="card-text">@Html.DisplayFor(model => model.MainCategory.Name)</h3>
-            @{int prijs = Convert.ToInt16(Math.Round(Model.Price)); }
+            <h3 class="card-title">@Html.DisplayFor(model => model.Product.Name)</h3>
+            <h3 class="card-text">@Html.DisplayFor(model => model.Product.MainCategory.Name)</h3>
+            @{int prijs = Convert.ToInt16(Math.Round(Model.Product.Price)); }
             <h4> €@Html.DisplayFor(model => prijs)</h4>
-            <p class="card-text">@Html.DisplayFor(model => model.Description)</p>
+            <p class="card-text">@Html.DisplayFor(model => model.Product.Description)</p>
             @*<span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
                 4.0 stars*@
             <hr>
             @using (Html.BeginForm("AddToCart", "Store"))
             {
-                <a id="btn_add" href="@Url.Action("AddToCart", "Store", new { product = Model.ID })" class="btn btn-success">
+                <a id="btn_add" href="@Url.Action("AddToCart", "Store", new { product = Model.Product.ID })" class="btn btn-success">
                     <i class="fas fa-plus"> </i> In winkelwagen
                 </a>
-                <a id="btn_wish" href="@Url.Action("AddToWishlist", "Store", new { product = Model.ID })" class="btn btn-success">
+                <a id="btn_wish" href="@Url.Action("AddToWishlist", "Store", new { product = Model.Product.ID })" class="btn btn-success">
                     <i class="far fa-heart"></i> Op verlanglijst
                 </a>
             }
@@ -33,12 +33,27 @@
 
     </div>
 
-    @*add review here*@
+    <!--review section-->
+    <div class="card card-outline-secondary my-4">
+        <div class="card-header">
+            Product Reviews
+        </div>
+        @{ 
+            foreach (Review r in Model.Reviews)
+            {
+                <div class="card-body">
+                    <p>@Html.DisplayFor(model => r.ReviewText)</p>
+                    <small class="text-muted">Geplaatst door @Html.DisplayFor(model=> r.UserID) op @Html.DisplayFor(model => r.Date)</small>
+                    <hr>
+                </div>
+            }
+        }
+    </div>
     
 </div>
 <hr />
 <p>
     @*@Html.ActionLink("Edit", "Edit", new { id = Model.ID }) categoryId = ViewBag.CategoryId|*@
     @*@Html.ActionLink("Back to List", "Categories", new { id = Model.MainCategory.ID }, new { @class = "btn btn-success" })*@
-    @Html.ActionLink("Terug", "Pagination", "Store", new { categoryId = Model.MainCategory.ID, pageId = ViewBag.PageId }, new { @class = "btn btn-success" })
+    @Html.ActionLink("Terug", "Pagination", "Store", new { categoryId = Model.Product.MainCategoryID, pageId = ViewBag.PageId }, new { @class = "btn btn-success" })
 </p>
