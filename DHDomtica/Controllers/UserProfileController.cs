@@ -10,9 +10,11 @@ using System.Data.Entity.Infrastructure;
 
 namespace DHDomtica.Controllers
 {
+    
 
     public class UserProfileController : Controller
     {
+        private DHDomoticaDBEntities db = new DHDomoticaDBEntities();
         // GET: UserProfile
         // Orderstatus is index. Alle code van orderstatus hierna
         public ActionResult Index()
@@ -179,24 +181,37 @@ namespace DHDomtica.Controllers
             var idCheck = Convert.ToInt32(con["UserID"].Value);
             if (con["UserID"] != null)
             {
-                using (DHDomoticaDBEntities DHDomoticadbModel = new DHDomoticaDBEntities())
-                {
-                    User ss = DHDomoticadbModel.Users.Where(u => u.ID == idCheck).FirstOrDefault();
-                    SignUpViewModel userModel = new SignUpViewModel(ss);
-                    ShowUserSidebar();
 
-                    
-                    //Order order = DHDomoticadbModel.Orders.Where(o => o.UserID == idCheck).FirstOrDefault();
-                    //OrderProducts orderProducts = DHDomoticadbModel.
+                List<Order> OrderList = db.Orders.Where(o => o.UserID.Equals(idCheck)).ToList();
+
+                return View(OrderList);
 
 
-                    return View();
+                //using (DHDomoticaDBEntities DHDomoticadbModel = new DHDomoticaDBEntities())
+                //{
+                //    User ss = DHDomoticadbModel.Users.Where(u => u.ID == idCheck).FirstOrDefault();
+                //    SignUpViewModel userModel = new SignUpViewModel(ss);
+                //    ShowUserSidebar();
 
-                }
+
+                //    //Order order = DHDomoticadbModel.Orders.Where(o => o.UserID == idCheck).FirstOrDefault();
+                //    //OrderProducts orderProducts = DHDomoticadbModel.
+
+
+                //    return View();
+
+                //}
             }
             ShowUserSidebar();
 
             return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult Order()
+        {
+
+            ViewBag.Message = "test";
+            return View();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Product>
+﻿@*@model IEnumerable<Product>*@
+@model IEnumerable<Order>
 @using DHDomtica.Models
 @using System.Web.Mvc.Html
 @using GridMvc.Html;
@@ -6,31 +7,64 @@
     ViewBag.Title = "Order History";
 }
 
-<h2>Category name</h2>
+<h2>Order Historie</h2>
 
-@Html.Grid(Model).Columns(columns =>
-{
-    /* Adding not mapped column, that renders body, using inline Razor html helper */
-    columns.Add()
-        .Encoded(false)
-        .Sanitized(false)
-        .SetWidth(30)
-        .RenderValueAs(d =>
-            @<b>
-                @Html.ActionLink("Edit", "ProductDetails/"+d.ID)
-            </b>);
-
-    /* Adding "OrderID" column: */
-    columns.Add(o => o.Name)
-        .Titled("Product ID")
-        .SetWidth(100);
-
-    /* Adding "OrderID" column: */
-    columns.Add(o => o.Description)
-        .Titled("Product Name")
-        .SetWidth(100);
-
- 
+<div class="col-lg-12">
+    <div class="card mt-4">
+        <table class="table">
+            <tr>
+                <th>
+                    Besteldatum
+                </th>
+                <th>
+                    Ordernummer
+                </th>
 
 
-}).WithPaging(15);
+
+            </tr>
+
+            @if (Model != null)
+            {
+                foreach (var order in Model)
+                {
+
+            <tr>
+                <td>@Html.ActionLink(order.OrderDate.ToShortDateString(), "Order")</td>
+
+                <td>@Html.ActionLink(order.OrderNumber, "Order")</td>
+            </tr>
+                }
+            }
+
+        </table>
+    </div>
+</div>
+
+
+@*@Html.Grid(Model).Columns(columns =>
+    {
+        /* Adding not mapped column, that renders body, using inline Razor html helper */
+        columns.Add()
+            .Encoded(false)
+            .Sanitized(false)
+            .SetWidth(30)
+            .RenderValueAs(d =>
+                @<b>
+                    @Html.ActionLink("Edit", "ProductDetails/"+d.ID)
+                </b>);
+
+        /* Adding "OrderID" column: */
+        columns.Add(o => o.Name)
+            .Titled("Product ID")
+            .SetWidth(100);
+
+        /* Adding "OrderID" column: */
+        columns.Add(o => o.Description)
+            .Titled("Product Name")
+            .SetWidth(100);
+
+
+
+
+    }).WithPaging(15);*@

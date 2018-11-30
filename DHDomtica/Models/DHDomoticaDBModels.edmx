@@ -35,6 +35,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="OrderNumber" Type="varchar" MaxLength="45" Nullable="false" />
           <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="OrderDate" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -446,20 +447,21 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="OrderID" Type="Int32" Nullable="false" />
           <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Order" Relationship="DHDomoticaDBModel.OrderProducts_ibfk_1" FromRole="OrderProduct" ToRole="Order" />
           <NavigationProperty Name="Product" Relationship="DHDomoticaDBModel.OrderProducts_ibfk_2" FromRole="OrderProduct" ToRole="Product" />
-          <Property Name="Quantity" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="OrderNumber" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="OrderDate" Type="DateTime" Nullable="false" />
           <NavigationProperty Name="OrderProducts" Relationship="DHDomoticaDBModel.OrderProducts_ibfk_1" FromRole="Order" ToRole="OrderProduct" />
           <NavigationProperty Name="User" Relationship="DHDomoticaDBModel.Orders_ibfk_1" FromRole="Order" ToRole="User" />
         </EntityType>
@@ -585,13 +587,14 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="DHDomoticaDBModel.Order">
               <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

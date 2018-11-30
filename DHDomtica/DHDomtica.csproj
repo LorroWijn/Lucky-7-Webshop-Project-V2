@@ -441,6 +441,7 @@
     <Content Include="Views\UserProfile\LogOut.cshtml" />
     <Content Include="Views\Store\Success.cshtml" />
     <Content Include="Views\Store\Failure.cshtml" />
+    <Content Include="Views\UserProfile\Order.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

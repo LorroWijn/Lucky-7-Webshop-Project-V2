@@ -424,8 +424,11 @@ namespace DHDomtica.Controllers
             int UserID = Convert.ToInt16(System.Web.HttpContext.Current.Request.Cookies["UserID"].Value);
             Guid g = Guid.NewGuid();
             Models.Order order = new Models.Order();
+            DateTime dateTime = DateTime.Today;
+
             order.UserID = UserID;
             order.OrderNumber = g.ToString();
+            order.OrderDate = dateTime;
 
             db.Orders.Add(order);
             db.SaveChanges();
@@ -434,6 +437,7 @@ namespace DHDomtica.Controllers
             //var NewOrder = new Models.Order();
             var NewOrder = db.Orders.FirstOrDefault(o => o.OrderNumber.Equals(g.ToString()));
             int OrderID = NewOrder.ID;
+
             foreach(ItemModel product in products)
             {
                 OrderProducts(product, OrderID);
