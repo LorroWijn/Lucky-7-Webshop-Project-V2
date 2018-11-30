@@ -9,13 +9,13 @@
 <div class="col-lg-10">
 
     <div class="card mt-4">
-        <img class="card-img-top img-fluid" src="@Html.DisplayFor(model => model.Product.Image)" alt="Image">
+        <img class="card-img-top img-fluid" src="@Html.DisplayFor(model => model.Product.ProductImage)" alt="Image">
         <div class="card-body">
             <h3 class="card-title">@Html.DisplayFor(model => model.Product.Name)</h3>
-            <h3 class="card-text">@Html.DisplayFor(model => model.Product.MainCategory.Name)</h3>
-            @{int prijs = Convert.ToInt16(Math.Round(Model.Product.Price)); }
+            <h3 class="card-text">@Html.DisplayFor(model => model.Product.Maincategory.Name)</h3>
+            @{int prijs = Convert.ToInt16(Math.Round(Model.Product.ProductPrice)); }
             <h4> €@Html.DisplayFor(model => prijs)</h4>
-            <p class="card-text">@Html.DisplayFor(model => model.Product.Description)</p>
+            <p class="card-text">@Html.DisplayFor(model => model.Product.ProductDescription)</p>
             @*<span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
                 4.0 stars*@
             <hr>
@@ -55,5 +55,5 @@
 <p>
     @*@Html.ActionLink("Edit", "Edit", new { id = Model.ID }) categoryId = ViewBag.CategoryId|*@
     @*@Html.ActionLink("Back to List", "Categories", new { id = Model.MainCategory.ID }, new { @class = "btn btn-success" })*@
-    @Html.ActionLink("Terug", "Pagination", "Store", new { categoryId = Model.Product.MainCategoryID, pageId = ViewBag.PageId }, new { @class = "btn btn-success" })
+    @Html.ActionLink("Terug", "Pagination", "Store", new { categoryId = Model.Product.Maincategory, pageId = ViewBag.PageId }, new { @class = "btn btn-success" })
 </p>
