@@ -186,32 +186,31 @@ namespace DHDomtica.Controllers
 
                 return View(OrderList);
 
-
-                //using (DHDomoticaDBEntities DHDomoticadbModel = new DHDomoticaDBEntities())
-                //{
-                //    User ss = DHDomoticadbModel.Users.Where(u => u.ID == idCheck).FirstOrDefault();
-                //    SignUpViewModel userModel = new SignUpViewModel(ss);
-                //    ShowUserSidebar();
-
-
-                //    //Order order = DHDomoticadbModel.Orders.Where(o => o.UserID == idCheck).FirstOrDefault();
-                //    //OrderProducts orderProducts = DHDomoticadbModel.
-
-
-                //    return View();
-
-                //}
             }
             ShowUserSidebar();
 
             return RedirectToAction("Index", "Home");
         }
 
-        public ActionResult Order()
+        public ActionResult Order(int OrderID)
         {
+            Order order = db.Orders.FirstOrDefault(o => o.ID.Equals(OrderID));
+            List<OrderProduct> OP = db.OrderProducts.Where(op => op.OrderID.Equals(order.ID)).ToList();
+            List<ItemModel> OrderProducts = new List<ItemModel>();
+            Session["Order"] = order;
+            foreach (OrderProduct item in OP)
+            {
+                ItemModel product = new ItemModel()
+                {
+                    Product = db.Products.FirstOrDefault(p => p.ID.Equals(item.ProductID)),
+                    Quantity = item.Quantity
+                
+                };
+                OrderProducts.Add(product);
+            }
 
-            ViewBag.Message = "test";
-            return View();
+            //ViewBag.Message = "test";
+            return View(OrderProducts);
         }
     }
 }
