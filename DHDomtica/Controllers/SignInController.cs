@@ -43,8 +43,14 @@ namespace DHDomtica.Controllers
                     }
                     else
                     {
+
                         if (x != null) //Moet aan de checkbox worden verbonden. als deze niet gecheckt is komt hij in het bovenste, zowel dan in het onderste
                         {
+                            if (!x.EmailConfirmed.Value)
+                            {
+                                ViewBag.Message = "U moet eerst uw emailadres bevestigen.";
+                                return View("SignInPage", new SignUpViewModel());
+                            }
                             //Geldige credentials ingevoerd
                             //Create Cookie
                             HttpCookie UserCookie = new HttpCookie("UserEMail", x.EMail);

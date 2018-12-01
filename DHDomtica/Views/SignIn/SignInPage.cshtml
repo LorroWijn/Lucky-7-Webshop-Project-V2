@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Login";
 }
+<h2>@ViewBag.Message</h2>
 @using (Html.BeginForm("SignInPage", "SignIn", FormMethod.Post))
 {
     @Html.AntiForgeryToken()

@@ -147,7 +147,20 @@ namespace DHDomtica.Controllers
             User user = db.Users.Find(id);
             db.Users.Remove(user);
             var wl = db.Wishlists.Where(l => l.UserID.Equals(id));
+            var orders = db.Orders.Where(o => o.UserID.Equals(id));
+
+            List<int> orderids = new List<int>();
+            foreach( Order o in orders)
+            {
+                orderids.Add(o.ID);
+            }
+            
+            var op = db.OrderProducts.Where(p => orderids.Contains(p.OrderID));
+
+
             db.Wishlists.RemoveRange(wl);
+            db.OrderProducts.RemoveRange(op);
+            db.Orders.RemoveRange(orders);
             db.SaveChanges();
             ShowAdminSidebar();
             return RedirectToAction("Index");

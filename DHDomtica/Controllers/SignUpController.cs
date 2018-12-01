@@ -19,6 +19,7 @@ namespace DHDomtica.Controllers
 {
     public class SignUpController : Controller
     {
+        private DHDomoticaDBEntities db = new DHDomoticaDBEntities();
         [HttpGet]
         // GET: SignUp
         public ActionResult SignUpPage(int id = 0)
@@ -46,17 +47,21 @@ namespace DHDomtica.Controllers
             {
                 signupUserModel.CreateNewUser();
 
-
+                User user = db.Users.First(u => u.EMail.Equals(signupUserModel.EMail));
                 ModelState.Clear();
-                var body = new StringBuilder();
-                body.AppendLine("Uw account voor de website DHDomotica is succesvol aangemaakt. <br />");
-                body.AppendLine("Klik op onderstaande link om uw emailadres te bevestigen:  <br />");
-                body.AppendLine(@"<a href=""http://localhost:5696"">Email bevestigen</a>");
+                //var body = new StringBuilder();
+                //body.AppendLine("Uw account voor de website DHDomotica is succesvol aangemaakt. <br />");
+                //body.AppendLine("Klik op onderstaande link om uw emailadres te bevestigen:  <br />");
+                //body.AppendLine(@"<a href=""http://localhost:5696"">Email bevestigen</a>");
                 var message = new MailMessage();
                 message.To.Add(new MailAddress(signupUserModel.EMail));  // replace with valid value 
                 message.From = new MailAddress("DHDomotica@outlook.com");  // replace with valid value
                 message.Subject = "Account registratie";
-                message.Body = body.ToString();
+                //message.Body = body.ToString();
+                message.Body = string.Format("Beste {0} <BR/> Bedankt voor uw registratie, <BR/> Klik op onderstaande link om uw emailadres te bevestigen: <BR/> <a href =\"{1}\" title =\"User Email Confirm\">{1}</a>",
+                signupUserModel.EMail, Url.Action("ConfirmEmail", "SignUp",
+                new { Token = user.ID, Email = signupUserModel.EMail }, Request.Url.Scheme)) ;
+
                 message.IsBodyHtml = true;
 
                 using (var smtp = new SmtpClient())
@@ -69,5 +74,24 @@ namespace DHDomtica.Controllers
                 }
             }
         }
+        
+        public ActionResult ConfirmEmail(int Token, string Email)
+        {
+            User user = db.Users.First(u => u.ID.Equals(Token));
+
+                if (user.EMail == Email)
+                {
+                    user.EmailConfirmed = true;
+                    db.Users.First(u => u.ID.Equals(Token)).EmailConfirmed = true;
+                    db.SaveChanges();
+                    return RedirectToAction("Index", "Home" );
+                }
+                else
+                {
+                    return RedirectToAction("Failure", "Account", new { Email = user.EMail });
+                }
+            }
+           
+        
     }
 }

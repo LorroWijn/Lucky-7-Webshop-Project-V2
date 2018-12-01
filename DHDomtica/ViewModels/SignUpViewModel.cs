@@ -90,7 +90,8 @@ namespace DHDomtica.ViewModels
                 Province = Province,
                 City = City,
                 ZipCode = ZipCode,
-                BillingAddress = BillingAddress
+                BillingAddress = BillingAddress,
+                EmailConfirmed = false
             };
 
             using (DHDomoticaDBEntities DHDomoticadbModel = new DHDomoticaDBEntities())
