@@ -49,16 +49,12 @@ namespace DHDomtica.Controllers
 
                 User user = db.Users.First(u => u.EMail.Equals(signupUserModel.EMail));
                 ModelState.Clear();
-                //var body = new StringBuilder();
-                //body.AppendLine("Uw account voor de website DHDomotica is succesvol aangemaakt. <br />");
-                //body.AppendLine("Klik op onderstaande link om uw emailadres te bevestigen:  <br />");
-                //body.AppendLine(@"<a href=""http://localhost:5696"">Email bevestigen</a>");
+
                 var message = new MailMessage();
-                message.To.Add(new MailAddress(signupUserModel.EMail));  // replace with valid value 
-                message.From = new MailAddress("DHDomotica@outlook.com");  // replace with valid value
+                message.To.Add(new MailAddress(signupUserModel.EMail));
+                message.From = new MailAddress("DHDomotica@outlook.com");
                 message.Subject = "Account registratie";
-                //message.Body = body.ToString();
-                message.Body = string.Format("Beste {0} <BR/> Bedankt voor uw registratie, <BR/> Klik op onderstaande link om uw emailadres te bevestigen: <BR/> <a href =\"{1}\" title =\"User Email Confirm\">{1}</a>",
+                message.Body = string.Format("Beste " + user.FirstName + ", <BR/> Bedankt voor uw registratie, <BR/> Klik op onderstaande link om uw emailadres te bevestigen: <BR/> <a href =\"{1}\" title =\"User Email Confirm\">{1}</a>",
                 signupUserModel.EMail, Url.Action("ConfirmEmail", "SignUp",
                 new { Token = user.ID, Email = signupUserModel.EMail }, Request.Url.Scheme)) ;
 
@@ -69,7 +65,6 @@ namespace DHDomtica.Controllers
 
                     await smtp.SendMailAsync(message);
                     ViewBag.SuccessMessage = "Uw account is geregistreerd";
-                    //return View("SignUpPage", new User());
                     return RedirectToAction("SignInPage", "SignIn");
                 }
             }
@@ -84,11 +79,12 @@ namespace DHDomtica.Controllers
                     user.EmailConfirmed = true;
                     db.Users.First(u => u.ID.Equals(Token)).EmailConfirmed = true;
                     db.SaveChanges();
-                    return RedirectToAction("Index", "Home" );
+                    
+                    return RedirectToAction("SignInPage", "Home" );
                 }
                 else
                 {
-                    return RedirectToAction("Failure", "Account", new { Email = user.EMail });
+                    return RedirectToAction("Failure", "Account");
                 }
             }
            
