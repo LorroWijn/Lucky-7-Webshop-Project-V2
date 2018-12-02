@@ -1,4 +1,4 @@
-﻿@model DHDomtica.Models.User
+﻿@model DHDomtica.ViewModels.AdminManageUserViewModel
 
 <!DOCTYPE html>
 
@@ -32,6 +32,25 @@
     {
         Text = "Buiten Nederland",
         Value = "Buiten Nederland",
+    });
+}
+
+@{
+    List<SelectListItem> RightsDropDown = new List<SelectListItem>();
+    RightsDropDown.Add(new SelectListItem
+    {
+        Text = "Gebruiker",
+        Value = "1"
+    });
+    RightsDropDown.Add(new SelectListItem
+    {
+        Text = "Admin",
+        Value = "2"
+    });
+    RightsDropDown.Add(new SelectListItem
+    {
+        Text = "Super Admin",
+        Value = "3"
     });
 }
 
@@ -119,6 +138,7 @@
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.HiddenFor(model => model.ID)
+            @Html.HiddenFor(model => model.Password)
 
             <div class="form-group">
                 @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -133,6 +153,14 @@
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.EMail, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.EMail, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.EMail, "", new { @class = "text-danger" })
                 </div>
             </div>
 
@@ -184,10 +212,19 @@
                 </div>
             </div>
 
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Province, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(x => Model.Province, provincedropdown, htmlAttributes: new { @class = "form-control", id = "Province" })
+                    @Html.ValidationMessageFor(model => model.Province, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
             <div class="form-group">
                 @Html.LabelFor(model => model.AdminID, "Gebruikersrechten", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.DropDownList("AdminID", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.DropDownListFor(x => Model.AdminID, RightsDropDown, htmlAttributes: new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.AdminID, "", new { @class = "text-danger" })
                 </div>
             </div>
