@@ -30,7 +30,7 @@ namespace DHDomtica.Models
         [DisplayName("Productprijs")]
         [Required(ErrorMessage = "Vul een productprijs in")]
         [RegularExpression(@"^(\d+(?:[\.\,]\d{1,2})?)$", ErrorMessage = "Vul een correcte prijs in met punt en 2 cijfers achter de punt, zoals 123.45")]
-        public float Price { get; set; }
+        public double Price { get; set; }
 
         [DataType(DataType.ImageUrl)]
         [DisplayName("Productafbeelding")]
@@ -86,14 +86,14 @@ namespace DHDomtica.Models
         //    }
         //}
 
-        //public AdminManageProductViewModel(Product product)
-        //{
-        //    Name = product.Name;
-        //    Description = product.Description;
-        //    Price = product.Price;
-        //    Image = product.Image;
-        //    MainCategoryID = product.MainCategoryID;
-        //}
+        public AdminManageProductViewModel(Product product)
+        {
+            Name = product.Name;
+            Description = product.Description;
+            Price = product.Price;
+            Image = product.Image;
+            MainCategoryID = product.MainCategoryID;
+        }
 
         //public AdminManageProductViewModel()
         //{
