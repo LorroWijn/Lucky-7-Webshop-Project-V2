@@ -55,9 +55,49 @@ namespace DHDomtica.Models
                 Description = Description,
                 Price = Price,
                 Image = Image,
-                // Foreign key van productcategorie invullen
+                MainCategoryID = MainCategoryID
+                // Weet niet of bovenste foreign key goed is
             };
+
+            using (DHDomoticaDBEntities DHDomoticadbModel = new DHDomoticaDBEntities())
+            {
+                DHDomoticadbModel.Products.Add(product);
+                DHDomoticadbModel.SaveChanges();
+            }
         }
 
+        //internal void ChangeExistingProduct()
+        //{
+        //    // Iets met int ID = 0 toevoegen, zodat controller weet welk product hij moet pakken.
+        //    using (DHDomoticaDBEntities DHDomoticadbModel = new DHDomoticaDBEntities())
+        //    {
+        //        Product product = DHDomoticadbModel.Users.FirstOrDefault(x => x.ID == idCheck);
+        //        {
+        //            product.Name = Name;
+        //            product.Description = Description;
+        //            product.Price = Price;
+        //            product.Image = Image;
+        //            product.MainCategoryID = MainCategoryID;
+        //            // Ik weet niet of de foreign key hiervan goed is
+        //        };
+        //        {
+        //            DHDomoticadbModel.SaveChanges();
+        //        }
+        //    }
+        //}
+
+        //public AdminManageProductViewModel(Product product)
+        //{
+        //    Name = product.Name;
+        //    Description = product.Description;
+        //    Price = product.Price;
+        //    Image = product.Image;
+        //    MainCategoryID = product.MainCategoryID;
+        //}
+
+        //public AdminManageProductViewModel()
+        //{
+
+        //}
     }
 }
