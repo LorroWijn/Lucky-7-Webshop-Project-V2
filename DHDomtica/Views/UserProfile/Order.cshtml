@@ -80,7 +80,7 @@
                 @{ int totaalbedrag = 0;
                     foreach (ItemModel item in Model)
                     {
-                        totaalbedrag += Convert.ToInt16(item.Product.Price);
+                        totaalbedrag += Convert.ToInt16(item.Product.Price) * item.Quantity;
                     }
                 }
                 <td></td>

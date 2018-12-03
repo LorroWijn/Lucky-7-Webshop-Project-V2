@@ -36,6 +36,7 @@ namespace DHDomtica.Controllers
         // GET: ProductDetails
         public ActionResult ProductDetails(int id)
         {
+            
             //read cookie from request
             HttpCookie pageCookie = Request.Cookies["pageCookie"];
             if (pageCookie == null)
@@ -59,6 +60,7 @@ namespace DHDomtica.Controllers
             }
             var ProductReviewsList = new ProductReviewsViewModel()
             {
+                
                 Product = product,
                 Reviews = db.Reviews.Where(c => c.ProductID.Equals(id)).ToList().AsEnumerable()
 

@@ -1,6 +1,7 @@
 ﻿@model DHDomtica.ViewModels.ProductReviewsViewModel
 @using DHDomtica.Models
 
+
 @{
     ViewBag.Title = "ProductDetails";
 }
@@ -32,24 +33,32 @@
         </div>
 
     </div>
-
+    
     <!--review section-->
     <div class="card card-outline-secondary my-4">
         <div class="card-header">
             Product Reviews
         </div>
-        @{ 
+
+        
+        @{
             foreach (Review r in Model.Reviews)
             {
-                <div class="card-body">
-                    <p>@Html.DisplayFor(model => r.ReviewText)</p>
-                    <small class="text-muted">Geplaatst door @Html.DisplayFor(model=> r.UserID) op @Html.DisplayFor(model => r.Date)</small>
-                    <hr>
-                </div>
-            }
+                DHDomoticaDBEntities db = new DHDomoticaDBEntities();
+                User user = new User();
+                user = db.Users.FirstOrDefault(u => u.ID.Equals(r.UserID));
+                
+                string date = r.Date.ToShortDateString();
+            <div class="card-body">
+                <p>@Html.DisplayFor(model => r.ReviewText)</p>
+
+                <small class="text-muted">Geplaatst door @user.FirstName op @date</small>
+                <hr>
+            </div>
+                                                            }
         }
     </div>
-    
+
 </div>
 <hr />
 <p>
