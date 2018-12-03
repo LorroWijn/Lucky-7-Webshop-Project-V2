@@ -66,6 +66,12 @@ namespace DHDomtica.Controllers
 
             };
 
+            //average star calculation for in productDetails
+            /*int totalReviewsCount = db.Reviews.Where(t => t.ProductID.Equals(id)).Count();
+            int allStars = db.Reviews.Where(s => s.Stars.Equals(id)).Count();
+
+            int averageStars = allStars / totalReviewsCount;*/
+
             ShowSidebar();
             return View(ProductReviewsList);
 
