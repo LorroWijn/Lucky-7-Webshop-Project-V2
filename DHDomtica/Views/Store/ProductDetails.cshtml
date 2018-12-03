@@ -49,12 +49,27 @@
                 user = db.Users.FirstOrDefault(u => u.ID.Equals(r.UserID));
                 
                 string date = r.Date.ToShortDateString();
-            <div class="card-body">
-                <p>@Html.DisplayFor(model => r.ReviewText)</p>
 
-                <small class="text-muted">Geplaatst door @user.FirstName op @date</small>
-                <hr>
-            </div>
+        <div class="card-body">
+            <p class="text-warning">
+                @for (int i = 1; i <= 5; i++)
+                {
+                    if (i <= r.Stars)
+                    {
+                        <b>&#9733 </b>
+                    }
+                    else
+                    {
+                        <b>&#9734 </b>
+                    }
+
+                }
+            </p>
+            <p>@Html.DisplayFor(model => r.ReviewText)</p>
+
+            <small class="text-muted">Geplaatst door @user.FirstName op @date</small>
+            <hr>
+        </div>
                                                             }
         }
     </div>
