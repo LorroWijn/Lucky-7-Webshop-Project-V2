@@ -130,6 +130,7 @@ namespace DHDomtica.ViewModels
         public AdminManageUserViewModel(User user)
         {
             ID = user.ID;
+            AdminID = user.AdminID;
             FirstName = user.FirstName;
             LastName = user.LastName;
             Gender = user.Gender;

@@ -43,9 +43,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.BillingAddress)
             </th>
-            @*<th>
-                    @Html.DisplayNameFor(model => model.AdminRight.Rights)
-                </th>*@
+            <th>
+                    @Html.DisplayNameFor(model => model.AdminID)
+                </th>
             <th></th>
         </tr>
 
@@ -82,9 +82,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.BillingAddress)
                 </td>
-                @*<td>
-                        @Html.DisplayFor(modelItem => item.AdminRight.Rights)
-                    </td>*@
+                <td>
+                        @Html.DisplayFor(modelItem => item.AdminID)
+                    </td>
                 <td>
                     @Html.ActionLink("Aanpassen", "Edit", new { id = item.ID }) |
                     @Html.ActionLink("Details", "Details", new { id = item.ID }) |
