@@ -36,6 +36,7 @@
           <Property Name="OrderNumber" Type="varchar" MaxLength="45" Nullable="false" />
           <Property Name="UserID" Type="int" Nullable="false" />
           <Property Name="OrderDate" Type="date" Nullable="false" />
+          <Property Name="OrderStatus" Type="varchar" MaxLength="45" Nullable="false" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -466,6 +467,7 @@
           <Property Name="OrderDate" Type="DateTime" Nullable="false" />
           <NavigationProperty Name="OrderProducts" Relationship="DHDomoticaDBModel.OrderProducts_ibfk_1" FromRole="Order" ToRole="OrderProduct" />
           <NavigationProperty Name="User" Relationship="DHDomoticaDBModel.Orders_ibfk_1" FromRole="Order" ToRole="User" />
+          <Property Name="OrderStatus" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="OrderProducts_ibfk_1">
           <End Type="DHDomoticaDBModel.Order" Role="Order" Multiplicity="1" />
@@ -590,6 +592,7 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="DHDomoticaDBModel.Order">
               <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
                 <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />

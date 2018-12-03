@@ -437,7 +437,7 @@ namespace DHDomtica.Controllers
             order.UserID = UserID;
             order.OrderNumber = g.ToString();
             order.OrderDate = dateTime;
-
+            order.OrderStatus = "Payed";
             db.Orders.Add(order);
             db.SaveChanges();
 

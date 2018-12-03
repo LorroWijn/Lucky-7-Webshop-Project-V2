@@ -443,6 +443,7 @@
     <Content Include="Views\Store\Success.cshtml" />
     <Content Include="Views\Store\Failure.cshtml" />
     <Content Include="Views\UserProfile\Order.cshtml" />
+    <Content Include="Views\AdminOrders\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
