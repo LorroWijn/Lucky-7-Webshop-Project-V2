@@ -30,6 +30,10 @@ namespace DHDomtica.Controllers
             return View(orders);
 
         }
+        public ActionResult Order()
+        {
+            return View();
+        }
         public ActionResult UpdateStatus(int Status, int ID)
         {
             string newStatus = "error";

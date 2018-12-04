@@ -445,6 +445,7 @@
     <Content Include="Views\Store\Failure.cshtml" />
     <Content Include="Views\UserProfile\Order.cshtml" />
     <Content Include="Views\AdminOrders\Index.cshtml" />
+    <Content Include="Views\AdminOrders\Order.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
