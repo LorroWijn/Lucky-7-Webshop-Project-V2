@@ -1,8 +1,97 @@
-﻿
+﻿@using DHDomtica.Models
 @{
     ViewBag.Title = "Order";
 }
 
 <h2>Order</h2>
-<h4>Hier komt de order, denk ik :)</h4>
 
+<div class="col-lg-12">
+    <div class="card mt-4">
+        <table class="table">
+            <tr>
+                <th>
+                    Besteldatum:
+                </th>
+                <th></th>
+                <th></th>
+                <th align="right">
+                    @{Order order = (Order)Session["Order"];
+
+                    }
+                    @order.OrderDate.ToShortDateString()
+
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    Ordernummer:
+                </th>
+                <th></th>
+                <th></th>
+                <th align="right">
+                    @order.OrderNumber
+                </th>
+
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <th>Producten:</th>
+
+            </tr>
+            <tr>
+                <th>
+                    Naam
+                </th>
+                <th>
+                    Prijs
+                </th>
+                <th>
+                    Aantal
+                </th>
+                <th>
+                    Bedrag
+                </th>
+            </tr>
+            @foreach (ItemModel item in Model)
+            {
+                <tr>
+                    @*<td style="cursor:pointer;" onclick="location.href='@item.Product.Image'">
+                            <img class="card-img-top img-fluid" src="@item.Product.Image" alt="Image">
+                        </td>*@
+                    <td>@Html.ActionLink(@item.Product.Name, "ProductDetails/" + item.Product.ID)</td>
+
+                    @{int prijs = Convert.ToInt16(Math.Round(item.Product.Price));}
+                    <td>
+                        €@Html.DisplayFor(modelItem => prijs)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelQuantity => item.Quantity)
+                    </td>
+                    @{ int bedrag = prijs * item.Quantity; }
+                    <td>
+                        @Html.DisplayFor(modelBedrag => bedrag)
+                    </td>
+
+                </tr>
+            }
+            <tr><td></td></tr>
+            <tr>
+                @{ int totaalbedrag = 0;
+                    foreach (ItemModel item in Model)
+                    {
+                        totaalbedrag += Convert.ToInt16(item.Product.Price) * item.Quantity;
+                    }
+                }
+                <td></td>
+                <td></td>
+                <td>Totaal:</td>
+
+                <td>@totaalbedrag</td>
+            </tr>
+
+        </table>
+
+    </div>
+</div>
+@Html.ActionLink("Terug", "Index", "AdminOrders", new { @class = "btn btn-success" })

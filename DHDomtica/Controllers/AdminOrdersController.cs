@@ -27,12 +27,36 @@ namespace DHDomtica.Controllers
         {
             List<OrderProduct> orderProducts = db.OrderProducts.ToList();
             List<Order> orders = db.Orders.ToList();
+            ShowAdminSidebar();
             return View(orders);
 
         }
-        public ActionResult Order()
+        //Code for the AdminsideBar
+        private void ShowAdminSidebar()
         {
-            return View();
+            System.Diagnostics.Debug.WriteLine($"AdminSidebar {Request.RawUrl}");
+            ViewBag.ShowAdminSideBar = true;
+        }
+
+        public ActionResult Order(int OrderID)
+            {
+                Order order = db.Orders.FirstOrDefault(o => o.ID.Equals(OrderID));
+                List<OrderProduct> OP = db.OrderProducts.Where(op => op.OrderID.Equals(order.ID)).ToList();
+                List<ItemModel> OrderProducts = new List<ItemModel>();
+                Session["Order"] = order;
+                foreach (OrderProduct item in OP)
+                {
+                    ItemModel product = new ItemModel()
+                    {
+                        Product = db.Products.FirstOrDefault(p => p.ID.Equals(item.ProductID)),
+                        Quantity = item.Quantity
+
+                    };
+                    OrderProducts.Add(product);
+                }
+                ShowAdminSidebar();
+                return View(OrderProducts);
+
         }
         public ActionResult UpdateStatus(int Status, int ID)
         {

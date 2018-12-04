@@ -17,9 +17,9 @@
                 <th align="right">
                     @{Order order = (Order)Session["Order"];
 
-                        }
+                    }
                     @order.OrderDate.ToShortDateString()
-                    
+
                 </th>
             </tr>
             <tr>
@@ -33,11 +33,11 @@
                 </th>
 
             </tr>
-            </table>
+        </table>
         <table>
             <tr>
                 <th>Producten:</th>
-                
+
             </tr>
             <tr>
                 <th>
@@ -55,25 +55,25 @@
             </tr>
             @foreach (ItemModel item in Model)
             {
-            <tr>
-                @*<td style="cursor:pointer;" onclick="location.href='@item.Product.Image'">
-            <img class="card-img-top img-fluid" src="@item.Product.Image" alt="Image">
-        </td>*@
-                <td>@Html.ActionLink(@item.Product.Name, "ProductDetails/" + item.Product.ID)</td>
+                <tr>
+                    @*<td style="cursor:pointer;" onclick="location.href='@item.Product.Image'">
+                            <img class="card-img-top img-fluid" src="@item.Product.Image" alt="Image">
+                        </td>*@
+                    <td>@Html.ActionLink(@item.Product.Name, "ProductDetails/" + item.Product.ID)</td>
 
-                @{int prijs = Convert.ToInt16(Math.Round(item.Product.Price));}
-                <td>
-                    €@Html.DisplayFor(modelItem => prijs)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelQuantity => item.Quantity)
-                </td>
-                @{ int bedrag = prijs * item.Quantity; }
-                <td>
-                    @Html.DisplayFor(modelBedrag => bedrag)
-                </td>
+                    @{int prijs = Convert.ToInt16(Math.Round(item.Product.Price));}
+                    <td>
+                        €@Html.DisplayFor(modelItem => prijs)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelQuantity => item.Quantity)
+                    </td>
+                    @{ int bedrag = prijs * item.Quantity; }
+                    <td>
+                        @Html.DisplayFor(modelBedrag => bedrag)
+                    </td>
 
-            </tr>
+                </tr>
             }
             <tr><td></td></tr>
             <tr>
@@ -89,6 +89,12 @@
 
                 <td>@totaalbedrag</td>
             </tr>
+
         </table>
-        </div>
+
     </div>
+</div>
+@if (order.OrderStatus == "Bezorgd")
+{
+    @Html.ActionLink("Terug", "OrderHistory", "UserProfile", new { @class = "btn btn-success" })}
+else{ @Html.ActionLink("Terug", "Index", "UserProfile", new { @class = "btn btn-success" })}
