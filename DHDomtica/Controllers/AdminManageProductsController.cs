@@ -99,9 +99,11 @@ namespace DHDomtica.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.MainCategoryID = new SelectList(db.MainCategories, "ID", "Name", product.MainCategoryID);
+            //ViewBag.MainCategoryID = new SelectList(db.MainCategories, "ID", "Name", product.MainCategoryID);
+
+            var adminProductModelEnum = new AdminManageProductViewModel(product);
             ShowAdminSidebar();
-            return View(product);
+            return View(adminProductModelEnum);
         }
 
         // POST: Products/Edit/5
