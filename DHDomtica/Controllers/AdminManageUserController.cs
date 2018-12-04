@@ -77,8 +77,10 @@ namespace DHDomtica.Controllers
             {
                 return HttpNotFound();
             }
+            AdminManageUserViewModel adminModel = new AdminManageUserViewModel(user);
+
             ShowAdminSidebar();
-            return View(user);
+            return View(adminModel);
         }
 
         // GET: AdminManageUser/Edit/5
@@ -128,8 +130,11 @@ namespace DHDomtica.Controllers
             {
                 return HttpNotFound();
             }
+
+            AdminManageUserViewModel adminModel = new AdminManageUserViewModel(user);
+
             ShowAdminSidebar();
-            return View(user);
+            return View(adminModel);
         }
 
         // POST: AdminManageUser/Delete/5
