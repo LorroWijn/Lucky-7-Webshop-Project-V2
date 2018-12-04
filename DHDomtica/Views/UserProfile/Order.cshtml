@@ -59,7 +59,7 @@
                     @*<td style="cursor:pointer;" onclick="location.href='@item.Product.Image'">
                             <img class="card-img-top img-fluid" src="@item.Product.Image" alt="Image">
                         </td>*@
-                    <td>@Html.ActionLink(@item.Product.Name, "ProductDetails/" + item.Product.ID, "Store")</td>
+                    <td>@Html.ActionLink(@item.Product.Name, "ProductDetails/" + item.Product.ID)</td>
 
                     @{int prijs = Convert.ToInt16(Math.Round(item.Product.Price));}
                     <td>
