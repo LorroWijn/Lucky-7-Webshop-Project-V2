@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DHDomtica.Models;
+using DHDomtica.ViewModels;
 using DHDomtica.Supportclasses;
 using System.Data.Entity.Infrastructure;
 
@@ -25,7 +26,8 @@ namespace DHDomtica.Controllers
                 product = db.Products.Where(p => p.Name.Contains(searchString));
             }
                 ShowAdminSidebar();
-                return View(product.ToList());
+            var adminProductModelEnum = new AdminManageProductViewModel().VMList();
+            return View(adminProductModelEnum);
             
         }
         //Code for the AdminsideBar

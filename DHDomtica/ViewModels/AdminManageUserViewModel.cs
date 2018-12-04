@@ -105,7 +105,7 @@ namespace DHDomtica.ViewModels
         //Aanpassen aan CRUD. Cookies eruit.
         internal void EditExistingUser(int ID)
         {
-            var con = System.Web.HttpContext.Current.Request.Cookies;
+            // var con = System.Web.HttpContext.Current.Request.Cookies;
             using (DHDomoticaDBEntities DHDomoticadbModel = new DHDomoticaDBEntities())
             {
                 User user = DHDomoticadbModel.Users.FirstOrDefault(x => x.ID == ID);

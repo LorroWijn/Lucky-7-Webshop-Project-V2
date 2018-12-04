@@ -1,21 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using DHDomtica.Models;
 using DHDomtica.Supportclasses;
+using System.Collections;
 
 namespace DHDomtica.Models
 {
-    public partial class AdminManageProductViewModel
+    public class AdminManageProductViewModel
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public AdminManageProductViewModel()
-        {
-            this.Wishlists = new HashSet<Wishlist>();
-        }
-
         public int ID { get; set; }
+
         [DataType(DataType.Text)]
         [DisplayName("Productnaam")]
         [Required(ErrorMessage = "Vul een productnaam in")]
@@ -44,8 +42,12 @@ namespace DHDomtica.Models
 
         [DisplayName("Productcategorie")]
         public virtual MainCategory MainCategory { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Wishlist> Wishlists { get; set; }
+
+        public AdminManageProductViewModel()
+        {
+
+        }
+
 
         internal void CreateNewProduct()
         {
@@ -66,25 +68,25 @@ namespace DHDomtica.Models
             }
         }
 
-        //internal void ChangeExistingProduct()
-        //{
-        //    // Iets met int ID = 0 toevoegen, zodat controller weet welk product hij moet pakken.
-        //    using (DHDomoticaDBEntities DHDomoticadbModel = new DHDomoticaDBEntities())
-        //    {
-        //        Product product = DHDomoticadbModel.Users.FirstOrDefault(x => x.ID == idCheck);
-        //        {
-        //            product.Name = Name;
-        //            product.Description = Description;
-        //            product.Price = Price;
-        //            product.Image = Image;
-        //            product.MainCategoryID = MainCategoryID;
-        //            // Ik weet niet of de foreign key hiervan goed is
-        //        };
-        //        {
-        //            DHDomoticadbModel.SaveChanges();
-        //        }
-        //    }
-        //}
+        internal void ChangeExistingProduct(int ID)
+        {
+            // Iets met int ID = 0 toevoegen, zodat controller weet welk product hij moet pakken.
+            using (DHDomoticaDBEntities DHDomoticadbModel = new DHDomoticaDBEntities())
+            {
+                Product product = DHDomoticadbModel.Products.FirstOrDefault(x => x.ID == ID);
+                {
+                    product.Name = Name;
+                    product.Description = Description;
+                    product.Price = Price;
+                    product.Image = Image;
+                    product.MainCategoryID = MainCategoryID;
+                    // Ik weet niet of de foreign key hiervan goed is
+                };
+                {
+                    DHDomoticadbModel.SaveChanges();
+                }
+            }
+        }
 
         public AdminManageProductViewModel(Product product)
         {
@@ -95,9 +97,20 @@ namespace DHDomtica.Models
             MainCategoryID = product.MainCategoryID;
         }
 
-        //public AdminManageProductViewModel()
-        //{
-
-        //}
+        public IEnumerable<AdminManageProductViewModel> VMList()
+        {
+            var vmProduct = new List<AdminManageProductViewModel>();
+            using (DHDomoticaDBEntities DHDomoticadbModel = new DHDomoticaDBEntities())
+            {
+                var product = DHDomoticadbModel.Products;
+                foreach (Product i in product)
+                {
+                    var test = new AdminManageProductViewModel(i);
+                    vmProduct.Add(test);
+                }
+            }
+            IEnumerable<AdminManageProductViewModel> enumerator = vmProduct.AsEnumerable<AdminManageProductViewModel>();
+            return enumerator;
+        }
     }
 }
