@@ -1,4 +1,4 @@
-﻿@model DHDomtica.Models.Product
+﻿@model DHDomtica.ViewModels.AdminManageProductViewModel
 
 <!DOCTYPE html>
 
@@ -46,12 +46,20 @@
             </dd>
 
             <dt>
+                @Html.DisplayNameFor(model => model.MainCategoryID)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.MainCategoryID)
+            </dd>
+
+            @*<dt>
                 @Html.DisplayNameFor(model => model.MainCategory.Name)
             </dt>
 
             <dd>
                 @Html.DisplayFor(model => model.MainCategory.Name)
-            </dd>
+            </dd>*@
 
         </dl>
 

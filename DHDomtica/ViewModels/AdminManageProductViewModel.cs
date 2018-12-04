@@ -8,7 +8,7 @@ using DHDomtica.Models;
 using DHDomtica.Supportclasses;
 using System.Collections;
 
-namespace DHDomtica.Models
+namespace DHDomtica.ViewModels
 {
     public class AdminManageProductViewModel
     {
@@ -47,7 +47,6 @@ namespace DHDomtica.Models
         {
 
         }
-
 
         internal void CreateNewProduct()
         {
@@ -91,6 +90,7 @@ namespace DHDomtica.Models
         public AdminManageProductViewModel(Product product)
         {
             Name = product.Name;
+            ID = product.ID;
             Description = product.Description;
             Price = product.Price;
             Image = product.Image;

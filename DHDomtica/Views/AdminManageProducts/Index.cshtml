@@ -1,4 +1,4 @@
-﻿@model IEnumerable <DHDomtica.ViewModels.>
+﻿@model IEnumerable <DHDomtica.ViewModels.AdminManageProductViewModel>
 
 <!DOCTYPE html>
 
@@ -33,7 +33,7 @@
                 @Html.DisplayNameFor(model => model.Image)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MainCategory.Name)
+                @Html.DisplayNameFor(model => model.MainCategoryID)
             </th>
             <th></th>
         </tr>
@@ -54,7 +54,7 @@
                     @Html.DisplayFor(modelItem => item.Image)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.MainCategory.Name)
+                    @Html.DisplayFor(modelItem => item.MainCategoryID)
                 </td>
                 <td>
                     @Html.ActionLink("Aanpassen", "Edit", new { id = item.ID }) |

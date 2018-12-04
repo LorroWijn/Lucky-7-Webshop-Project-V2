@@ -50,7 +50,8 @@ namespace DHDomtica.Controllers
                 return HttpNotFound();
             }
             ShowAdminSidebar();
-            return View(product);
+            var adminProductModelEnum = new AdminManageProductViewModel(product);
+            return View(adminProductModelEnum);
         }
 
         // GET: Products/Create
@@ -138,7 +139,8 @@ namespace DHDomtica.Controllers
                 return HttpNotFound();
             }
             ShowAdminSidebar();
-            return View(product);
+            var adminProductModelEnum = new AdminManageProductViewModel(product);
+            return View(adminProductModelEnum);
         }
 
         // POST: Products/Delete/5
