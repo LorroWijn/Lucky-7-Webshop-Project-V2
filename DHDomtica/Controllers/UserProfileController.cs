@@ -19,8 +19,15 @@ namespace DHDomtica.Controllers
         // Orderstatus is index. Alle code van orderstatus hierna
         public ActionResult Index()
         {
+            int userid = Convert.ToInt32(System.Web.HttpContext.Current.Request.Cookies["UserID"].Value);
+            List<Order> OrderList = db.Orders.Where(o => 
+                o.UserID.Equals(userid) &&
+                !o.OrderStatus.Equals("Bezorgd"))
+                .ToList();
+
+
             ShowUserSidebar();
-            return View();
+            return View(OrderList);
         }
 
         //Code for the UsersideBar
@@ -182,8 +189,11 @@ namespace DHDomtica.Controllers
             if (con["UserID"] != null)
             {
 
-                List<Order> OrderList = db.Orders.Where(o => o.UserID.Equals(idCheck)).ToList();
-
+                List<Order> OrderList = db.Orders.Where(o =>
+                o.UserID.Equals(idCheck) &&
+                o.OrderStatus.Equals("Bezorgd")
+                ).ToList();
+                ShowUserSidebar();
                 return View(OrderList);
 
             }
@@ -210,6 +220,7 @@ namespace DHDomtica.Controllers
             }
 
             //ViewBag.Message = "test";
+            ShowUserSidebar();
             return View(OrderProducts);
         }
     }

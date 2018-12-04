@@ -2,7 +2,7 @@
 @model IEnumerable<Order>
 @using DHDomtica.Models
 @using System.Web.Mvc.Html
-@using GridMvc.Html;
+
 @{
     ViewBag.Title = "Order History";
 }
@@ -19,7 +19,9 @@
                 <th>
                     Ordernummer
                 </th>
-
+                <th>
+                    Orderstatus
+                </th>
 
 
             </tr>
@@ -33,6 +35,7 @@
                 <td>@Html.ActionLink(order.OrderDate.ToShortDateString(), "Order", new { orderid = order.ID })</td>
 
                 <td>@Html.ActionLink(order.OrderNumber, "Order", new { orderid = order.ID })</td>
+                <td>@order.OrderStatus </td>
             </tr>
                 }
             }
