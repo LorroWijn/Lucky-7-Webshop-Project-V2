@@ -44,9 +44,8 @@
                 @Html.DisplayNameFor(model => model.BillingAddress)
             </th>
             <th>
-                    @Html.DisplayNameFor(model => model.AdminID)
-                </th>
-            <th></th>
+                @Html.DisplayNameFor(model => model.AdminID)
+            </th>
         </tr>
 
         @foreach (var item in Model)
@@ -83,8 +82,8 @@
                     @Html.DisplayFor(modelItem => item.BillingAddress)
                 </td>
                 <td>
-                        @Html.DisplayFor(modelItem => item.AdminID)
-                    </td>
+                    @Html.DisplayFor(modelItem => item.AdminID)
+                </td>
                 <td>
                     @Html.ActionLink("Aanpassen", "Edit", new { id = item.ID }) |
                     @Html.ActionLink("Details", "Details", new { id = item.ID }) |
