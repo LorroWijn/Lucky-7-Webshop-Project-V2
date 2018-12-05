@@ -492,5 +492,19 @@ namespace DHDomtica.Controllers
            
         }
 
+        public ActionResult Review()
+        {
+            /*var product = db.Products.SingleOrDefault(p => p.ID == id);
+            var ProductReviewsList = new ProductReviewsViewModel()
+            {
+
+                Product = product,
+                Reviews = db.Reviews.Where(c => c.ProductID.Equals(id)).ToList().AsEnumerable()
+
+            };*/
+
+            return View();
+        }
+
     }
     }

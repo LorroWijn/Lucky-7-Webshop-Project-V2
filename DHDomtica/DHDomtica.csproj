@@ -445,6 +445,7 @@
     <Content Include="Views\UserProfile\Order.cshtml" />
     <Content Include="Views\AdminOrders\Index.cshtml" />
     <Content Include="Views\AdminOrders\Order.cshtml" />
+    <Content Include="Views\Store\Review.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
