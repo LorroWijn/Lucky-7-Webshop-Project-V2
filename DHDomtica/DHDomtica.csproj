@@ -243,6 +243,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\MainCategoryViewModel.cs" />
+    <Compile Include="ViewModels\WriteReviewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\Antlr3.Runtime.dll" />
