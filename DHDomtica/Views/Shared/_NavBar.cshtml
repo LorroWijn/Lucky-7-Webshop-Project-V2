@@ -56,7 +56,7 @@
                 <li class="nav-item">
                     @if (HomeController.LoggedIn == true)
                     {
-                        @Html.ActionLink(HomeController.HelloWorld, "Index", "UserProfile", null, new { @class = "nav-link" });
+                        @Html.ActionLink(HomeController.CookieHolder, "Index", "UserProfile", null, new { @class = "nav-link" });
                     }
                     else
                     {

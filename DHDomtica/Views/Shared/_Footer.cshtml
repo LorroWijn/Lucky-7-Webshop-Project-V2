@@ -8,11 +8,12 @@
         <ul>
             <li>@Html.ActionLink("Over ons", "About", "Home", null, new { @class = "child-text" })</li>
             <li>@Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "child-text" })</li>
-            @if (HomeController.HelloWorld == "Admin")
-            {
+
+            @{ if (HomeController.LoggedIn == true && HomeController.CookieHolder == "Admin")
+                {
                 <li>@Html.ActionLink("Don't touch it", "Index", "Admin", null, new { @class = "child-text" })</li>
             }
-
+}
         </ul>
     </div>
     <!-- /.container -->
