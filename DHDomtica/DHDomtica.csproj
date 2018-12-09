@@ -258,6 +258,7 @@
     <Compile Include="Supportclasses\Cookies.cs" />
     <Compile Include="ViewModels\AdminManageProductViewModel.cs" />
     <Compile Include="ViewModels\AdminManageUserViewModel.cs" />
+    <Compile Include="ViewModels\AdminStatisticsViewModel.cs" />
     <Compile Include="ViewModels\ProductReviewsViewModel.cs" />
     <Compile Include="ViewModels\SignUpViewModel.cs" />
     <Compile Include="ViewModels\UserPasswordChangeViewModel.cs" />
@@ -481,6 +482,9 @@
     <Content Include="Views\Chat\Index.cshtml" />
     <Content Include="Views\Chat\ChatScreen.cshtml" />
     <Content Include="Views\Store\Review.cshtml" />
+    <Content Include="Views\Charts\MonthlyVisitorsChart.cshtml" />
+    <Content Include="Views\Charts\DailyVisitorsChart.cshtml" />
+    <Content Include="Views\Charts\YearlyVisitorsChart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
