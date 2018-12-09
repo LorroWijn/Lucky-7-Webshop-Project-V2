@@ -80,7 +80,7 @@ namespace DHDomtica.Controllers
                     db.Users.First(u => u.ID.Equals(Token)).EmailConfirmed = true;
                     db.SaveChanges();
                     
-                    return RedirectToAction("SignInPage", "Home" );
+                    return RedirectToAction("SignInPage", "SignIn" );
                 }
                 else
                 {
