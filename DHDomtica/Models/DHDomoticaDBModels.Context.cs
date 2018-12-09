@@ -33,5 +33,6 @@ namespace DHDomtica.Models
         public virtual DbSet<Review> Reviews { get; set; }
         public virtual DbSet<OrderProduct> OrderProducts { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<Statistic> Statistics { get; set; }
     }
 }

@@ -248,6 +248,9 @@
     <Compile Include="Models\Review.cs">
       <DependentUpon>DHDomoticaDBModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Statistic.cs">
+      <DependentUpon>DHDomoticaDBModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\User.cs">
       <DependentUpon>DHDomoticaDBModels.tt</DependentUpon>
     </Compile>
