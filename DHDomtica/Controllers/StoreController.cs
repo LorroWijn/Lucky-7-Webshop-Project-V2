@@ -492,9 +492,27 @@ namespace DHDomtica.Controllers
            
         }
 
-        public ActionResult Review()
+        public ActionResult Review(int productid)
         {
-           
+            ViewBag.product = db.Products.First(p => p.ID.Equals(productid));
+            return View();
+        }
+
+        public ActionResult SaveReview(int Sterren, string ReviewText, int productid)
+        {
+            Review review = new Review();
+            review.ProductID = productid;
+            review.UserID = Convert.ToInt16(System.Web.HttpContext.Current.Request.Cookies["UserID"].Value);
+            review.Stars = Sterren;
+            review.Date = DateTime.Now;
+            review.ReviewText = ReviewText;
+            db.Reviews.Add(review);
+            db.SaveChanges();
+
+            return RedirectToAction("ReviewSuccesView", "Store");
+        }
+        public ActionResult ReviewSuccesView()
+        {
             return View();
         }
 

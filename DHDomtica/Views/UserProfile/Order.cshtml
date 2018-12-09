@@ -39,27 +39,33 @@
                 <th>Producten:</th>
 
             </tr>
-            <tr>
-                <th>
-                    Naam
-                </th>
-                <th>
-                    Prijs
-                </th>
-                <th>
-                    Aantal
-                </th>
-                <th>
-                    Bedrag
-                </th>
-            </tr>
+			<tr>
+				<th>
+					Naam
+				</th>
+				<th>
+					Prijs
+				</th>
+				<th>
+					Aantal
+				</th>
+				<th>
+					Bedrag
+				</th>
+				@if (order.OrderStatus == "Bezorgd")
+				{
+					<th>
+						Review
+					</th>
+				}
+				</tr>
             @foreach (ItemModel item in Model)
             {
                 <tr>
                     @*<td style="cursor:pointer;" onclick="location.href='@item.Product.Image'">
                             <img class="card-img-top img-fluid" src="@item.Product.Image" alt="Image">
                         </td>*@
-                    <td>@Html.ActionLink(@item.Product.Name, "ProductDetails/" + item.Product.ID)</td>
+                    <td>@Html.ActionLink(@item.Product.Name, "ProductDetails/" + item.Product.ID, "Store")</td>
 
                     @{int prijs = Convert.ToInt16(Math.Round(item.Product.Price));}
                     <td>
@@ -72,7 +78,13 @@
                     <td>
                         @Html.DisplayFor(modelBedrag => bedrag)
                     </td>
-
+					@if (order.OrderStatus == "Bezorgd")
+					{
+					<td>
+						
+						@Html.ActionLink("Schrijf een review", "Review", "Store", new { productid = item.Product.ID }, new { @class = "btn btn-success" })
+					</td>
+					}
                 </tr>
             }
             <tr><td></td></tr>
