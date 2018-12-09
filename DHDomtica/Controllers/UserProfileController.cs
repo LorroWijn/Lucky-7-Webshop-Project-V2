@@ -10,8 +10,6 @@ using System.Data.Entity.Infrastructure;
 
 namespace DHDomtica.Controllers
 {
-    
-
     public class UserProfileController : Controller
     {
         private DHDomoticaDBEntities db = new DHDomoticaDBEntities();
@@ -24,7 +22,6 @@ namespace DHDomtica.Controllers
                 o.UserID.Equals(userid) &&
                 !o.OrderStatus.Equals("Bezorgd"))
                 .ToList();
-
 
             ShowUserSidebar();
             return View(OrderList);
@@ -91,7 +88,9 @@ namespace DHDomtica.Controllers
             HttpCookie LastNameCookie = new HttpCookie("UserLast", userModel.LastName);
             HttpContext.Response.SetCookie(LastNameCookie);
             LastNameCookie.Expires = DateTime.UtcNow.AddDays(2);
-            return RedirectToAction("Index", "Home");
+
+            ShowUserSidebar(); 
+            return RedirectToAction("PersonalInformation", "UserProfile");
         }
         //return RedirectToAction("PersonalInformation", "UserProfile");
 

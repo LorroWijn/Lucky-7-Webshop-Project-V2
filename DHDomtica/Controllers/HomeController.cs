@@ -16,7 +16,7 @@ namespace DHDomtica.Controllers
     public class HomeController : Controller
     {
         public static bool LoggedIn;
-        public static string HelloWorld;
+        public static string CookieHolder;
 
         //Begin database connection
         private DHDomoticaDBEntities _context;
@@ -37,7 +37,7 @@ namespace DHDomtica.Controllers
             if (System.Web.HttpContext.Current.Request.Cookies["UserEMail"] != null)
             {
                 HttpCookie NewCookie = Request.Cookies["UserName"];
-                HelloWorld = NewCookie.Value;
+                CookieHolder = NewCookie.Value;
                 LoggedIn = true;
                 ShowSidebar();
                 return View();
