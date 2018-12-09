@@ -39,7 +39,7 @@
 		@{Product product = ViewBag.product; }
 		Product:
 		@Html.ActionLink(@product.Name, "ProductDetails/" + product.ID, "Store")
-
+		
 
 		@*<div class="form-group">
 			Aantal sterren:
@@ -50,20 +50,20 @@
 		</div>*@
 		@using (Html.BeginForm("SaveReview", "Store"))
 		{<div class="container">
-			 <div class="row">
+				<div class="row">
+					Aantal sterren:
+					<select class="form-control" name="Sterren">
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
 
-			 	<select class="form-control" name="Sterren">
-			 		<option value="1">1</option>
-			 		<option value="2">2</option>
-			 		<option value="3">3</option>
-			 		<option value="4">4</option>
-			 		<option value="5">5</option>
-
-			 	</select>
-			 	<textarea class="form-control" rows="3" name="ReviewText" type="submit" placeholder="Schrijf hier uw review."></textarea>
-			 	<input class="form-control" name="productid" type="hidden" value=@product.ID>
-			 	<button class="btn btn-success" type="submit">Opslaan</button>
-			 </div>
+					</select>
+					<textarea class="form-control" rows="3" name="ReviewText" type="submit" placeholder="Schrijf hier uw review."></textarea>
+					<input class="form-control" name="productid" type="hidden" value=@product.ID>
+					<button class="btn btn-success" type="submit">Opslaan</button>
+				</div>
 			</div>}
 	</div>
 
