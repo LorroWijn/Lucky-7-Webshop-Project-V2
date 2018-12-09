@@ -43,9 +43,9 @@ namespace DHDomtica.ViewModels
                 DHDomoticadbModel.SaveChanges();
             }
 
-            //public WriteReviewModel()
-            //{
-            //}
+
+
         }
+
     }
 }
