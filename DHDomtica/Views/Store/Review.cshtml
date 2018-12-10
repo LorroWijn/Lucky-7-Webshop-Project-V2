@@ -35,36 +35,31 @@
 <h2>Review</h2>
 
 <div class="col-lg-12">
-	<div class="card mt-4">
-		@{Product product = ViewBag.product; }
-		Product:
-		@Html.ActionLink(@product.Name, "ProductDetails/" + product.ID, "Store")
-		
-
-		@*<div class="form-group">
-			Aantal sterren:
-			<div class="col-md-10">
-				@Html.DropDownListFor(model => model.Stars, starsOfUsers, htmlAttributes: new { @class = "form-control", id = "Stars" })
-				@Html.ValidationMessageFor(model => model.Stars, "", new { @class = "text-danger" })
+	@using (Html.BeginForm("SaveReview", "Store"))
+	{
+		<div class="card mt-4">
+			<div class="col-lg-5">
+				@{Product product = ViewBag.product; }
+				Product:
+				@Html.ActionLink(@product.Name, "ProductDetails/" + product.ID, "Store")
 			</div>
-		</div>*@
-		@using (Html.BeginForm("SaveReview", "Store"))
-		{<div class="container">
-				<div class="row">
+				<div class="col-lg-2">
 					Aantal sterren:
 					<select class="form-control" name="Sterren">
-						<option value="1">1</option>
-						<option value="2">2</option>
-						<option value="3">3</option>
-						<option value="4">4</option>
-						<option value="5">5</option>
+						<option value="1">&#9733</option>
+						<option value="2">&#9733 &#9733</option>
+						<option value="3">&#9733 &#9733 &#9733</option>
+						<option value="4">&#9733 &#9733 &#9733 &#9733</option>
+						<option value="5">&#9733 &#9733 &#9733 &#9733 &#9733</option>
 
 					</select>
+				</div>
+				<div class="col-lg-8">
 					<textarea class="form-control" rows="3" name="ReviewText" type="submit" placeholder="Schrijf hier uw review."></textarea>
 					<input class="form-control" name="productid" type="hidden" value=@product.ID>
-					<button class="btn btn-success" type="submit">Opslaan</button>
 				</div>
-			</div>}
-	</div>
+		</div>
+		<button class="btn btn-success" type="submit">Opslaan</button>
+	}
 
 </div>
