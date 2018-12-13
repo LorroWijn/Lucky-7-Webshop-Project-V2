@@ -504,6 +504,7 @@ namespace DHDomtica.Controllers
             Review review = db.Reviews.FirstOrDefault(r => r.ProductID.Equals(productid) && r.UserID.Equals(userid));
             if (review == null)
             {
+                review = new Review();
                 review.ProductID = productid;
                 review.UserID = Convert.ToInt16(System.Web.HttpContext.Current.Request.Cookies["UserID"].Value);
                 review.Stars = Sterren;
