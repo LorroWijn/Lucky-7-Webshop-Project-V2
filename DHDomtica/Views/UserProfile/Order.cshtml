@@ -90,8 +90,8 @@
 				</td>}
 						else
 						{<td>
-					Review al geschreven
-					</td>
+	@Html.ActionLink("Review aanpassen", "Review", "Store", new { productid = item.Product.ID }, new { @class = "btn btn-success" })
+</td>
 						}
 					}
 				</tr>

@@ -500,13 +500,22 @@ namespace DHDomtica.Controllers
 
         public ActionResult SaveReview(int Sterren, string ReviewText, int productid)
         {
-            Review review = new Review();
-            review.ProductID = productid;
-            review.UserID = Convert.ToInt16(System.Web.HttpContext.Current.Request.Cookies["UserID"].Value);
-            review.Stars = Sterren;
-            review.Date = DateTime.Now;
-            review.ReviewText = ReviewText;
-            db.Reviews.Add(review);
+            int userid = Convert.ToInt16(System.Web.HttpContext.Current.Request.Cookies["UserID"].Value);
+            Review review = db.Reviews.FirstOrDefault(r => r.ProductID.Equals(productid) && r.UserID.Equals(userid));
+            if (review == null)
+            {
+                review.ProductID = productid;
+                review.UserID = Convert.ToInt16(System.Web.HttpContext.Current.Request.Cookies["UserID"].Value);
+                review.Stars = Sterren;
+                review.Date = DateTime.Now;
+                review.ReviewText = ReviewText;
+                db.Reviews.Add(review);
+            }
+            else
+            {
+                db.Reviews.FirstOrDefault(r => r.ProductID.Equals(productid) && r.UserID.Equals(userid)).ReviewText = ReviewText;
+                db.Reviews.FirstOrDefault(r => r.ProductID.Equals(productid) && r.UserID.Equals(userid)).Stars = Sterren;
+            }
             db.SaveChanges();
 
             return RedirectToAction("ReviewSuccesView", "Store");

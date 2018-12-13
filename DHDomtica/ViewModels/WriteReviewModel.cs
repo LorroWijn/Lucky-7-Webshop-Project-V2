@@ -8,6 +8,7 @@ using System.Web;
 
 namespace DHDomtica.ViewModels
 {
+    
     public class WriteReviewModel
     {
         public int ID { get; set; }
