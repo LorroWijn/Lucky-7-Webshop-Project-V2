@@ -1,29 +1,75 @@
-﻿@using System;
-@using System.Collections.Generic;
-@using System.Linq;
-@using System.Web;
-@using DHDomtica.Models;
-@using DHDomtica.Supportclasses;
-@using System.Collections;
-@using System.Web.Helpers;
+﻿
+<!DOCTYPE HTML>
+<html>
+<head>
+    <script>
+window.onload = function () {
 
-@{
-    ViewBag.Title = "MonthlyVisitorsChart";
-}
+var chart = new CanvasJS.Chart("chartContainer", {
+	animationEnabled: true,
+	title: {
+		text: "Product Trends By Month"
+	},
+	axisY: {
+		includeZero: false
+	},
+	toolTip: {
+		shared: true
+	},
+	data: [{
+		type: "line",
+		name: "Desktops",
+		showInLegend: true,
+		dataPoints: @Html.Raw(ViewBag.DataPoints1)
+	}, {
+		type: "line",
+		name: "Laptops",
+		showInLegend: true,
+		dataPoints: @Html.Raw(ViewBag.DataPoints2)
+	}, {
+		type: "line",
+		name: "Mobiles",
+		showInLegend: true,
+		dataPoints: @Html.Raw(ViewBag.DataPoints3)
+	}]
+});
+chart.render();
 
-@{ int monthnr = 11;
-    using (DHDomoticaDBEntities DHDomoticadbModel = new DHDomoticaDBEntities())
-    {
-        var month = DHDomoticadbModel.Statistics.Where(z => z.Month == monthnr);
-        // var data = DHDomoticadbModel.Query("SELECT Name, Price FROM Product");
-        var myChart = new Chart(width: 600, height: 400)
-            .AddTitle("Bezoekers per maand")
-            .DataBindTable(dataSource: month, xField: "Month")
-            //.AddSeries("Default",
-            //xValue: data, xField: "Frequency",
-            //yValues: data, yFields: "Price")
-            // Aangezien frequency niet bestaat in onze database kan de vorige functie ook niet?
-            .Write();
-        // De vraag is of deze write iets doet
-    }
 }
+    </script>
+</head>
+<body>
+    <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</body>
+</html>
+
+
+@*<div id="chartContainer"></div>
+
+    <script type="text/javascript">
+        var result = @Html.Raw(ViewBag.DataPoints);
+        var dataPoints =[];
+        for(var i = 0; i < result.length; i++){
+            dataPoints.push({label:result[i].Day, y:result[i].Month});
+        }
+
+        $(function () {
+            var chart = new CanvasJS.Chart("chartContainer", {
+                theme: "light2",
+                zoomEnabled: true,
+                animationEnabled: true,
+                title: {
+                    text: "Line Chart with Data-Points from DataBase"
+                },
+                data: [
+                {
+                    type: "line",
+
+                    dataPoints: dataPoints,
+                }
+                ]
+            });
+            chart.render();
+        });
+    </script>*@

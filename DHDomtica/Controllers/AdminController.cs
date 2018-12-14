@@ -7,6 +7,7 @@ using DHDomtica.Models;
 using DHDomtica.ViewModels;
 using DHDomtica.Supportclasses;
 using System.Data.Entity.Infrastructure;
+using Newtonsoft.Json;
 
 namespace DHDomtica.Controllers
 {
@@ -15,11 +16,11 @@ namespace DHDomtica.Controllers
         // Alles van statistieken hierna
         // GET: Admin
 
-        public ActionResult Index()
-        {
-            ShowAdminSidebar();
-            return View();
-        }
+        //public ActionResult Index()
+        //{
+        //    ShowAdminSidebar();
+        //    return View();
+        //}
 
         // Plaatje kan misschien makkelijk geladen worden in deze pagina door alleen de cshtml te laten zien met het plaatje erin.
         //public ActionResult Index()
@@ -35,29 +36,71 @@ namespace DHDomtica.Controllers
             System.Diagnostics.Debug.WriteLine($"AdminSidebar {Request.RawUrl}");
             ViewBag.ShowAdminSideBar = true;
         }
-
-        // Waarschijnlijk moet dit gedeelte al in de get van de pagina gedownload worden
-        //public ActionResult Index(AdminStatisticsViewModel adminstatistics)
-        //{
-
-        //}
-
-        public ActionResult DailyVisitorsChart()
+ 
+        // GET: Home
+        public ActionResult Index()
         {
+            List<DataPoint> dataPoints1 = new List<DataPoint>();
+            List<DataPoint> dataPoints2 = new List<DataPoint>();
+            List<DataPoint> dataPoints3 = new List<DataPoint>();
+
+            dataPoints1.Add(new DataPoint("Jan", 72));
+            dataPoints1.Add(new DataPoint("Feb", 67));
+            dataPoints1.Add(new DataPoint("Mar", 55));
+            dataPoints1.Add(new DataPoint("Apr", 42));
+            dataPoints1.Add(new DataPoint("May", 40));
+            dataPoints1.Add(new DataPoint("Jun", 35));
+
+            dataPoints2.Add(new DataPoint("Jan", 48));
+            dataPoints2.Add(new DataPoint("Feb", 56));
+            dataPoints2.Add(new DataPoint("Mar", 50));
+            dataPoints2.Add(new DataPoint("Apr", 47));
+            dataPoints2.Add(new DataPoint("May", 65));
+            dataPoints2.Add(new DataPoint("Jun", 69));
+
+            dataPoints3.Add(new DataPoint("Jan", 38));
+            dataPoints3.Add(new DataPoint("Feb", 46));
+            dataPoints3.Add(new DataPoint("Mar", 55));
+            dataPoints3.Add(new DataPoint("Apr", 70));
+            dataPoints3.Add(new DataPoint("May", 77));
+            dataPoints3.Add(new DataPoint("Jun", 91));
+
+            ViewBag.DataPoints1 = JsonConvert.SerializeObject(dataPoints1);
+            ViewBag.DataPoints2 = JsonConvert.SerializeObject(dataPoints2);
+            ViewBag.DataPoints3 = JsonConvert.SerializeObject(dataPoints3);
+
+            ShowAdminSidebar();
             return View();
         }
-
-        public ActionResult MonthlyVisitorsChart()
-        {
-            return View();
-        }
-
-        public ActionResult YearlyVisitorsChart()
-        {
-            return View();
-        }
-        
-        // Nog wel code voor wachtwoord veranderen en uitloggen toevoegen.
-
     }
+
+    // Waarschijnlijk moet dit gedeelte al in de get van de pagina gedownload worden
+    //public ActionResult Index(AdminStatisticsViewModel adminstatistics)
+    //{
+
+    //}
+
+    //private DHDomoticaDBEntities Dailydb = new DHDomoticaDBEntities();
+    //public ActionResult DailyVisitorsChart()
+    //{
+    //    ShowAdminSidebar();
+    //    return View();
+    //}
+
+    //private DHDomoticaDBEntities Monthlydb = new DHDomoticaDBEntities();
+    //public ActionResult MonthlyVisitorsChart()
+    //{
+    //    ShowAdminSidebar();
+    //    return View(Monthlydb.Statistics.ToList());
+    //}
+
+    //private DHDomoticaDBEntities Yearlydb = new DHDomoticaDBEntities();
+    //public ActionResult YearlyVisitorsChart()
+    //{
+    //    ShowAdminSidebar();
+    //    return View();
+    //}
+
+    // Nog wel code voor wachtwoord veranderen en uitloggen toevoegen.
+
 }
