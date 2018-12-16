@@ -202,17 +202,17 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\AdminManageUserController.cs" />
-    <Compile Include="Controllers\AdminOrdersController.cs" />
-    <Compile Include="Controllers\ChatController.cs" />
+    <Compile Include="Controllers\Admin\AdminController.cs" />
+    <Compile Include="Controllers\Admin\AdminManageUserController.cs" />
+    <Compile Include="Controllers\Admin\AdminOrdersController.cs" />
+    <Compile Include="Controllers\Admin\ChatController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\AdminManageProductsController.cs" />
-    <Compile Include="Controllers\PasswordRecoveryController.cs" />
-    <Compile Include="Controllers\SignInController.cs" />
-    <Compile Include="Controllers\SignUpController.cs" />
-    <Compile Include="Controllers\StoreController.cs" />
-    <Compile Include="Controllers\UserProfileController.cs" />
+    <Compile Include="Controllers\Admin\AdminManageProductsController.cs" />
+    <Compile Include="Controllers\User\PasswordRecoveryController.cs" />
+    <Compile Include="Controllers\User\SignInController.cs" />
+    <Compile Include="Controllers\User\SignUpController.cs" />
+    <Compile Include="Controllers\Product\StoreController.cs" />
+    <Compile Include="Controllers\User\UserProfileController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -262,13 +262,13 @@
     </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="Supportclasses\Cookies.cs" />
-    <Compile Include="ViewModels\AdminManageProductViewModel.cs" />
-    <Compile Include="ViewModels\AdminManageUserViewModel.cs" />
-    <Compile Include="ViewModels\AdminStatisticsViewModel.cs" />
-    <Compile Include="ViewModels\PasswordRecoveryViewModel.cs" />
-    <Compile Include="ViewModels\ProductReviewsViewModel.cs" />
-    <Compile Include="ViewModels\SignUpViewModel.cs" />
-    <Compile Include="ViewModels\UserPasswordChangeViewModel.cs" />
+    <Compile Include="ViewModels\Admin\AdminManageProductViewModel.cs" />
+    <Compile Include="ViewModels\Admin\AdminManageUserViewModel.cs" />
+    <Compile Include="ViewModels\Admin\AdminStatisticsViewModel.cs" />
+    <Compile Include="ViewModels\User\PasswordRecoveryViewModel.cs" />
+    <Compile Include="ViewModels\Review\ProductReviewsViewModel.cs" />
+    <Compile Include="ViewModels\User\SignUpViewModel.cs" />
+    <Compile Include="ViewModels\User\UserPasswordChangeViewModel.cs" />
     <Compile Include="Models\Wishlist.cs">
       <DependentUpon>DHDomoticaDBModels.tt</DependentUpon>
     </Compile>
@@ -280,8 +280,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\MainCategoryViewModel.cs" />
-    <Compile Include="ViewModels\WriteReviewModel.cs" />
+    <Compile Include="ViewModels\Product\MainCategoryViewModel.cs" />
+    <Compile Include="ViewModels\Review\WriteReviewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\Antlr3.Runtime.dll" />
