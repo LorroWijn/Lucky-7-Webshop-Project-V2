@@ -11,7 +11,7 @@ namespace DHDomtica.Controllers
     public class PasswordRecoveryController : Controller
     {
         // GET: PasswordRecovery
-        public ActionResult PasswordRecovery(int id = 0)
+        public ActionResult PasswordRecovery()
         {
             //PasswordRecoveryViewModel userModel = new PasswordRecoveryViewModel();
             return View();
@@ -20,14 +20,16 @@ namespace DHDomtica.Controllers
         [HttpPost]
         public ActionResult PasswordRecovery(PasswordRecoveryViewModel password)
         {
-            var Input = "test@test.nl";
-            if (password.EmailCheck(Input) == false)
+            var Input = password.EMail;
+            var Check = password.EmailCheck(Input);
+            if (Check)
             {
                 ViewBag.NoMailMessage = "E-mail bestaat niet. Probeer een ander E-mailadres";
-                return View("PasswordRecovery", Input);
+                return View();
             }
             else
             {
+                // Email versturen
                 return View();
             }           
         }

@@ -34,7 +34,7 @@ namespace DHDomtica.ViewModels
             {
                 User user = DHDomoticadbModel.Users.FirstOrDefault(x => x.EMail == InputEmail);
                 {
-                    if (user == null)
+                    if (user != null)
                     {
                         // Pagina herladen met errorbericht
                         return false;
