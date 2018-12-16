@@ -36,20 +36,53 @@ namespace DHDomtica.Controllers
             System.Diagnostics.Debug.WriteLine($"AdminSidebar {Request.RawUrl}");
             ViewBag.ShowAdminSideBar = true;
         }
- 
+
         // GET: Home
         public ActionResult Index()
         {
+            //Zet de jaar, maand en dag op de komende huidige dag
+            var year = DateTime.UtcNow.Day;
+            var month = DateTime.UtcNow.Month;
+            var day = DateTime.UtcNow.Year;
+
             List<DataPoint> MonthlyVisitors = new List<DataPoint>();
             //List<DataPoint> dataPoints2 = new List<DataPoint>();
             //List<DataPoint> dataPoints3 = new List<DataPoint>();
 
-            MonthlyVisitors.Add(new DataPoint("Jan", 72));
-            MonthlyVisitors.Add(new DataPoint("Feb", 67));
-            MonthlyVisitors.Add(new DataPoint("Mar", 55));
-            MonthlyVisitors.Add(new DataPoint("Apr", 42));
-            MonthlyVisitors.Add(new DataPoint("May", 40));
-            MonthlyVisitors.Add(new DataPoint("Jun", 35));
+            Random random = new Random();
+            
+
+            // De forloop zorgt ervoor dat er 30 dagen worden gecontroleerd in de database en deze in de array zetten om een plaatje ervan te maken
+            for (int i = 30; i >= 0; i--)
+            {
+                // Selecteerd de totaal aantal unieke id's op de dag 
+                //var g = from s = statistics
+
+                //where day == s.day
+                //&& month == s.month
+                //&& year == s.year
+                //MonthlyVisitors.add[g] // Y waarde van de grafiek - de eerste waarde komt helemaal links te staan op de horizontale axis en de hoogte is de totale waarde
+                //arrayDate.add[year, month, day] // X waarde van de grafiek
+
+                var test = DateTime.UtcNow.AddDays(-i);
+                year = test.Year;
+                month = test.Month;
+                day = test.Day;
+
+                string stringDay = test.Day.ToString();
+                string stringMonth = test.ToString("MMM");
+
+                double randomNumber = random.Next(0, 10);
+
+                MonthlyVisitors.Add(new DataPoint(stringDay + " " +  stringMonth, randomNumber));
+            }
+
+            //MonthlyVisitors.Add(new DataPoint("Jan", 72));
+            //MonthlyVisitors.Add(new DataPoint("Feb", 67));
+            //MonthlyVisitors.Add(new DataPoint("Mar", 55));
+            //MonthlyVisitors.Add(new DataPoint("Apr", 42));
+            //MonthlyVisitors.Add(new DataPoint("May", 40));
+            //MonthlyVisitors.Add(new DataPoint("Jun", 35));
 
             //dataPoints2.Add(new DataPoint("Jan", 48));
             //dataPoints2.Add(new DataPoint("Feb", 56));
