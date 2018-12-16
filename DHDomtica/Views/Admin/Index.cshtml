@@ -14,7 +14,7 @@ window.onload = function () {
 var chart = new CanvasJS.Chart("chartContainer", {
 	animationEnabled: true,
 	title: {
-		text: "Product Trends By Month"
+		text: "Bezoekers afgelopen maand"
 	},
 	axisY: {
 		includeZero: false
@@ -24,10 +24,10 @@ var chart = new CanvasJS.Chart("chartContainer", {
 	},
 	data: [{
 		type: "line",
-		name: "Desktops",
+		name: "Aantal bezoekers",
 		showInLegend: true,
-		dataPoints: @Html.Raw(ViewBag.DataPoints1)
-	}, {
+		dataPoints: @Html.Raw(ViewBag.MonthlyVisitors)
+	@*}, {
 		type: "line",
 		name: "Laptops",
 		showInLegend: true,
@@ -36,7 +36,7 @@ var chart = new CanvasJS.Chart("chartContainer", {
 		type: "line",
 		name: "Mobiles",
 		showInLegend: true,
-		dataPoints: @Html.Raw(ViewBag.DataPoints3)
+		dataPoints: @Html.Raw(ViewBag.DataPoints3)*@
 	}]
 });
 chart.render();
