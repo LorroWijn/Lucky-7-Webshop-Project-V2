@@ -13,7 +13,6 @@ namespace DHDomtica.Controllers
         // GET: PasswordRecovery
         public ActionResult PasswordRecovery()
         {
-            //PasswordRecoveryViewModel userModel = new PasswordRecoveryViewModel();
             return View();
         }
 
@@ -30,8 +29,14 @@ namespace DHDomtica.Controllers
             else
             {
                 // Email versturen
-                return View();
+                return RedirectToAction("RecoveringPassword", "PasswordRecovery");
             }           
+        }
+
+        // GET: RecoveringPassword
+        public ActionResult RecoveringPassword()
+        {
+            return View();
         }
     }
 }
