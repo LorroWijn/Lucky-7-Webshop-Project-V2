@@ -38,11 +38,6 @@ namespace DHDomtica.Controllers
                 ViewBag.DuplicateMessage = "E-mail is al in gebruik. Probeer een ander E-mailadres";
                 return View("SignUpPage", signupUserModel);
             }
-            //else if (signupUserModel.Password != signupUserModel.ConfirmPassword)
-            //{
-            //    ViewBag.PasswordDifferenceMessage = "Het wachtwoord en bevestiging van het wachtwoord komen niet overeen";
-            //    return View("SignUpPage", signupUserModel);
-            //}
             else
             {
                 signupUserModel.CreateNewUser();

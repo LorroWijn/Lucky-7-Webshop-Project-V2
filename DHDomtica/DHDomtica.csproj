@@ -208,6 +208,7 @@
     <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\AdminManageProductsController.cs" />
+    <Compile Include="Controllers\PasswordRecoveryController.cs" />
     <Compile Include="Controllers\SignInController.cs" />
     <Compile Include="Controllers\SignUpController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
@@ -264,6 +265,7 @@
     <Compile Include="ViewModels\AdminManageProductViewModel.cs" />
     <Compile Include="ViewModels\AdminManageUserViewModel.cs" />
     <Compile Include="ViewModels\AdminStatisticsViewModel.cs" />
+    <Compile Include="ViewModels\PasswordRecoveryViewModel.cs" />
     <Compile Include="ViewModels\ProductReviewsViewModel.cs" />
     <Compile Include="ViewModels\SignUpViewModel.cs" />
     <Compile Include="ViewModels\UserPasswordChangeViewModel.cs" />
@@ -492,6 +494,8 @@
     <Content Include="Views\Charts\MonthlyVisitorsChart.cshtml" />
     <Content Include="Views\Charts\DailyVisitorsChart.cshtml" />
     <Content Include="Views\Charts\YearlyVisitorsChart.cshtml" />
+    <Content Include="Views\PasswordRecovery\PasswordRecovery.cshtml" />
+    <Content Include="Views\PasswordRecovery\RecoveringPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
