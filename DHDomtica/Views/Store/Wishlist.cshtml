@@ -9,67 +9,72 @@
 </head>
 <body>
     <h2>Verlanglijstje</h2>
-<h3>@ViewBag.Message</h3>
+    <h3>@ViewBag.Message</h3>
 
     @if (System.Web.HttpContext.Current.Request.Cookies["UserEMail"] != null)
     {<div class="col-lg-12">
-    <div class="card mt-4">
-        <table class="table">
-            <tr>
-                <th>
-
-                    @Html.DisplayNameFor(model => model.Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Description)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Price)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Image)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.MainCategory.Name)
-                </th>
-            </tr>
-            @if (Model != null)
-            {
-                foreach (var item in Model)
-                {
+            <div class="card mt-4">
+                <table class="table">
                     <tr>
-                        <td>@Html.ActionLink(@item.Name, "ProductDetails/" + item.ID)</td>
-                        @{ string ShorterString = item.Description;
-                            if (ShorterString.Length > 100)
-                            {
-                                ShorterString = ShorterString.Substring(0, 100);
-                            }
-                        }
-                        <td>@ShorterString</td>
-                        @{int prijs = Convert.ToInt16(Math.Round(item.Price));}
-                        <td>
-                            €@Html.DisplayFor(modelItem => prijs)
-                        </td>
-                        <td style="cursor:pointer;" onclick="location.href='@item.Image'">
-                            <img class="card-img-top img-fluid" src="@item.Image" alt="Image">
-                        </td>
-                        <td>@Html.ActionLink(@item.MainCategory.Name, "Pagination/" + @item.MainCategory.ID + "/1")</td>
-                        <td>
-                            <button id="btn_remove" class="btn btn-success" onclick="location.href='@Url.Action("RemoveFromWish", "Store", new { product = item.ID })'"><i class="far fa-trash-alt"></i></button>
+                        <th>
 
-                        </td>
-                        <td>
-                            <button id="btn_cart" style="height:38px" class="btn btn-success fas fa-shopping-cart" onclick="location.href='@Url.Action("AddToCart", "Store", new { product = item.ID })'"></button>
-
-                        </td>
+                            @Html.DisplayNameFor(model => model.Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Description)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Price)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Image)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.MainCategory.Name)
+                        </th>
                     </tr>
+                    @if (Model != null)
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@Html.ActionLink(@item.Name, "ProductDetails/" + item.ID)</td>
+                                @{ string ShorterString = item.Description;
+                                    if (ShorterString.Length > 100)
+                                    {
+                                        ShorterString = ShorterString.Substring(0, 100);
+                                    }
+                                }
+                                <td>@ShorterString</td>
+                                @{int prijs = Convert.ToInt16(Math.Round(item.Price));}
+                                <td>
+                                    €@Html.DisplayFor(modelItem => prijs)
+                                </td>
+                                <td style="cursor:pointer;" onclick="location.href='@item.Image'">
+                                    <img class="card-img-top img-fluid" src="@item.Image" alt="Image">
+                                </td>
+                                <td>@Html.ActionLink(@item.MainCategory.Name, "Pagination/" + @item.MainCategory.ID + "/1")</td>
+                                <td>
+                                    <button id="btn_remove" class="btn btn-success" onclick="location.href='@Url.Action("RemoveFromWish", "Store", new { product = item.ID })'"><i class="far fa-trash-alt"></i></button>
+
+                                </td>
+                                <td>
+                                    <button id="btn_cart" style="height:38px" class="btn btn-success fas fa-shopping-cart" onclick="location.href='@Url.Action("AddToCart", "Store", new { product = item.ID })'"></button>
+
+                                </td>
+                            </tr>
 
 
-                }
+                        }
 
-            }
-        </table>
-    </div>
+                    }
+                </table>
+            </div>
+
+
+        </div>
+
+    }
     @if (System.Web.HttpContext.Current.Request.Cookies["UserEMail"] != null)
     {
         @Html.ActionLink("Terug", "Index", "UserProfile", null, new { @class = "btn btn-success" })
@@ -78,10 +83,6 @@
     {
         @Html.ActionLink("Terug", "Index", "Home", null, new { @class = "btn btn-success" })
     }
-
-</div>
-  
-                    }
 
 </body>
 </html>
