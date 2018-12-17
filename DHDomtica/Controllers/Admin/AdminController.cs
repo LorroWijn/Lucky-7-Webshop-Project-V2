@@ -44,6 +44,7 @@ namespace DHDomtica.Controllers
             var year = DateTime.UtcNow.Day;
             var month = DateTime.UtcNow.Month;
             var day = DateTime.UtcNow.Year;
+            var number = 0;
 
             List<DataPoint> MonthlyVisitors = new List<DataPoint>();
             //List<DataPoint> dataPoints2 = new List<DataPoint>();
@@ -72,9 +73,16 @@ namespace DHDomtica.Controllers
                 string stringDay = test.Day.ToString();
                 string stringMonth = test.ToString("MMM");
 
+                using (DHDomoticaDBEntities DHDomoticadbModel = new DHDomoticaDBEntities())
+                {
+                    var hello = DHDomoticadbModel.Statistics.Where(z => z.Month == month && z.Year == year && z.Day == day).ToArray();
+                    number = hello.Length;
+                    DHDomoticadbModel.SaveChanges();
+                }
+
                 double randomNumber = random.Next(0, 10);
 
-                MonthlyVisitors.Add(new DataPoint(stringDay + " " +  stringMonth, randomNumber));
+                MonthlyVisitors.Add(new DataPoint(stringDay + " " +  stringMonth, number));
             }
 
             //MonthlyVisitors.Add(new DataPoint("Jan", 72));
@@ -105,7 +113,17 @@ namespace DHDomtica.Controllers
             ShowAdminSidebar();
             return View();
         }
+
+
+        public string getData()
+        {
+
+            return "hello";
+        }
     }
+
+
+
 
     // Waarschijnlijk moet dit gedeelte al in de get van de pagina gedownload worden
     //public ActionResult Index(AdminStatisticsViewModel adminstatistics)
