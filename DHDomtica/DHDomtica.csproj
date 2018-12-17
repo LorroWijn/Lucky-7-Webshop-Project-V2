@@ -499,6 +499,7 @@
     <Content Include="Views\Charts\YearlyVisitorsChart.cshtml" />
     <Content Include="Views\PasswordRecovery\PasswordRecovery.cshtml" />
     <Content Include="Views\PasswordRecovery\RecoveringPassword.cshtml" />
+    <Content Include="Views\PasswordRecovery\CheckYourEMail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

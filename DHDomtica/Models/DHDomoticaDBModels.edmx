@@ -87,6 +87,7 @@
           <Property Name="BillingAddress" Type="varchar" MaxLength="256" Nullable="false" />
           <Property Name="ZipCode" Type="varchar" MaxLength="45" Nullable="false" />
           <Property Name="EmailConfirmed" Type="bool" />
+          <Property Name="Recovery" Type="varchar" MaxLength="256" />
         </EntityType>
         <EntityType Name="Wishlist">
           <Key>
@@ -296,6 +297,7 @@
           <NavigationProperty Name="Reviews" Relationship="DHDomoticaDBModel.Review_ibfk_1" FromRole="User" ToRole="Review" />
           <NavigationProperty Name="Orders" Relationship="DHDomoticaDBModel.Orders_ibfk_1" FromRole="User" ToRole="Order" />
           <Property Name="EmailConfirmed" Type="Boolean" />
+          <Property Name="Recovery" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="AdminRights1">
           <End Role="AdminRights" Type="Self.AdminRight" Multiplicity="1" />
@@ -552,6 +554,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="DHDomoticaDBModel.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Recovery" ColumnName="Recovery" />
                 <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="AdminID" ColumnName="AdminID" />

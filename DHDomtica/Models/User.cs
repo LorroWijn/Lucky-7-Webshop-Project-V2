@@ -35,6 +35,7 @@ namespace DHDomtica.Models
         public string BillingAddress { get; set; }
         public string ZipCode { get; set; }
         public Nullable<bool> EmailConfirmed { get; set; }
+        public string Recovery { get; set; }
     
         public virtual AdminRight AdminRight { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
