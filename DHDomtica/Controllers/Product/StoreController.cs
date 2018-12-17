@@ -442,7 +442,7 @@ namespace DHDomtica.Controllers
             db.SaveChanges();
 
             List<ItemModel> products = (List<ItemModel>)Session["cart"];
-            //var NewOrder = new Models.Order();
+            
             var NewOrder = db.Orders.FirstOrDefault(o => o.OrderNumber.Equals(g.ToString()));
             int OrderID = NewOrder.ID;
 
@@ -462,9 +462,7 @@ namespace DHDomtica.Controllers
             db.OrderProducts.Add(OP);
             
         }
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> OrderMail()
+
         public void OrderMail(string ordernumber)
         {
             ModelState.Clear();
