@@ -1,0 +1,83 @@
+﻿@model DHDomtica.ViewModels.ProductReviewsViewModel
+@using DHDomtica.Models
+
+
+@{
+    ViewBag.Title = "ProductDetails";
+}
+
+<h3>@ViewBag.Message</h3>
+<div class="col-lg-10">
+
+    <div class="card mt-4">
+        <img class="card-img-top img-fluid" src="@Html.DisplayFor(model => model.Product.Image)" alt="Image">
+        <div class="card-body">
+            <h3 class="card-title">@Html.DisplayFor(model => model.Product.Name)</h3>
+            <h3 class="card-text">@Html.DisplayFor(model => model.Product.MainCategory.Name)</h3>
+            @{int prijs = Convert.ToInt16(Math.Round(Model.Product.Price)); }
+            <h4> €@Html.DisplayFor(model => prijs)</h4>
+            <p class="card-text">@Html.DisplayFor(model => model.Product.Description)</p>
+            @*<span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
+                4.0 stars*@
+            <hr>
+            @using (Html.BeginForm("AddToCart", "Store"))
+            {
+                <a id="btn_add" href="@Url.Action("AddToCart", "Store", new { product = Model.Product.ID })" class="btn btn-success">
+                    <i class="fas fa-plus"> </i> In winkelwagen
+                </a>
+                <a id="btn_wish" href="@Url.Action("AddToWishlist", "Store", new { product = Model.Product.ID })" class="btn btn-success">
+                    <i class="far fa-heart"></i> Op verlanglijst
+                </a>
+            }
+
+        </div>
+
+    </div>
+    
+    <!--review section-->
+    <div class="card card-outline-secondary my-4">
+        <div class="card-header">
+            Product Reviews
+        </div>
+
+        
+        @{
+            foreach (Review r in Model.Reviews)
+            {
+                DHDomoticaDBEntities db = new DHDomoticaDBEntities();
+                User user = new User();
+                user = db.Users.FirstOrDefault(u => u.ID.Equals(r.UserID));
+                
+                string date = r.Date.ToShortDateString();
+
+        <div class="card-body">
+            <p class="text-warning">
+                @for (int i = 1; i <= 5; i++)
+                {
+                    if (i <= r.Stars)
+                    {
+                        <b>&#9733 </b>
+                    }
+                    else
+                    {
+                        <b>&#9734 </b>
+                    }
+
+                }
+            </p>
+            <p>@Html.DisplayFor(model => r.ReviewText)</p>
+
+            <small class="text-muted">Geplaatst door @user.FirstName op @date</small>
+            <hr>
+        </div>
+                                                            }
+        }
+    </div>
+
+</div>
+<hr />
+<p>
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.ID }) categoryId = ViewBag.CategoryId|*@
+    @*@Html.ActionLink("Back to List", "Categories", new { id = Model.MainCategory.ID }, new { @class = "btn btn-success" })*@
+    @Html.ActionLink("Terug", "Pagination", "Store", new { categoryId = Model.Product.MainCategoryID, pageId = ViewBag.PageId }, new { @class = "btn btn-success" })
+</p>

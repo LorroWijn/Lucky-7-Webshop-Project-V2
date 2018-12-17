@@ -1,0 +1,34 @@
+﻿
+@{
+    ViewBag.Title = "Success";
+}
+
+<h2>Betaling succesvol!</h2>
+
+<table>
+    <tr>
+        <td>
+            Naam:
+        </td>
+        <td>
+            @System.Web.HttpContext.Current.Request.Cookies["UserName"].Value @System.Web.HttpContext.Current.Request.Cookies["UserLast"].Value
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Emailadres:
+        </td>
+        <td>
+            @System.Web.HttpContext.Current.Request.Cookies["UserEMail"].Value
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Totaal prijs:
+        </td>
+        <td>
+            €@Session["Totaal"]
+        </td>
+    </tr>
+
+</table>

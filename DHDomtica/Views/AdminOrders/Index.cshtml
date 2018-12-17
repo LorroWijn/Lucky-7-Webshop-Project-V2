@@ -1,0 +1,86 @@
+﻿@model IEnumerable<Order>
+@using DHDomtica.Models
+@using System.Web.Mvc.Html
+@using GridMvc.Html;
+@{
+    ViewBag.Title = "Orders";
+}
+@{
+    List<SelectListItem> OrderStatus = new List<SelectListItem>();
+    OrderStatus.Add(new SelectListItem
+    {
+        Text = "Betaald",
+        Value = "Betaald",
+    });
+    OrderStatus.Add(new SelectListItem
+    {
+        Text = "Verzonden",
+        Value = "Verzonden",
+    });
+    OrderStatus.Add(new SelectListItem
+    {
+        Text = "Bezorgd",
+        Value = "Bezorgd"
+    });
+}
+<h2>Alle orders</h2>
+
+<div class="col-lg-12">
+    <div class="card mt-4">
+        <table class="table">
+            <tr>
+                <th>
+                    Besteldatum
+                </th>
+                <th>
+                    Ordernummer
+                </th>
+                <th>
+                    Orderstatus
+                </th>
+                <th>
+                    Verander status
+                </th>
+
+
+            </tr>
+
+            @if (Model != null)
+            {
+                foreach (var order in Model)
+                {
+
+                    <tr>
+                        <td>@Html.ActionLink(order.OrderDate.ToShortDateString(), "Order", new { orderid = order.ID })</td>
+
+                        <td>@Html.ActionLink(order.OrderNumber, "Order", new { orderid = order.ID })</td>
+                        
+                        <td>@order.OrderStatus </td>
+                        <td>
+                            @using (Html.BeginForm("UpdateStatus", "AdminOrders"))
+                            {
+                                        <div class="col-lg-12 form-inline">
+                                            <select class="form-control" name="Status">
+                                                
+                                                    <option value="0">Betaald</option>
+                                                    <option value="1">Verzonden</option>
+                                                    <option value="2">Bezorgd</option>
+                                                
+                                            </select>
+                                            <input class="form-control" name="ID" type="hidden" value=@order.ID>
+                                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                                                <i class="fas fa-save"> Opslaan</i>
+                                            </button>
+                                        </div>
+                  
+
+                            }
+
+                           </td>
+</tr>
+                }
+            }
+
+        </table>
+    </div>
+</div>

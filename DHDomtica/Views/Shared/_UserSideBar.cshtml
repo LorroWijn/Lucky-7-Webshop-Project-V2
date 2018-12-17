@@ -1,0 +1,14 @@
+﻿@using DHDomtica.Models
+@using WebGrease.Activities
+<h1 class="my-4">Account opties</h1>
+<div class="list-group">
+
+    @*Index is orderstatus in deze code*@
+    @Html.ActionLink("Orderstatus", "Index", "UserProfile", null, new { @class = "list-group-item child-list-group-item" })
+    @Html.ActionLink("Ordergeschiedenis", "OrderHistory", "UserProfile", null, new { @class = "list-group-item child-list-group-item" })
+    @Html.ActionLink("Verlanglijstje", "Wishlist", "Store", null, new { @class = "list-group-item child-list-group-item" })
+    @Html.ActionLink("Persoonlijke gegevens", "PersonalInformation", "UserProfile", null, new { @class = "list-group-item child-list-group-item" })
+    @Html.ActionLink("Wachtwoord veranderen", "ChangePassword", "UserProfile", null, new { @class = "list-group-item child-list-group-item" })
+    @Html.ActionLink("Log uit", "LogOut", "UserProfile", null, new { @class = "list-group-item child-list-group-item" })
+    @*@Html.ActionLink("Chat", "Index","Chat", null, new { @class = "list-group-item child-list-group-item" })*@
+</div>

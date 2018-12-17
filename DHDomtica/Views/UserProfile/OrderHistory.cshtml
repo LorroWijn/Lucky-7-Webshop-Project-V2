@@ -1,0 +1,45 @@
+﻿@*@model IEnumerable<Product>*@
+@model IEnumerable<Order>
+@using DHDomtica.Models
+@using System.Web.Mvc.Html
+
+@{
+    ViewBag.Title = "Order History";
+}
+
+<h2>Ordergeschiedenis</h2>
+
+<div class="col-lg-12">
+    <div class="card mt-4">
+        <table class="table">
+            <tr>
+                <th>
+                    Besteldatum
+                </th>
+                <th>
+                    Ordernummer
+                </th>
+                <th>
+                    Orderstatus
+                </th>
+
+
+            </tr>
+
+            @if (Model != null)
+            {
+                foreach (var order in Model)
+                {
+
+            <tr>
+                <td>@Html.ActionLink(order.OrderDate.ToShortDateString(), "Order", new { orderid = order.ID })</td>
+
+                <td>@Html.ActionLink(order.OrderNumber, "Order", new { orderid = order.ID })</td>
+                <td>@order.OrderStatus </td>
+            </tr>
+                }
+            }
+
+        </table>
+    </div>
+</div>

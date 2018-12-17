@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <iframe
+        width="760"
+        height="380"
+        src="https://www.youtube.com/embed/HjZVRWQ6n2g"
+        frameborder="0"
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+    </iframe>
+</div>
+
+<h2>Blogs:</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Wat is domotica?</h2>
+        <p>
+            Domotica is het automatiseren van elektrische apparaten in en om het huis. Dit met tussenkomst van een
+            computer waarbij alle ingestelde processen te monitoren en te regelen zijn. Met als doel het leefcomfort te verbeteren.
+        </p>
+        <p> @Html.ActionLink("Lees verder", "BlogDom", "Home", null, new { @class = "btn btn-default" })</p>
+    </div>
+    <div class="col-md-4">
+        <h2>Fibaro Dimmer 2</h2>
+        <p>Deze dimmer kun je toevoegen aan je controller, zodat je een lamp kunt dimmen via bv je smartphone.
+            De dimmer kan tevens bediend worden via een wandschakelaar. Dus mocht je controller uitvallen dan kun je toch even goed je lamp aan- of uitzetten.</p>
+        <p><a class="btn btn-default" href="https://www.domotica-blog.nl/post/review-fibaro-dimmer-2#continue">Lees verder &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Alexa smart home</h2>
+        <p>De Amazon Alexa-app is sinds december 2017 ook in Nederland en België te downloaden. Daardoor wordt het makkelijker om de Amazon Alexa spraakassistent te gebruiken. Maar wat heb je eraan? </p>
+        <p>@Html.ActionLink("Lees verder", "BlogAlexa", "Home", null, new { @class = "btn btn-default" })</p>
+    </div>
+</div>

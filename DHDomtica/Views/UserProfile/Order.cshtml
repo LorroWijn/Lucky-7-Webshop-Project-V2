@@ -1,0 +1,122 @@
+﻿@using DHDomtica.Models
+@{DHDomoticaDBEntities db = new DHDomoticaDBEntities();}
+@{
+	ViewBag.Title = "Order";
+}
+
+<h2>Order</h2>
+
+<div class="col-lg-12">
+	<div class="card mt-4">
+		<table class="table">
+			<tr>
+				<th>
+					Besteldatum:
+				</th>
+				<th></th>
+				<th></th>
+				<th align="right">
+					@{Order order = (Order)Session["Order"];
+
+					}
+					@order.OrderDate.ToShortDateString()
+
+				</th>
+			</tr>
+			<tr>
+				<th>
+					Ordernummer:
+				</th>
+				<th></th>
+				<th></th>
+				<th align="right">
+					@order.OrderNumber
+				</th>
+
+			</tr>
+		</table>
+		<table>
+			<tr>
+				<th>Producten:</th>
+
+			</tr>
+			<tr>
+				<th>
+					Naam
+				</th>
+				<th>
+					Prijs
+				</th>
+				<th>
+					Aantal
+				</th>
+				<th>
+					Bedrag
+				</th>
+				@if (order.OrderStatus == "Bezorgd")
+				{
+					<th>
+						Review
+					</th>
+				}
+			</tr>
+			@foreach (ItemModel item in Model)
+			{
+				<tr>
+					@*<td style="cursor:pointer;" onclick="location.href='@item.Product.Image'">
+							<img class="card-img-top img-fluid" src="@item.Product.Image" alt="Image">
+						</td>*@
+					<td>@Html.ActionLink(@item.Product.Name, "ProductDetails/" + item.Product.ID, "Store")</td>
+
+					@{int prijs = Convert.ToInt16(Math.Round(item.Product.Price));}
+					<td>
+						€@Html.DisplayFor(modelItem => prijs)
+					</td>
+					<td>
+						@Html.DisplayFor(modelQuantity => item.Quantity)
+					</td>
+					@{ int bedrag = prijs * item.Quantity; }
+					<td>
+						@Html.DisplayFor(modelBedrag => bedrag)
+					</td>
+					@if (order.OrderStatus == "Bezorgd")
+					{ Review review = db.Reviews.FirstOrDefault(r => r.ProductID.Equals(item.Product.ID) && r.UserID.Equals(order.UserID));
+
+						if (review == null)
+						{
+				<td>
+
+					@Html.ActionLink("Schrijf een review", "Review", "Store", new { productid = item.Product.ID }, new { @class = "btn btn-success" })
+				</td>}
+						else
+						{<td>
+	@Html.ActionLink("Review aanpassen", "Review", "Store", new { productid = item.Product.ID }, new { @class = "btn btn-success" })
+</td>
+						}
+					}
+				</tr>
+			}
+			<tr><td></td></tr>
+			<tr>
+				@{ int totaalbedrag = 0;
+					foreach (ItemModel item in Model)
+					{
+						totaalbedrag += Convert.ToInt16(item.Product.Price) * item.Quantity;
+					}
+				}
+				<td></td>
+				<td></td>
+				<td>Totaal:</td>
+
+				<td>@totaalbedrag</td>
+			</tr>
+
+		</table>
+
+	</div>
+</div>
+@if (order.OrderStatus == "Bezorgd")
+{
+	@Html.ActionLink("Terug", "OrderHistory", "UserProfile", new { @class = "btn btn-success" })}
+else
+{ @Html.ActionLink("Terug", "Index", "UserProfile", new { @class = "btn btn-success" })}

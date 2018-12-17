@@ -1,0 +1,70 @@
+﻿@using DHDomtica.Controllers
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="/Home/Index">
+            <img src="/Content/Images/_navbarLogo1.png" alt="">
+        </a>
+        @*<div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            @Html.ActionLink("Application name", "Index", "Home", new {area = ""}, new {@class = "navbar-brand"})
+        </div>*@
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="nav navbar-nav  ml-auto">
+                @*<li class="nav-item">@Html.ActionLink("Home", "Index", "Home")</li>*@
+                <li>
+                    @using (Html.BeginForm("Search", "Home"))
+                    {<div class="container">
+                            <div class="row">
+                                <div class="input-group-btn search-panel form-inline">
+                                    <select class="form-control" name="selectedValue">
+                                        <option value="0">Alles</option>
+                                        <option value="2">Camera's</option>
+                                        <option value="3">Controller</option>
+                                        <option value="4">Modules</option>
+                                        <option value="5">Sensoren</option>
+                                        <option value="1">Smart Home</option>
+                                    </select>
+                                    <input class="form-control" name="searchString" type="search" placeholder="Zoeken" aria-label="Search">
+                                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                </li>
+
+                @*fontawesome icons*@
+                <li class="nav-item">
+                    <a class="nav-link" href="/Store/Wishlist">
+                        <i class="far fa-heart fa-lg"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Store/ShoppingCart">
+                        <i class="fas fa-shopping-cart fa-lg"></i><span class="badge">@Session["count"]</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    @if (HomeController.LoggedIn == true)
+                    {
+                        @Html.ActionLink(HomeController.CookieHolder, "Index", "UserProfile", null, new { @class = "nav-link" });
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Login", "SignInPage", "SignIn", null, new { @class = "nav-link" });
+                    }
+                </li>
+            </ul>
+        </div>
+    </div>
+    </nav>
+
