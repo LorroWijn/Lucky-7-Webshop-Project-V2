@@ -334,6 +334,7 @@
     <Content Include="Content\Images\Avatar_DZ.jpg" />
     <Content Include="Content\Images\Avatar_LW.JPG" />
     <Content Include="Content\Images\Avatar_SFB.jpg" />
+    <Content Include="Content\Images\Avatar_TvL.jpg" />
     <Content Include="Content\Images\_navbarLogo.png" />
     <Content Include="Content\Images\_navbarLogo1.png" />
     <Content Include="favicon.ico" />

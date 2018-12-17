@@ -408,7 +408,7 @@ namespace DHDomtica.Controllers
                     return View("Failure");
                 }
                 CreateOrder();
-                OrderMail();
+                
 
                 Session["cart"] = null;
                 Session["count"] = null;
@@ -442,7 +442,7 @@ namespace DHDomtica.Controllers
             db.SaveChanges();
 
             List<ItemModel> products = (List<ItemModel>)Session["cart"];
-            //var NewOrder = new Models.Order();
+            
             var NewOrder = db.Orders.FirstOrDefault(o => o.OrderNumber.Equals(g.ToString()));
             int OrderID = NewOrder.ID;
 
@@ -451,6 +451,7 @@ namespace DHDomtica.Controllers
                 OrderProducts(product, OrderID);
             }
             db.SaveChanges();
+            OrderMail(g.ToString());
         }
         public void OrderProducts(ItemModel product, int OrderID)
         {   
@@ -461,20 +462,23 @@ namespace DHDomtica.Controllers
             db.OrderProducts.Add(OP);
             
         }
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> OrderMail()
-        public void OrderMail()
+
+        public void OrderMail(string ordernumber)
         {
             ModelState.Clear();
             string usermail = System.Web.HttpContext.Current.Request.Cookies["UserEMail"].Value;
             int totaal = (int)Session["Totaal"];
             var body = new StringBuilder();
+            string name = System.Web.HttpContext.Current.Request.Cookies["UserName"].Value;
+            body.AppendLine("Beste " + name + ", <br /> <br />");
             body.AppendLine("Uw bestelling is voltooid!  <br />");
             body.AppendLine("U zult een email ontvangen zodra uw bestelling onderweg is. <br />");
-            body.AppendLine("Bestelling:  <br />");
-            body.AppendLine("Totaal prijs: €" + totaal.ToString());
-            
+            body.AppendLine("Bestelling:  ");
+            body.AppendLine(ordernumber);
+            body.AppendLine("<br />");
+            body.AppendLine("Totaal prijs: €" + totaal.ToString() + "<br />  <br />");
+            body.AppendLine("Met vriendelijke groet, <br /> DHDomotica");
+        
             var message = new MailMessage();
             message.To.Add(new MailAddress(usermail));  // replace with valid value 
             message.From = new MailAddress("DHDomotica@outlook.com");  // replace with valid value
