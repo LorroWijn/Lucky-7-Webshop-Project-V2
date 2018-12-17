@@ -107,7 +107,10 @@ namespace DHDomtica.Controllers
                 string usermail = (string)Session["useremail"];
                 string newPassword = Crypto.Hash(password);
                 db.Users.FirstOrDefault(u => u.EMail.Equals(usermail)).Password = newPassword;
+                db.Users.FirstOrDefault(u => u.EMail.Equals(usermail)).Recovery = null;
                 db.SaveChanges();
+                Session["useremail"] = null;
+
                 return RedirectToAction("SignInPage", "SignIn");
             }
         }
