@@ -72,7 +72,7 @@
 					<td>
 						€@Html.DisplayFor(modelItem => prijs)
 					</td>
-					<td>
+					<td class="table-text">
 						@Html.DisplayFor(modelQuantity => item.Quantity)
 					</td>
 					@{ int bedrag = prijs * item.Quantity; }
@@ -106,7 +106,7 @@
 				}
 				<td></td>
 				<td></td>
-				<td>Totaal:</td>
+				<td class="table-fat">Totaal:</td>
 
 				<td>@totaalbedrag</td>
 			</tr>
