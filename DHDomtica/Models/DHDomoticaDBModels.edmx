@@ -69,6 +69,7 @@
           <Property Name="Month" Type="int" Nullable="false" />
           <Property Name="Day" Type="int" Nullable="false" />
           <Property Name="Hour" Type="int" Nullable="false" />
+          <Property Name="IdSession" Type="varchar" MaxLength="45" Nullable="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -87,6 +88,7 @@
           <Property Name="BillingAddress" Type="varchar" MaxLength="256" Nullable="false" />
           <Property Name="ZipCode" Type="varchar" MaxLength="45" Nullable="false" />
           <Property Name="EmailConfirmed" Type="bool" />
+          <Property Name="Recovery" Type="varchar" MaxLength="256" />
         </EntityType>
         <EntityType Name="Wishlist">
           <Key>
@@ -296,6 +298,7 @@
           <NavigationProperty Name="Reviews" Relationship="DHDomoticaDBModel.Review_ibfk_1" FromRole="User" ToRole="Review" />
           <NavigationProperty Name="Orders" Relationship="DHDomoticaDBModel.Orders_ibfk_1" FromRole="User" ToRole="Order" />
           <Property Name="EmailConfirmed" Type="Boolean" />
+          <Property Name="Recovery" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="AdminRights1">
           <End Role="AdminRights" Type="Self.AdminRight" Multiplicity="1" />
@@ -526,6 +529,7 @@
           <Property Name="Month" Type="Int32" Nullable="false" />
           <Property Name="Day" Type="Int32" Nullable="false" />
           <Property Name="Hour" Type="Int32" Nullable="false" />
+          <Property Name="IdSession" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -552,6 +556,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="DHDomoticaDBModel.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Recovery" ColumnName="Recovery" />
                 <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="AdminID" ColumnName="AdminID" />
@@ -625,6 +630,7 @@
           <EntitySetMapping Name="Statistics">
             <EntityTypeMapping TypeName="DHDomoticaDBModel.Statistic">
               <MappingFragment StoreEntitySet="Statistics">
+                <ScalarProperty Name="IdSession" ColumnName="IdSession" />
                 <ScalarProperty Name="Hour" ColumnName="Hour" />
                 <ScalarProperty Name="Day" ColumnName="Day" />
                 <ScalarProperty Name="Month" ColumnName="Month" />

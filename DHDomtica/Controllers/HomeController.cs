@@ -1,15 +1,17 @@
 ﻿using System;
+using System.Web;
 using System.Collections.Generic;
 using System.Data.Entity.Core.Common.CommandTrees;
 using System.Linq;
 using System.Data.Linq.Mapping;
 using System.Net;
 using System.Runtime.Remoting.Messaging;
-using System.Web;
 using System.Web.Mvc;
 using DHDomtica.Models;
 using System.Net.Mail;
 using System.Threading.Tasks;
+using DHDomtica.ViewModels;
+
 
 namespace DHDomtica.Controllers
 {
@@ -17,12 +19,14 @@ namespace DHDomtica.Controllers
     {
         public static bool LoggedIn;
         public static string CookieHolder;
+        
 
         //Begin database connection
+
         private DHDomoticaDBEntities _context;
 
         public HomeController()
-        {
+        { 
             _context = new DHDomoticaDBEntities();
         }
 
@@ -31,10 +35,13 @@ namespace DHDomtica.Controllers
             _context.Dispose();
         }
         //End of Database connection
+
         public ActionResult Index()
         {
-            
-            if (System.Web.HttpContext.Current.Request.Cookies["UserEMail"] != null)
+            StatisticsViewModel x = new StatisticsViewModel();
+            x.CreateNewStatistic();
+
+            if (Request.Cookies["UserEMail"] != null)
             {
                 HttpCookie NewCookie = Request.Cookies["UserName"];
                 CookieHolder = NewCookie.Value;
