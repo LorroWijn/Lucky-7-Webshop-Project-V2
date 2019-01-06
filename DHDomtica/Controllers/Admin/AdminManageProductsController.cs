@@ -21,14 +21,14 @@ namespace DHDomtica.Controllers
         public ActionResult Index(string searchString)
         {
             var product = db.Products.Include(p => p.MainCategory);
-            if(!string.IsNullOrEmpty(searchString))
+            if (!string.IsNullOrEmpty(searchString))
             {
                 product = db.Products.Where(p => p.Name.Contains(searchString));
             }
-                ShowAdminSidebar();
+            ShowAdminSidebar();
             var adminProductModelEnum = new AdminManageProductViewModel().VMList();
             return View(adminProductModelEnum);
-            
+
         }
         //Code for the AdminsideBar
         private void ShowAdminSidebar()
@@ -87,8 +87,8 @@ namespace DHDomtica.Controllers
             // return View(product);
         }
 
-            // GET: Products/Edit/5
-            public ActionResult Edit(int? id)
+        // GET: Products/Edit/5
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
