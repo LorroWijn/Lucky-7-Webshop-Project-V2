@@ -11,7 +11,7 @@
 
             @{ if (HomeController.LoggedIn == true && HomeController.CookieHolder == "Admin")
                 {
-                <li>@Html.ActionLink("Don't touch it", "Index", "Admin", null, new { @class = "child-text" })</li>
+                <li>@Html.ActionLink("Admin Pagina", "Index", "Admin", new {caseSwitch = "Afgelopen Maand" }, new { @class = "child-text" })</li>
             }
 }
         </ul>

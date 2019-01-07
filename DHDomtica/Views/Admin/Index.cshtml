@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
 }
 
@@ -50,20 +49,24 @@ chart.render();
 </body>
 </html>
 
-<body>
-    <div>
-        <input type="submit" value="Afgelopen Week" button class="btn btn-outline-success my-2 my-sm-0"/>
-    </div>
-    
-    <div>
-        <input type="submit" value="Afgelopen Maand" button class="btn btn-outline-success my-2 my-sm-0"/>
-    </div>
+@using (Html.BeginForm("Index", "Admin", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <body>
+        <div>
+            <input type="submit" name="whichStat" value="Afgelopen Week" button class="btn btn-outline-success my-2 my-sm-0" />
+        </div>
 
-    <div>
-        <input type="submit" value="Afgelopen 3 Maanden" button class="btn btn-outline-success my-2 my-sm-0" />
-    </div>
+        <div>
+            <input type="submit" name="whichStat" value="Afgelopen Maand" button class="btn btn-outline-success my-2 my-sm-0" />
+        </div>
 
-    <div>
-        <input type="submit" value="Afgelopen Jaar" button class="btn btn-outline-success my-2 my-sm-0"/>
-    </div>
-</body>
+        <div>
+            <input type="submit" name="whichStat" value="Afgelopen 3 Maanden" button class="btn btn-outline-success my-2 my-sm-0" />
+        </div>
+
+        <div>
+            <input type="submit" name="whichStat" value="Afgelopen Jaar" button class="btn btn-outline-success my-2 my-sm-0" />
+        </div>
+    </body>
+}

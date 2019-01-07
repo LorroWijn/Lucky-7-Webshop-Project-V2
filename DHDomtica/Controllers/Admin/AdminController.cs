@@ -22,7 +22,7 @@ namespace DHDomtica.Controllers
 
         // GET: Home
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Index(string caseSwitch)
         {
             //Zet de jaar, maand en dag op de komende huidige dag
             var year = DateTime.UtcNow.Day;
@@ -33,22 +33,22 @@ namespace DHDomtica.Controllers
             List<DataPoint> MonthlyVisitors = new List<DataPoint>();
             int tabel = 0;
             int increments = 0;
-            string caseSwitch = "1 jaar";
+            //string caseSwitch = "1 maand";
             switch (caseSwitch)
             {
-                case "1 week":
+                case "Afgelopen Week":
                     tabel = 7;
                     increments = 1;
                     break;
-                case "1 maand":
+                case "Afgelopen Maand":
                     tabel = 30;
                     increments = 1;
                     break;
-                case "3 maanden":
+                case "Afgelopen 3 Maanden":
                     tabel = 90;
                     increments = 1;
                     break;
-                case "1 jaar":
+                case "Afgelopen Jaar":
                     tabel = 365;
                     increments = 1;
                     break;
@@ -81,13 +81,15 @@ namespace DHDomtica.Controllers
             return View();
         }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Index()
-        //{
-        //    ShowAdminSidebar();
-        //    return View();
-        //}
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Index(Stats stats)
+        {
+            Console.WriteLine(stats.whichStat);
+            ShowAdminSidebar();
+            string x = stats.whichStat;
+            return View(Index(x));
+        }
 
 
         public string getData()

@@ -265,6 +265,7 @@
     <Compile Include="ViewModels\Admin\AdminManageProductViewModel.cs" />
     <Compile Include="ViewModels\Admin\AdminManageUserViewModel.cs" />
     <Compile Include="ViewModels\Admin\AdminStatisticsViewModel.cs" />
+    <Compile Include="ViewModels\Admin\Stats.cs" />
     <Compile Include="ViewModels\Home\StatisticsViewModel.cs" />
     <Compile Include="ViewModels\User\PasswordRecoveryViewModel.cs" />
     <Compile Include="ViewModels\Review\ProductReviewsViewModel.cs" />
