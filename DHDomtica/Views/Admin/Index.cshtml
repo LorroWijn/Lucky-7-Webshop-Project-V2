@@ -4,10 +4,7 @@
 
 <h2>Admin statistieken</h2>
 
-<!DOCTYPE HTML>
-<html>
-<head>
-    <script>
+<script>
 window.onload = function () {
 
 var chart = new CanvasJS.Chart("chartContainer", {
@@ -41,32 +38,28 @@ var chart = new CanvasJS.Chart("chartContainer", {
 chart.render();
 
 }
-    </script>
-</head>
-<body>
-    <div id="chartContainer" style="height: 370px; width: 100%;"></div>
-    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-</body>
-</html>
+</script>
+
+
+<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+<hr/>
 
 @using (Html.BeginForm("Index", "Admin", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-    <body>
-        <div>
+
+    <div class="card h-100">
+        <div class="card-body">
             <input type="submit" name="whichStat" value="Afgelopen Week" button class="btn btn-outline-success my-2 my-sm-0" />
-        </div>
 
-        <div>
             <input type="submit" name="whichStat" value="Afgelopen Maand" button class="btn btn-outline-success my-2 my-sm-0" />
-        </div>
 
-        <div>
             <input type="submit" name="whichStat" value="Afgelopen 3 Maanden" button class="btn btn-outline-success my-2 my-sm-0" />
-        </div>
 
-        <div>
             <input type="submit" name="whichStat" value="Afgelopen Jaar" button class="btn btn-outline-success my-2 my-sm-0" />
         </div>
-    </body>
+    </div>
+
 }
