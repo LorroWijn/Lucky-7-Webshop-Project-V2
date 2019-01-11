@@ -30,6 +30,11 @@ namespace DHDomtica.ViewModels
         [RegularExpression(@"^(\d+(?:[\.\,]\d{1,2})?)$", ErrorMessage = "Vul een correcte prijs in met punt en 2 cijfers achter de punt, zoals 123.45")]
         public double Price { get; set; }
 
+        [DataType(DataType.Text)]
+        [DisplayName("Productvoorraad")]
+        [Required(ErrorMessage = "Vul een productvoorraad in")]
+        public int Stock { get; set; }
+
         [DataType(DataType.ImageUrl)]
         [DisplayName("Productafbeelding")]
         [Required(ErrorMessage = "Vul een URL voor het plaatje van Uw product in")]
@@ -55,9 +60,9 @@ namespace DHDomtica.ViewModels
                 Name = Name,
                 Description = Description,
                 Price = Price,
+                Stock = Stock,
                 Image = Image,
                 MainCategoryID = MainCategoryID
-                // Weet niet of bovenste foreign key goed is
             };
 
             using (DHDomoticaDBEntities DHDomoticadbModel = new DHDomoticaDBEntities())
@@ -77,6 +82,7 @@ namespace DHDomtica.ViewModels
                     product.Name = Name;
                     product.Description = Description;
                     product.Price = Price;
+                    product.Stock = Stock;
                     product.Image = Image;
                     product.MainCategoryID = MainCategoryID;
                     // Ik weet niet of de foreign key hiervan goed is
@@ -93,6 +99,7 @@ namespace DHDomtica.ViewModels
             ID = product.ID;
             Description = product.Description;
             Price = product.Price;
+            Stock = product.Stock;
             Image = product.Image;
             MainCategoryID = product.MainCategoryID;
         }

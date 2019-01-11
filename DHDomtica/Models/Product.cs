@@ -28,6 +28,7 @@ namespace DHDomtica.Models
         public double Price { get; set; }
         public string Image { get; set; }
         public int MainCategoryID { get; set; }
+        public int Stock { get; set; }
     
         public virtual MainCategory MainCategory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

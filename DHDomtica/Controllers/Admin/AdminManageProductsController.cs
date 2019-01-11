@@ -67,7 +67,7 @@ namespace DHDomtica.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,Description,Price,Image,MainCategoryID")] Product product)
+        public ActionResult Create([Bind(Include = "ID,Name,Description,Price,Stock,Image,MainCategoryID")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -82,9 +82,6 @@ namespace DHDomtica.Controllers
                 ViewBag.MainCategoryID = new SelectList(db.MainCategories, "ID", "Name", product.MainCategoryID);
                 return View("Create", product);
             }
-            // Volgende code is de foreign key van maincategory in de productenlijst
-            // ViewBag.MainCategoryID = new SelectList(db.MainCategory, "ID", "Name", product.MainCategoryID);
-            // return View(product);
         }
 
         // GET: Products/Edit/5
@@ -111,7 +108,7 @@ namespace DHDomtica.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,Description,Price,Image,MainCategoryID")] Product product)
+        public ActionResult Edit([Bind(Include = "ID,Name,Description,Price,Stock,Image,MainCategoryID")] Product product)
         {
             if (!ModelState.IsValid)
             {

@@ -48,6 +48,7 @@
           <Property Name="Price" Type="double" Nullable="false" />
           <Property Name="Image" Type="varchar" MaxLength="256" Nullable="false" />
           <Property Name="MainCategoryID" Type="int" Nullable="false" />
+          <Property Name="Stock" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Review">
           <Key>
@@ -110,7 +111,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="MainCat">
+        <Association Name="MainCategory_FK">
           <End Role="MainCategory" Type="Self.MainCategory" Multiplicity="1" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
           <ReferentialConstraint>
@@ -172,7 +173,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="Review_ibfk_2">
+        <Association Name="Rwview_ibfk_2">
           <End Role="Product" Type="Self.Product" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -224,7 +225,7 @@
             <End Role="AdminRights" EntitySet="AdminRights" />
             <End Role="User" EntitySet="User" />
           </AssociationSet>
-          <AssociationSet Name="MainCat" Association="Self.MainCat">
+          <AssociationSet Name="MainCategory_FK" Association="Self.MainCategory_FK">
             <End Role="MainCategory" EntitySet="MainCategory" />
             <End Role="Product" EntitySet="Product" />
           </AssociationSet>
@@ -244,7 +245,7 @@
             <End Role="User" EntitySet="User" />
             <End Role="Review" EntitySet="Review" />
           </AssociationSet>
-          <AssociationSet Name="Review_ibfk_2" Association="Self.Review_ibfk_2">
+          <AssociationSet Name="Rwview_ibfk_2" Association="Self.Rwview_ibfk_2">
             <End Role="Product" EntitySet="Product" />
             <End Role="Review" EntitySet="Review" />
           </AssociationSet>
@@ -373,6 +374,7 @@
           <NavigationProperty Name="Wishlists" Relationship="DHDomoticaDBModel.Wishlist_ibfk_2" FromRole="Product" ToRole="Wishlist" />
           <NavigationProperty Name="Reviews" Relationship="DHDomoticaDBModel.Review_ibfk_2" FromRole="Product" ToRole="Review" />
           <NavigationProperty Name="OrderProducts" Relationship="DHDomoticaDBModel.OrderProducts_ibfk_2" FromRole="Product" ToRole="OrderProduct" />
+          <Property Name="Stock" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="MainCat">
           <End Type="DHDomoticaDBModel.MainCategory" Role="MainCategory" Multiplicity="1" />
@@ -576,6 +578,7 @@
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="DHDomoticaDBModel.Product">
               <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="Stock" ColumnName="Stock" />
                 <ScalarProperty Name="MainCategoryID" ColumnName="MainCategoryID" />
                 <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
