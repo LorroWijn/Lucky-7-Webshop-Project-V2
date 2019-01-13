@@ -331,19 +331,16 @@ namespace DHDomtica.Controllers
 
                 using (DHDomoticaDBEntities DHDomoticadbModel = new DHDomoticaDBEntities())
                 {
-                    var heyo = DHDomoticadbModel.Products.FirstOrDefault(x => x.ID == item.Product.ID);
-                    var yolo = heyo.Stock;
-                    heyo.Stock = heyo.Stock - item.Quantity;
-                    if (heyo.Stock > 0)
-                    {
-                        DHDomoticadbModel.SaveChanges();
-                    }
-                    else
-                    {
-
-                    }
+                    var stock = DHDomoticadbModel.Products.FirstOrDefault(x => x.ID == item.Product.ID).Stock;
+                  
+                        Session["stock"] = stock - item.Quantity;
+                    
+                    DHDomoticadbModel.Products.FirstOrDefault(x => x.ID == item.Product.ID).Stock = stock - item.Quantity;
+                    DHDomoticadbModel.SaveChanges();
+                    
                 }
                 Session["Totaal"] = totaal;
+
             }
 
             var payer = new Payer() { payment_method = "paypal" };
@@ -526,6 +523,10 @@ namespace DHDomtica.Controllers
             body.AppendLine("Beste " + name + ", <br /> <br />");
             body.AppendLine("Uw bestelling is voltooid!  <br />");
             body.AppendLine("U zult een email ontvangen zodra uw bestelling onderweg is. <br />");
+            if((int)Session["stock"] <= 0)
+            {
+                body.AppendLine("Één of meerdere van de door u bestelde producten zijn niet op voorraad, hierdoor zal de levertijd van uw bestelling langer zijn.<br />");
+            }
             body.AppendLine("Bestelling:  ");
             body.AppendLine(ordernumber);
             body.AppendLine("<br />");

@@ -24,10 +24,10 @@ namespace DHDomtica.Controllers
             if (!string.IsNullOrEmpty(searchString))
             {
                 product = product.Where(p => p.Name.Contains(searchString));
-                //product = db.Products.Where(p => p.Name.Contains(searchString));
+                
             }
             ShowAdminSidebar();
-            //var adminProductModelEnum = new AdminManageProductViewModel().VMList();
+            
             return View(product);
 
         }
