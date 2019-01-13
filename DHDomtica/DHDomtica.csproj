@@ -205,7 +205,6 @@
     <Compile Include="Controllers\Admin\AdminController.cs" />
     <Compile Include="Controllers\Admin\AdminManageUserController.cs" />
     <Compile Include="Controllers\Admin\AdminOrdersController.cs" />
-    <Compile Include="Controllers\Admin\ChatController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Admin\AdminManageProductsController.cs" />
     <Compile Include="Controllers\User\PasswordRecoveryController.cs" />
@@ -216,7 +215,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Hubs\ChatHub.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AdminRight.cs">
       <DependentUpon>DHDomoticaDBModels.tt</DependentUpon>
@@ -493,8 +491,6 @@
     <Content Include="Views\UserProfile\Order.cshtml" />
     <Content Include="Views\AdminOrders\Index.cshtml" />
     <Content Include="Views\AdminOrders\Order.cshtml" />
-    <Content Include="Views\Chat\Index.cshtml" />
-    <Content Include="Views\Chat\ChatScreen.cshtml" />
     <Content Include="Views\Store\Review.cshtml" />
     <Content Include="Views\Store\ReviewSuccesView.cshtml" />
     <Content Include="Views\Charts\MonthlyVisitorsChart.cshtml" />

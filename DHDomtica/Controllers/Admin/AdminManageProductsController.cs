@@ -20,14 +20,15 @@ namespace DHDomtica.Controllers
         // GET: Products
         public ActionResult Index(string searchString)
         {
-            var product = db.Products.Include(p => p.MainCategory);
+            var product = new AdminManageProductViewModel().VMList();
             if (!string.IsNullOrEmpty(searchString))
             {
-                product = db.Products.Where(p => p.Name.Contains(searchString));
+                product = product.Where(p => p.Name.Contains(searchString));
+                //product = db.Products.Where(p => p.Name.Contains(searchString));
             }
             ShowAdminSidebar();
-            var adminProductModelEnum = new AdminManageProductViewModel().VMList();
-            return View(adminProductModelEnum);
+            //var adminProductModelEnum = new AdminManageProductViewModel().VMList();
+            return View(product);
 
         }
         //Code for the AdminsideBar
