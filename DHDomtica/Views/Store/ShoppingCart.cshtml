@@ -9,89 +9,94 @@
 <h2>Winkelwagen</h2>
 <h3>@ViewBag.Message</h3>
 
-<div class="col-lg-12">
-    <div class="card mt-4">
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Description)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Price)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Image)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.MainCategory.Name)
-                </th>
-                <th style="width: 120px ">
-                    @Html.Label("Aantal")
-                </th>
-                <th>
-                    @Html.Label("Prijs")
-                </th>
-            </tr>
-            @* *@
-            @if ((List<ItemModel>)Session["cart"] != null)
-            {
-                foreach (ItemModel item in (List<ItemModel>)Session["cart"])
-                {
-                    <tr>
-
-                        <td>@Html.ActionLink(@item.Product.Name, "ProductDetails/" + item.Product.ID)</td>
-                        @{ string ShorterString = item.Product.Description;
-                            if (ShorterString.Length > 100)
-                            {
-                                ShorterString = ShorterString.Substring(0, 100);
-                            }
-                        }
-                        <td>@ShorterString</td>
-                        <td>€@Convert.ToInt16(Math.Round(item.Product.Price))</td>
-                        <td style="cursor:pointer;" onclick="location.href='@item.Product.Image'">
-                            <img class="card-img-top img-fluid" src="@item.Product.Image" alt="Image">
-                        </td>
-
-                        @*<td><img class="card-img-top img-fluid" src="@item.Product.Image" alt="Image"></td>*@
-                        <td>@Html.ActionLink(@item.Product.MainCategory.Name, "Pagination/" + @item.Product.MainCategory.ID + "/1")</td>
-
-                        <td>
-                            @item.Quantity
-                            <button id="+" class="btn btn-success" onclick="location.href='@Url.Action("AddToCart", "Store", new { product = item.Product.ID })'">+</button>
-                            <button id="-" class="btn btn-success" onclick="location.href='@Url.Action("RemoveOne", "Store", new { product = item.Product.ID })'">-</button>
-                        </td>
-                        <td>€@(Convert.ToInt16(Math.Round(item.Product.Price)) * item.Quantity)</td>
-                        <td>
-                            <button id="btn_remove" class="btn btn-success" onclick="location.href='@Url.Action("Remove", "Store", new { product = item.Product.ID })'"><i class="far fa-trash-alt"></i></button>
-                        </td>
-                    </tr>
-
-                }
-
-                <tr>
-                    <td align="right" colspan="6" class="font-weight-bold">Totaal:</td>
-                    <td>
-                        @{
-                            List<ItemModel> products = (List<ItemModel>)Session["cart"];
-                            var total = products.Sum(item => Convert.ToInt16(Math.Round(item.Product.Price)) * item.Quantity);
-                        }
-                        €@total
-                    </td>
-                </tr>
-
-            }
-        </table>
-    </div>
-</div>
-
 @if ((List<ItemModel>)Session["cart"] == null)
 {
     <h5>U heeft momenteel geen producten in uw winkelmandje.</h5>
 }
+else
+{
+    <div class="col-lg-12">
+        <div class="card mt-4">
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </th>
+                    <th>
+                        @Html.Label("Individuele prijs")
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Image)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.MainCategory.Name)
+                    </th>
+                    <th style="width: 120px ">
+                        @Html.Label("Aantal")
+                    </th>
+                    <th>
+                        @Html.Label("Totaal prijs")
+                    </th>
+                </tr>
+
+                @if ((List<ItemModel>)Session["cart"] != null)
+                {
+                    foreach (ItemModel item in (List<ItemModel>)Session["cart"])
+                    {
+                        <tr>
+
+                            <td>@Html.ActionLink(@item.Product.Name, "ProductDetails/" + item.Product.ID)</td>
+                            @{ string ShorterString = item.Product.Description;
+                                if (ShorterString.Length > 100)
+                                {
+                                    ShorterString = ShorterString.Substring(0, 100);
+                                }
+                            }
+                            <td>@ShorterString</td>
+                            <td>€@Convert.ToInt16(Math.Round(item.Product.Price))</td>
+                            <td style="cursor:pointer;" onclick="location.href='@item.Product.Image'">
+                                <img class="card-img-top img-fluid" src="@item.Product.Image" alt="Image">
+                            </td>
+
+                            @*<td><img class="card-img-top img-fluid" src="@item.Product.Image" alt="Image"></td>*@
+                            <td>@Html.ActionLink(@item.Product.MainCategory.Name, "Pagination/" + @item.Product.MainCategory.ID + "/1")</td>
+
+                            <td>
+                                @item.Quantity
+                                <button id="+" class="btn btn-success" onclick="location.href='@Url.Action("AddToCart", "Store", new { product = item.Product.ID })'">+</button>
+                                <button id="-" class="btn btn-success" onclick="location.href='@Url.Action("RemoveOne", "Store", new { product = item.Product.ID })'">-</button>
+                            </td>
+                            <td>€@(Convert.ToInt16(Math.Round(item.Product.Price)) * item.Quantity)
+                            </td>
+                            <td>
+                                <button id="btn_remove" class="btn btn-success" onclick="location.href='@Url.Action("Remove", "Store", new { product = item.Product.ID })'"><i class="far fa-trash-alt"></i></button>
+                            </td>
+                        </tr>
+                    }
+
+                    <tr>
+                        <td align="right" colspan="6" class="font-weight-bold">Totaal:</td>
+                        <td>
+                            @{
+                                List<ItemModel> products = (List<ItemModel>)Session["cart"];
+                                var total = products.Sum(item => Convert.ToInt16(Math.Round(item.Product.Price)) * item.Quantity);
+
+                            }
+                            €@total
+                        </td>
+                    </tr>
+
+                }
+            </table>
+        </div>
+    </div>
+
+    
     <button id="Afrekenen" class="btn btn-success" onclick="location.href='@Url.Action("PaymentWithPayPal", "Store")'"><i class="fab fa-paypal"> </i> Afrekenen</button>
+}
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

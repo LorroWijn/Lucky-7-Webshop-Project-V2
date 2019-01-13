@@ -11,7 +11,9 @@ namespace DHDomtica.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Product
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,15 +23,29 @@ namespace DHDomtica.Models
             this.Reviews = new HashSet<Review>();
             this.OrderProducts = new HashSet<OrderProduct>();
         }
-    
+        
+
         public int ID { get; set; }
+
+        [DataType(DataType.Text)]
+        [DisplayName("Productnaam")]
         public string Name { get; set; }
+
+        [DataType(DataType.Text)]
+        [DisplayName("Beschrijving")]
         public string Description { get; set; }
+
+        [DataType(DataType.Text)]
+        [DisplayName("Prijs")]
         public double Price { get; set; }
+
+        [DataType(DataType.Text)]
+        [DisplayName("Foto")]
         public string Image { get; set; }
+
         public int MainCategoryID { get; set; }
         public int Stock { get; set; }
-    
+
         public virtual MainCategory MainCategory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Wishlist> Wishlists { get; set; }

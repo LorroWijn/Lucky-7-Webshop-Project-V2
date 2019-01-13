@@ -36,7 +36,7 @@ namespace DHDomtica.Controllers
         // GET: ProductDetails
         public ActionResult ProductDetails(int id)
         {
-            
+
             //read cookie from request
             HttpCookie pageCookie = Request.Cookies["pageCookie"];
             if (pageCookie == null)
@@ -60,7 +60,7 @@ namespace DHDomtica.Controllers
             }
             var ProductReviewsList = new ProductReviewsViewModel()
             {
-                
+
                 Product = product,
                 Reviews = db.Reviews.Where(c => c.ProductID.Equals(id)).ToList().AsEnumerable()
 
@@ -207,6 +207,8 @@ namespace DHDomtica.Controllers
 
             return View(ProductList);
         }
+
+
         public ActionResult AddToCart(int product)
         {
             if (Session["cart"] == null)
@@ -231,6 +233,8 @@ namespace DHDomtica.Controllers
 
             return RedirectToAction("ShoppingCart", "Store");
         }
+
+
         public void CreateCart(int product)
         {
             List<ItemModel> products = new List<ItemModel>();
@@ -240,6 +244,8 @@ namespace DHDomtica.Controllers
             ViewBag.cart = products.Count();
             Session["count"] = 1;
         }
+
+
         public void AddNew(int product, List<ItemModel> products, int index)
         {
             products.Add(new ItemModel { Product = db.Products.FirstOrDefault(p => p.ID.Equals(product)), Quantity = 1 });
@@ -248,12 +254,16 @@ namespace DHDomtica.Controllers
             Session["count"] = Convert.ToInt32(Session["count"]) + 1;
 
         }
+
+
         public void AddOne(int product, List<ItemModel> products, int index)
         {
             products[index].Quantity++;
             ViewBag.cart = products.Count();
             Session["count"] = Convert.ToInt32(Session["count"]) + 1;
         }
+
+
         public ActionResult RemoveOne(int product)
         {
             int index = Find(product);
@@ -267,6 +277,8 @@ namespace DHDomtica.Controllers
 
             return RedirectToAction("ShoppingCart", "Store");
         }
+
+
         private int Find(int product)
         {
             List<ItemModel> products = (List<ItemModel>)Session["cart"];
@@ -275,6 +287,8 @@ namespace DHDomtica.Controllers
                     return i;
             return -1;
         }
+
+
         public ActionResult Remove(int product)
         {
 
@@ -286,11 +300,14 @@ namespace DHDomtica.Controllers
 
             return RedirectToAction("ShoppingCart", "Store");
         }
+
+
         public ActionResult ShoppingCart()
         {
             return View();
 
         }
+
 
         private Payment payment;
 
@@ -311,26 +328,48 @@ namespace DHDomtica.Controllers
                     sku = "sku"
                 });
                 totaal += prijs * item.Quantity;
+
+                using (DHDomoticaDBEntities DHDomoticadbModel = new DHDomoticaDBEntities())
+                {
+                    var heyo = DHDomoticadbModel.Products.FirstOrDefault(x => x.ID == item.Product.ID);
+                    var yolo = heyo.Stock;
+                    heyo.Stock = heyo.Stock - item.Quantity;
+                    if (heyo.Stock > 0)
+                    {
+                        DHDomoticadbModel.SaveChanges();
+                    }
+                    else
+                    {
+
+                    }
+                }
                 Session["Totaal"] = totaal;
             }
+
             var payer = new Payer() { payment_method = "paypal" };
             var redirUrls = new RedirectUrls()
             {
                 cancel_url = redirectUrl,
                 return_url = redirectUrl
             };
+
+
             var details = new Details()
             {
                 tax = "0",
                 shipping = "0",
                 subtotal = Order.Sum(item => Convert.ToInt16(Math.Round(item.Product.Price)) * item.Quantity).ToString()
             };
+
+
             var amount = new Amount()
             {
                 currency = "EUR",
                 total = (Convert.ToDouble(details.tax) + Convert.ToDouble(details.shipping) + Convert.ToDouble(details.subtotal)).ToString(),
                 details = details
             };
+
+
             var transactionList = new List<Transaction>();
             transactionList.Add(new Transaction()
             {
@@ -340,6 +379,7 @@ namespace DHDomtica.Controllers
                 item_list = listItems
             });
 
+
             payment = new Payment()
             {
                 intent = "sale",
@@ -348,9 +388,10 @@ namespace DHDomtica.Controllers
                 redirect_urls = redirUrls
             };
 
-            return payment.Create(apiContext);
 
+            return payment.Create(apiContext);
         }
+
 
         private Payment ExecutePayment(APIContext apiContext, string payerId, string paymentId)
         {
@@ -362,6 +403,7 @@ namespace DHDomtica.Controllers
             payment = new Payment() { id = paymentId };
             return payment.Execute(apiContext, paymentExecution);
         }
+
 
         public ActionResult PaymentWithPayPal()
         {
@@ -407,24 +449,30 @@ namespace DHDomtica.Controllers
                 {
                     return View("Failure");
                 }
-                CreateOrder();
+
                 
+                CreateOrder();
 
                 Session["cart"] = null;
                 Session["count"] = null;
-                
-                
+
+
                 return View("Success");
             }
+
             ViewBag.Message = "U moet ingelogd zijn om de producten te kunnen afrekenen.";
             return View("ShoppingCart");
 
         }
+
+
+
         public ActionResult Success()
         {
 
             return View();
         }
+
 
 
         public void CreateOrder()
@@ -442,26 +490,31 @@ namespace DHDomtica.Controllers
             db.SaveChanges();
 
             List<ItemModel> products = (List<ItemModel>)Session["cart"];
-            
+
             var NewOrder = db.Orders.FirstOrDefault(o => o.OrderNumber.Equals(g.ToString()));
             int OrderID = NewOrder.ID;
 
-            foreach(ItemModel product in products)
+            foreach (ItemModel product in products)
             {
                 OrderProducts(product, OrderID);
             }
             db.SaveChanges();
             OrderMail(g.ToString());
         }
+
+
+
         public void OrderProducts(ItemModel product, int OrderID)
-        {   
+        {
             OrderProduct OP = new OrderProduct();
             OP.OrderID = OrderID;
             OP.ProductID = product.Product.ID;
             OP.Quantity = product.Quantity;
             db.OrderProducts.Add(OP);
-            
+
         }
+
+
 
         public void OrderMail(string ordernumber)
         {
@@ -478,7 +531,7 @@ namespace DHDomtica.Controllers
             body.AppendLine("<br />");
             body.AppendLine("Totaal prijs: €" + totaal.ToString() + "<br />  <br />");
             body.AppendLine("Met vriendelijke groet, <br /> DHDomotica");
-        
+
             var message = new MailMessage();
             message.To.Add(new MailAddress(usermail));  // replace with valid value 
             message.From = new MailAddress("DHDomotica@outlook.com");  // replace with valid value
@@ -493,14 +546,18 @@ namespace DHDomtica.Controllers
                 ViewBag.SuccessMessage = "Uw account is geregistreerd";
 
             }
-           
+
         }
+
+
 
         public ActionResult Review(int productid)
         {
             ViewBag.product = db.Products.First(p => p.ID.Equals(productid));
             return View();
         }
+
+
 
         public ActionResult SaveReview(int Sterren, string ReviewText, int productid)
         {
@@ -525,10 +582,12 @@ namespace DHDomtica.Controllers
 
             return RedirectToAction("ReviewSuccesView", "Store");
         }
+
+
+
         public ActionResult ReviewSuccesView()
         {
             return View();
         }
-
     }
-    }
+}
